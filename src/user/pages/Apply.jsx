@@ -1454,7 +1454,7 @@ const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames,
               type="button" 
               className="btn-digilocker" 
               style={{ width: '100%', padding: '16px', justifyContent: 'center', fontSize: '14px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '10px' }} 
-              onClick={() => onDigiLocker('all', 'All Documents')}
+             onClick={() => window.location.href = "/signin"}
             >
               <img src={digilockerLogo} alt="" style={{ height: '20px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
               Login & Fetch Documents

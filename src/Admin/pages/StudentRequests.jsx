@@ -26,7 +26,7 @@ const StudentRequests = () => {
   // ✅ FETCH API
   const fetchRequests = useCallback(async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/all-applications/`, {
+      const res = await fetch(`${API_BASE}/api/applications/`, {
         cache: "no-store"
       });
       const data = await res.json();

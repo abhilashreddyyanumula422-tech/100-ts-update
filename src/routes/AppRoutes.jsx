@@ -8,7 +8,6 @@ import MainLayout from "../user/layout/MainLayout";
 const Home = lazy(() => import("../user/pages/Home"));
 const About = lazy(() => import("../user/pages/About"));
 
-const Services = lazy(() => import("../user/pages/Services"));
 const IEEevaluation = lazy(() => import("../user/pages/IEEevaluation"));
 const ECE = lazy(() => import("../user/pages/ECE"));
 const SpanTran = lazy(() => import("../user/pages/SpanTran"));
@@ -65,7 +64,6 @@ const AppRoutes = () => {
           <Route path="about" element={<About />} />
           <Route path="mission" element={<About />} />
           <Route path="values" element={<About />} />
-          <Route path="services" element={<Services />} />
            <Route path="services/iee" element={<IEEevaluation />} />
            <Route path="services/ece" element={<ECE />} />
            <Route path="services/spantran" element={<SpanTran />} />

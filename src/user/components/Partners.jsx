@@ -9,12 +9,41 @@ import wesLogo from "../../assets/WES_logo.png";
 import digilockerLogo from "../../assets/digilocker_logo.png";
 
 const partners = [
-  { name: "IEE", logo: ieeLogo, link: "https://100transcripts.com/iee-users/" },
-  { name: "ECE", logo: eceLogo, link: "https://100transcripts.com/ece-evaluation/" },
-  { name: "Arizona Evaluators", logo: aziceLogo, link: "https://alianzaeval.com/" },
-  { name: "WES", logo: wesLogo, link: "https://100transcripts.com/wes-credential-evaluation/" },
-  { name: "TEC", logo: tecLogo, link: "https://spanside.my.salesforce-sites.com/SpantranApplication?Id=dcd5b453-28d6-4f7f-aded-276c9ec1d543" },
-  { name: "DigiLocker", logo: digilockerLogo, link: "https://accounts.digitallocker.gov.in/signin/oauth_partner/%2Foauth2%2F1%2Fauthorize" },
+  {
+    name: "IEE Evaluation",
+    logo: ieeLogo,
+    link: "/services/iee",
+  },
+
+  {
+    name: "ECE Evaluation",
+    logo: eceLogo,
+    link: "/services/ece",
+  },
+
+  {
+    name: "Arizona Evaluators",
+    logo: aziceLogo,
+    link: "https://alianzaeval.com/",
+  },
+
+  {
+    name: "WES Evaluation",
+    logo: wesLogo,
+    link: "/services/wes",
+  },
+
+  {
+    name: "SpanTran (TEC)",
+    logo: tecLogo,
+    link: "/services/spantran",
+  },
+
+  {
+     name: "DigiLocker",
+    logo: digilockerLogo,
+    link: "/signin",
+  },
 ];
 
 const containerVariants = {
@@ -85,7 +114,7 @@ const Partners = () => {
           >
             {leftPartners.map((partner, index) => (
               <motion.a
-                key={index}
+                key={partner.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -127,7 +156,7 @@ const Partners = () => {
           >
             {rightPartners.map((partner, index) => (
               <motion.a
-                key={index}
+                key={partner.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -135,9 +164,9 @@ const Partners = () => {
                 href={partner.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-6 p-6 bg-white rounded-2xl border-2 border-gray-100 shadow-md hover:shadow-xl hover:border-cyan-300 hover:-translate-y-1 transition-all duration-300"
+                className="group flex items-center gap-6 p-6 bg-white rounded-2xl border-2 border-gray-100 shadow-md hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <img
                     src={partner.logo}
                     alt={partner.name}
@@ -145,13 +174,13 @@ const Partners = () => {
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-cyan-600 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                     {partner.name}
                   </h3>
                   <p className="text-sm text-gray-500 mt-1">Official Partner</p>
                 </div>
-                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-cyan-100 rounded-full group-hover:bg-cyan-600 transition-colors">
-                  <svg className="w-5 h-5 text-cyan-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full group-hover:bg-blue-600 transition-colors">
+                  <svg className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </div>
