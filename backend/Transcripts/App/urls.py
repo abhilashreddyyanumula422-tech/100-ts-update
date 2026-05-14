@@ -26,6 +26,7 @@ urlpatterns = [
     path("verifications/", views.get_verified_applications, name="get_verifications"),
     path("refund/", views.refund_payment),
     
+    
 
 
 

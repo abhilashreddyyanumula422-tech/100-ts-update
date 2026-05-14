@@ -72,20 +72,24 @@ const Navbar = () => {
   ];
 
   // PARTNERED COLLEGES
-  const partneredColleges = [
-    {
-      name: "Bhaskar Pharmacy College",
-      path: "/partnered-colleges/bhaskar-pharmacy-college",
-    },
-    {
-      name: "Joginpally B.R Pharmacy College",
-      path: "/partnered-colleges/joginpally-br-pharmacy-college",
-    },
-    {
-      name: "Siddhartha Institute",
-      path: "/partnered-colleges/siddhartha-institute-of-technology-sciences",
-    },
-  ];
+ const partneredColleges = [
+ 
+
+  {
+    name: "Bhaskar Pharmacy College",
+    path: "/partnered-colleges/bhaskar-pharmacy-college",
+  },
+
+  {
+    name: "Joginpally B.R Pharmacy College",
+    path: "/partnered-colleges/joginpally-br-pharmacy-college",
+  },
+
+  {
+    name: "Siddhartha Institute",
+    path: "/partnered-colleges/siddhartha-institute-of-technology-sciences",
+  },
+];
 
   // UNIVERSITIES
 const universities = [

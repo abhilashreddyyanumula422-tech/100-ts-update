@@ -11,25 +11,51 @@ const Login = () => {
     password: ""
   });
 
+  const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(form.email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+
+    if (!form.password) {
+      newErrors.password = "Password is required";
+    } else if (form.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!form.email || !form.password) {
-      alert("Please fill all fields");
+    if (!validateForm()) {
       return;
     }
 
     setLoading(true);
 
     try {
-      const response = await fetch("http://192.168.1.53:8000/api/verify/", {
+      const response = await fetch("http://192.168.1.15:8000/api/verify/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -103,10 +129,10 @@ const Login = () => {
                 placeholder="name@example.com"
                 value={form.email}
                 onChange={handleChange}
-                required
-                className="w-full bg-slate-50 py-4 pl-14 pr-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white border border-transparent focus:border-blue-500/30 transition-all font-medium text-slate-700"
+                className={`w-full bg-slate-50 py-4 pl-14 pr-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white border border-transparent focus:border-blue-500/30 transition-all font-medium text-slate-700 ${errors.email ? 'border-red-400 bg-red-50' : ''}`}
               />
             </div>
+            {errors.email && <p className="text-xs text-red-500 font-bold pl-4">{errors.email}</p>}
           </div>
 
           {/* PASSWORD */}
@@ -117,11 +143,10 @@ const Login = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="••••••••"
+                placeholder="enter password"
                 value={form.password}
                 onChange={handleChange}
-                required
-                className="w-full bg-slate-50 py-4 pl-14 pr-12 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white border border-transparent focus:border-blue-500/30 transition-all font-medium text-slate-700"
+                className={`w-full bg-slate-50 py-4 pl-14 pr-12 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white border border-transparent focus:border-blue-500/30 transition-all font-medium text-slate-700 ${errors.password ? 'border-red-400 bg-red-50' : ''}`}
               />
               <button
                 type="button"
@@ -131,6 +156,7 @@ const Login = () => {
                 {showPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
               </button>
             </div>
+            {errors.password && <p className="text-xs text-red-500 font-bold pl-4">{errors.password}</p>}
           </div>
 
           <div className="flex justify-end pt-1">

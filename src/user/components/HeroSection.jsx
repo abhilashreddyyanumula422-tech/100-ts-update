@@ -57,7 +57,7 @@ const HeroSection = () => {
       <div className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blue-100/30 rounded-full blur-[80px] md:blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 left-0 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-blue-50/50 rounded-full blur-[60px] md:blur-[100px] -z-10 -translate-x-1/4 translate-y-1/4"></div>
 
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 items-center gap-12 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-12 relative z-10">
 
         {/* LEFT CONTENT */}
         <div className="space-y-8 text-center lg:text-left order-2 lg:order-1">
@@ -114,7 +114,7 @@ const HeroSection = () => {
         <div className="relative h-[350px] sm:h-[450px] md:h-[600px] lg:h-[700px] flex justify-center items-center order-1 lg:order-2">
           
           {/* Globe Container */}
-          <div className="absolute inset-0 flex items-center justify-center cursor-grab active:cursor-grabbing scale-[0.8] sm:scale-100 transition-transform">
+          <div className="flex items-center justify-center cursor-grab active:cursor-grabbing scale-[0.8] sm:scale-100 transition-transform">
             <Suspense fallback={
               <div className="w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-100/20 rounded-full animate-pulse flex items-center justify-center">
                 <div className="w-20 h-20 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>

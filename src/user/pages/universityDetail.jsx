@@ -52,6 +52,16 @@ const UniversityDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Get university name and short name
+  const universityName = university?.title || "University";
+  const shortName = university?.short || "UNI";
+
+  const [formData, setFormData] = useState({
+    fullName: "", email: "", university: universityName, college: universityName,
+    course: "", phone: "", alternativeNumber: "", requirement: "",
+    termsAccepted: false, declarationAccepted: false,
+  });
+
   // Try to fetch actual university data from collegesData.jsx
   useEffect(() => {
     const fetchUniversity = () => {
@@ -59,8 +69,15 @@ const UniversityDetail = () => {
       const foundUniversity = collegesData[universityId];
       
       if (foundUniversity) {
-        setUniversity({ id: universityId, ...foundUniversity });
+        const uni = { id: universityId, ...foundUniversity };
+        setUniversity(uni);
         setError(""); // Clear previous error
+        const uniName = uni.title || "University";
+        setFormData(prev => ({
+          ...prev,
+          university: uniName,
+          college: uniName
+        }));
       } else {
         setError("University not found in local records");
         setUniversity(null);
@@ -109,22 +126,6 @@ const UniversityDetail = () => {
     { title: "Dispatch / Delivery", text: "Your documents are prepared and sent as per the required evaluation or verification process." },
   ];
 
-  // Get university name and short name
-  const universityName = university?.title || "University";
-  const shortName = university?.short || "UNI";
-
-  const [formData, setFormData] = useState({
-    fullName: "", email: "", university: universityName, college: universityName,
-    course: "", phone: "", alternativeNumber: "", requirement: "",
-    termsAccepted: false, declarationAccepted: false,
-  });
-
-  useEffect(() => {
-    if (universityName !== "University") {
-      setFormData((prev) => ({ ...prev, college: universityName, university: universityName }));
-    }
-  }, [universityName]);
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
@@ -168,8 +169,12 @@ const UniversityDetail = () => {
     <div className="bg-white text-slate-900">
       {/* ══ HERO ══ */}
       <section className="relative overflow-hidden bg-white pt-28 pb-16 md:pt-36 md:pb-24">
-        <div className="absolute inset-0 bg-right bg-no-repeat opacity-100" style={{ backgroundImage: `url(${university?.heroImage || heroImage})`, backgroundSize: "contain" }} />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,251,255,0.98)_0%,rgba(248,251,255,0.95)_28%,rgba(248,251,255,0.78)_48%,rgba(248,251,255,0.30)_70%,rgba(248,251,255,0.02)_100%)]" />
+        <div className="absolute inset-0 bg-right bg-no-repeat opacity-100 hidden md:block" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "contain" }} />
+        {/* Mobile background */}
+        <div className="absolute inset-0 bg-center bg-no-repeat opacity-10 md:hidden" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "cover" }} />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,251,255,0.98)_0%,rgba(248,251,255,0.95)_28%,rgba(248,251,255,0.78)_48%,rgba(248,251,255,0.30)_70%,rgba(248,251,255,0.02)_100%)] hidden md:block" />
+        {/* Mobile gradient */}
+        <div className="absolute inset-0 bg-white/90 md:hidden" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.14),_transparent_28%)]" />
         <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 6, repeat: Infinity }} className="absolute left-0 top-0 h-72 w-72 bg-blue-200 rounded-full blur-3xl" />
 

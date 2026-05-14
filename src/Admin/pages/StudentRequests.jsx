@@ -21,7 +21,7 @@ const StudentRequests = () => {
   const companyName = "100 Transcripts";
 
   // ✅ Dynamic API Base
-  const API_BASE = `http://192.168.1.53:8000`;
+  const API_BASE = `http://192.168.1.15:8000`;
 
   // ✅ FETCH API
   const fetchRequests = useCallback(async () => {
@@ -444,7 +444,7 @@ Please check your email for detailed information or contact us if you have any q
                           </button>
                           <button
                             onClick={() => {
-                              window.open(`http://192.168.1.53:8000/api/download/${doc.id}/`);
+                              window.open(`http://192.168.1.15:8000/api/download/${doc.id}/`);
                             }}
                             className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-200 transition"
                           >

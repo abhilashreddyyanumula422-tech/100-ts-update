@@ -51,6 +51,16 @@ const PartnerCollege = () => {
   const [college, setCollege] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  
+  // Get college name and short name
+  const collegeName = college?.title || "College";
+  const shortName = college?.short || "CLG";
+
+  const [formData, setFormData] = useState({
+    fullName: "", email: "", university: collegeName, college: collegeName,
+    course: "", phone: "", alternativeNumber: "", requirement: "",
+    termsAccepted: false, declarationAccepted: false,
+  });
 
   // Try to fetch actual college data from collegesData.jsx
   useEffect(() => {
@@ -60,8 +70,15 @@ const PartnerCollege = () => {
       const foundCollege = collegesData[collegeId];
       
       if (foundCollege) {
-        setCollege({ id: collegeId, ...foundCollege });
+        const col = { id: collegeId, ...foundCollege };
+        setCollege(col);
         setError(""); // Clear any previous error
+        const colName = col.title || "College";
+        setFormData(prev => ({
+          ...prev,
+          university: colName,
+          college: colName
+        }));
       } else {
         setError("College not found in local records");
         setCollege(null);
@@ -109,22 +126,6 @@ const PartnerCollege = () => {
     { title: "Verification & Processing", text: "We coordinate the submission and processing with the concerned institution." },
     { title: "Dispatch / Delivery", text: "Your documents are prepared and sent as per the required evaluation or verification process." },
   ];
-
-  // Get college name and short name
-  const collegeName = college?.title || "College";
-  const shortName = college?.short || "CLG";
-
-  const [formData, setFormData] = useState({
-    fullName: "", email: "", university: collegeName, college: collegeName,
-    course: "", phone: "", alternativeNumber: "", requirement: "",
-    termsAccepted: false, declarationAccepted: false,
-  });
-
-  useEffect(() => {
-    if (collegeName !== "College") {
-      setFormData((prev) => ({ ...prev, college: collegeName, university: collegeName }));
-    }
-  }, [collegeName]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

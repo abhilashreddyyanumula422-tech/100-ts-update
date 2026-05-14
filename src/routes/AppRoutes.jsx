@@ -22,6 +22,7 @@ const Login = lazy(() => import("../user/pages/login"));
 const Apply = lazy(() => import("../user/pages/Apply"));
 const Logout = lazy(() => import("../user/pages/Logout"));
 const Sign = lazy(() => import("../user/pages/sign"));
+const ForgotPassword = lazy(() => import("../user/pages/ForgotPassword"));
 
 const Transcripts = lazy(() => import("../user/pages/Transcripts"));
 const ProvisionalCertificate = lazy(() => import("../user/pages/provisionalCertificate"));
@@ -32,6 +33,7 @@ const CMM = lazy(() => import("../user/pages/CMM"));
 /* ✅ NEW DYNAMIC PAGE */
 const Universities = lazy(() => import("../user/pages/Universities"));
 const UniversityDetail = lazy(() => import("../user/pages/universityDetail"));
+const PartnerColleges = lazy(() => import("../user/pages/PartnerColleges"));
 const PartnerCollege = lazy(() => import("../user/pages/partnercollege"));
 
 /* ================= ADMIN ================= */
@@ -78,6 +80,7 @@ const AppRoutes = () => {
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Logout />} />
           <Route path="signin" element={<Sign />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
 
           {/* Certificate Service Routes */}
           <Route path="services/transcripts" element={<Transcripts />} />
@@ -89,6 +92,7 @@ const AppRoutes = () => {
           {/* ✅ DYNAMIC COLLEGE ROUTE */}
           <Route path="universities" element={<Universities />} />
           <Route path="universities/:universityId" element={<UniversityDetail />} />
+          <Route path="partnered-colleges" element={<PartnerColleges />} />
           <Route path="partnered-colleges/:collegeId" element={<PartnerCollege />} />
 
         </Route>

@@ -92,11 +92,11 @@ export default function Contact() {
           >
 
             {/* BADGE */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl text-white text-xs font-semibold shadow-lg">
+            <div className="inline-flex items-center gap-2 px-4 py-2  ">
 
               <Sparkles className="w-4 h-4" />
 
-              100 Transcripts Support
+             
             </div>
 
             {/* HEADING */}

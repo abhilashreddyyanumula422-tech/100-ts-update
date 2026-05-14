@@ -903,3 +903,32 @@ def get_verified_applications(request):
         return JsonResponse(data, safe=False)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+from django.http import JsonResponse
+from .models import Application
+
+def application_status(request):
+    email = request.GET.get('email')
+
+    if not email:
+        return JsonResponse({
+            "error": "Email is required"
+        }, status=400)
+
+    try:
+        app = Application.objects.get(email=email)
+
+        return JsonResponse({
+            "status": app.status,
+            "full_name": app.full_name,
+            "application_id": app.application_id,
+            "admin_message": app.admin_message,
+        })
+
+    except Application.DoesNotExist:
+        return JsonResponse({
+            "error": "Application not found"
+        }, status=404)
+
+
+

@@ -52,11 +52,36 @@ html, body, #root {
   min-height: 100vh;
   background: #fff;
 }
+  /* LEFT PANEL */
+.image-panel {
+  width: 260px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  background: #fff;
+  border-right: 1px solid #eef2f6;
+  z-index: 20;
+}
+
+/* RIGHT PANEL */
+.portal-panel {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+
+  height: 100vh;
+  overflow-y: auto;
+
+  background: #f0f4ff;
+}
+
+
 
 /* ══ LEFT PANEL — White Roadmap (matches original UI) ══ */
 .image-panel {
-  width: 30%;
-  min-width: 320px;
+  width: 22%;
+  min-width: 260px;
   height: 100vh;
   position: sticky;
   top: 0;
@@ -1454,7 +1479,7 @@ const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames,
               type="button" 
               className="btn-digilocker" 
               style={{ width: '100%', padding: '16px', justifyContent: 'center', fontSize: '14px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '10px' }} 
-             onClick={() => window.location.href = "/signin"}
+              onClick={() => onDigiLocker('all', 'All Documents')}
             >
               <img src={digilockerLogo} alt="" style={{ height: '20px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
               Login & Fetch Documents

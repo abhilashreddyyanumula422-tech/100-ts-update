@@ -1,71 +1,128 @@
+const logoFiles = import.meta.glob("../../assets/colleges/logos/*", {
+  eager: true,
+  import: "default",
+});
+
+const logoMap = Object.fromEntries(
+  Object.entries(logoFiles).map(([path, logo]) => [
+    path.split("/").pop().toLowerCase(),
+    logo,
+  ])
+);
+
+const getLogo = (filename) => {
+  return logoMap[filename.toLowerCase()] || "https://via.placeholder.com/150";
+};
+
 const collegesData = {
-  "bhaskar-pharmacy-college": {
-    short: "BPC",
-    logo: "https://via.placeholder.com/150?text=BPC",
+  "university-of-hyderabad": {
+    short: "UoH",
+    logo: getLogo("1. University of Hyderabad (Hyderabad Central University).png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for BPC Students",
+    title: "Exclusive Document Services for University of Hyderabad Students",
     description:
-      "Bhaskar Pharmacy College students can now apply for transcript and document services without visiting the college.",
+      "University of Hyderabad students can now apply for transcript and evaluation services online.",
     stats: [
-      { value: "17,000+", label: "Students Served" },
-      { value: "50+", label: "Partner Universities" },
+      { value: "12,000+", label: "Students Served" },
+      { value: "60+", label: "Partner Universities" },
       { value: "98%", label: "Success Rate" },
-      { value: "24/7", label: "Student Support" },
+      { value: "24/7", label: "Support" },
     ],
     services: [
-      "Marks Memorandum",
-      "MOI Letter",
       "Transcripts",
       "Degree Certificate",
-      "Verifications (for Organizations)",
-      "Pharmacy Council Documents",
+      "MOI Letter",
+      "Verifications",
     ],
   },
 
-  "joginpally-br-pharmacy-college": {
-    short: "JBRPC",
-    logo: "https://via.placeholder.com/150?text=JBRPC",
+  "maulana-azad-national-urdu-university": {
+    short: "MANUU",
+    logo: getLogo("2. Maulana Azad National Urdu University.jpg"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for JBRPC Students",
+    title: "Exclusive Transcript Services for MANUU Students",
     description:
-      "Joginpally B.R Pharmacy College students can now apply for their documents without visiting the college.",
+      "Maulana Azad National Urdu University students can now apply for transcript services online.",
     stats: [
-      { value: "10,000+", label: "Students Served" },
-      { value: "30+", label: "Partner Universities" },
+      { value: "12,000+", label: "Students Served" },
+      { value: "45+", label: "Partner Universities" },
       { value: "95%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
       "Marks Memorandum",
       "Transcripts",
-      "Pharmacy Council Documents",
+      "Degree Certificate",
+      "MOI Letter",
     ],
   },
 
-  "siddhartha-institute-of-technology-sciences": {
-    short: "SITS",
-    logo: "https://via.placeholder.com/150?text=SITS",
+  "english-and-foreign-languages-university": {
+    short: "EFLU",
+    logo: getLogo("3. English and Foreign Languages University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for SITS Students",
+    title: "Exclusive Transcript Services for EFLU Students",
     description:
-      "Siddhartha Institute of Technology & Sciences students can now apply for their documents without visiting the college.",
+      "English and Foreign Languages University students can now apply for transcript services online.",
     stats: [
-      { value: "8,000+", label: "Students Served" },
-      { value: "20+", label: "Partner Universities" },
-      { value: "96%", label: "Success Rate" },
+      { value: "6,000+", label: "Students Served" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "93%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
       "Marks Memorandum",
-      "MOI Letter",
       "Transcripts",
       "Degree Certificate",
+      "MOI Letter",
+    ],
+  },
+
+  "osmania-university": {
+    short: "OU",
+    logo: getLogo("4. Osmania University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for OU Students",
+    description:
+      "Osmania University students can now apply for their academic documents without visiting the campus.",
+    stats: [
+      { value: "20,000+", label: "Students Served" },
+      { value: "80+", label: "Partner Universities" },
+      { value: "97%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
+  "kakatiya-university": {
+    short: "KU",
+    logo: getLogo("5. Kakatiya University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for KU Students",
+    description:
+      "Kakatiya University students can now apply for their academic documents without visiting the campus.",
+    stats: [
+      { value: "9,000+", label: "Students Served" },
+      { value: "40+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "MOI Letter",
     ],
   },
 
   "jntu-hyderabad": {
     short: "JNTUH",
-    logo: "https://via.placeholder.com/150?text=JNTUH",
+    logo: getLogo("6. Jawaharlal Nehru Technological University Hyderabad.png"),
     heroImage: "partnerclg.png",
     title: "Exclusive Transcript Services for JNTUH Students",
     description:
@@ -85,17 +142,17 @@ const collegesData = {
     ],
   },
 
-  "osmania-university": {
-    short: "OU",
-    logo: "https://via.placeholder.com/150?text=OU",
+  "dr-b-r-ambedkar-open-university": {
+    short: "BRAOU",
+    logo: getLogo("7. Dr. B. R. Ambedkar Open University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for OU Students",
+    title: "Exclusive Document Services for BRAOU Students",
     description:
-      "Osmania University students can now apply for their academic documents without visiting the campus.",
+      "Dr. B.R. Ambedkar Open University students can now apply for their documents without visiting the campus.",
     stats: [
-      { value: "20,000+", label: "Students Served" },
-      { value: "80+", label: "Partner Universities" },
-      { value: "97%", label: "Success Rate" },
+      { value: "9,000+", label: "Students Served" },
+      { value: "38+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -106,30 +163,282 @@ const collegesData = {
     ],
   },
 
-  "university-of-hyderabad": {
-    short: "UoH",
-    logo: "https://via.placeholder.com/150?text=UoH",
+  "potti-sreeramulu-telugu-university": {
+    short: "PSTU",
+    logo: getLogo("8. Potti Sreeramulu Telugu University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for UoH Students",
+    title: "Exclusive Document Services for PSTU Students",
     description:
-      "University of Hyderabad students can now apply for transcript and evaluation services online.",
+      "Potti Sreeramulu Telugu University students can now apply for their documents without visiting the campus.",
     stats: [
-      { value: "12,000+", label: "Students Served" },
-      { value: "60+", label: "Partner Universities" },
-      { value: "98%", label: "Success Rate" },
+      { value: "8,000+", label: "Students Served" },
+      { value: "35+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
+      "Marks Memorandum",
       "Transcripts",
       "Degree Certificate",
       "MOI Letter",
+    ],
+  },
+
+  "professor-jayashankar-telangana-state-agricultural-university": {
+    short: "PJTSAU",
+    logo: getLogo("9. Professor Jayashankar Telangana State Agricultural University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for PJTSAU Students",
+    description:
+      "Professor Jayashankar Telangana State Agricultural University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "8,000+", label: "Students Served" },
+      { value: "35+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
+  "satavahana-university": {
+    short: "SU",
+    logo: getLogo("10. Satavahana University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for SU Students",
+    description:
+      "Satavahana University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "7,000+", label: "Students Served" },
+      { value: "34+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "palamuru-university": {
+    short: "PU",
+    logo: getLogo("11. Palamuru University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for Palamuru University Students",
+    description:
+      "Palamuru University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "5,000+", label: "Students Served" },
+      { value: "26+", label: "Partner Universities" },
+      { value: "92%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "MOI Letter",
+    ],
+  },
+
+  "telangana-university": {
+    short: "TU",
+    logo: getLogo("12. Telangana University.jpg"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for Telangana University Students",
+    description:
+      "Telangana University students can now apply for transcript services online.",
+    stats: [
+      { value: "7,000+", label: "Students Served" },
+      { value: "32+", label: "Partner Universities" },
+      { value: "93%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
+  "mahatma-gandhi-university-telangana": {
+    short: "MGUT",
+    logo: getLogo("13. Mahatma Gandhi University Telangana.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for MGUT Students",
+    description:
+      "Mahatma Gandhi University Telangana students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "8,000+", label: "Students Served" },
+      { value: "36+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "icfai-foundation-for-higher-education": {
+    short: "ICFAI",
+    logo: getLogo("14. ICFAI Foundation for Higher Education.svg"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for ICFAI Students",
+    description:
+      "ICFAI Foundation for Higher Education students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "12,000+", label: "Students Served" },
+      { value: "45+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "MOI Letter",
+    ],
+  },
+
+  "bits-pilani-hyderabad": {
+    short: "BITS-H",
+    logo: getLogo("15. BITS Pilani Hyderabad Campus.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for BITS-H Students",
+    description:
+      "BITS Pilani Hyderabad students can now apply for transcript services online.",
+    stats: [
+      { value: "12,000+", label: "Students Served" },
+      { value: "60+", label: "Partner Universities" },
+      { value: "99%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "anurag-university": {
+    short: "ANURAG",
+    logo: getLogo("16. Anurag University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for ANURAG Students",
+    description:
+      "Anurag University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "10,000+", label: "Students Served" },
+      { value: "48+", label: "Partner Universities" },
+      { value: "96%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
       "Verifications",
+    ],
+  },
+
+  "malla-reddy-university": {
+    short: "MRU",
+    logo: getLogo("17. Malla Reddy University.avif"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for Malla Reddy University Students",
+    description:
+      "Malla Reddy University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "8,000+", label: "Students Served" },
+      { value: "35+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "central-university-andhra-pradesh": {
+    short: "CUAP",
+    logo: getLogo("1. Central University of Andhra Pradesh.webp"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for CUAP Students",
+    description:
+      "Central University of Andhra Pradesh students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "5,000+", label: "Students Served" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "92%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "MOI Letter",
+    ],
+  },
+
+  "iit-tirupati": {
+    short: "IIT-T",
+    logo: getLogo("2. Indian Institute of Technology Tirupati.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for IIT-T Students",
+    description:
+      "IIT Tirupati students can now apply for transcript services online.",
+    stats: [
+      { value: "6,000+", label: "Students Served" },
+      { value: "35+", label: "Partner Universities" },
+      { value: "97%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "indian-institute-of-management-visakhapatnam": {
+    short: "IIM-V",
+    logo: getLogo("3. Indian Institute of Management Visakhapatnam.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for IIM-V Students",
+    description:
+      "Indian Institute of Management Visakhapatnam students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "5,000+", label: "Students Served" },
+      { value: "40+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
     ],
   },
 
   "andhra-university": {
     short: "AU",
-    logo: "https://via.placeholder.com/150?text=AU",
+    logo: getLogo("4. Andhra University.png"),
     heroImage: "partnerclg.png",
     title: "Exclusive Document Services for AU Students",
     description:
@@ -148,115 +457,9 @@ const collegesData = {
     ],
   },
 
-  "sri-venkateswara-university": {
-    short: "SVU",
-    logo: "https://via.placeholder.com/150?text=SVU",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for SVU Students",
-    description:
-      "Sri Venkateswara University students can now apply for transcript services online.",
-    stats: [
-      { value: "11,000+", label: "Students Served" },
-      { value: "50+", label: "Partner Universities" },
-      { value: "95%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Migration Certificate",
-    ],
-  },
-
-  "kakatiya-university": {
-    short: "KU",
-    logo: "https://via.placeholder.com/150?text=KU",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for KU Students",
-    description:
-      "Kakatiya University students can now apply for their academic documents without visiting the campus.",
-    stats: [
-      { value: "9,000+", label: "Students Served" },
-      { value: "40+", label: "Partner Universities" },
-      { value: "94%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-    ],
-  },
-
-  "jntu-kakinada": {
-    short: "JNTUK",
-    logo: "https://via.placeholder.com/150?text=JNTUK",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for JNTUK Students",
-    description:
-      "JNTU Kakinada students can now apply for transcript and document services online.",
-    stats: [
-      { value: "18,000+", label: "Students Served" },
-      { value: "75+", label: "Partner Universities" },
-      { value: "97%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-      "CMM",
-    ],
-  },
-
-  "jntu-anantapur": {
-    short: "JNTUA",
-    logo: "https://via.placeholder.com/150?text=JNTUA",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for JNTUA Students",
-    description:
-      "JNTU Anantapur students can now apply for their documents without visiting the college.",
-    stats: [
-      { value: "14,000+", label: "Students Served" },
-      { value: "55+", label: "Partner Universities" },
-      { value: "96%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-    ],
-  },
-
-  "sri-krishnadevaraya-university": {
-    short: "SKU",
-    logo: "https://via.placeholder.com/150?text=SKU",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for SKU Students",
-    description:
-      "Sri Krishnadevaraya University students can now apply for transcript services online.",
-    stats: [
-      { value: "7,000+", label: "Students Served" },
-      { value: "35+", label: "Partner Universities" },
-      { value: "93%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Migration Certificate",
-    ],
-  },
-
   "acharya-nagarjuna-university": {
     short: "ANU",
-    logo: "https://via.placeholder.com/150?text=ANU",
+    logo: getLogo("5. Acharya Nagarjuna University.png"),
     heroImage: "partnerclg.png",
     title: "Exclusive Document Services for ANU Students",
     description:
@@ -275,9 +478,135 @@ const collegesData = {
     ],
   },
 
+  "sri-venkateswara-university": {
+    short: "SVU",
+    logo: getLogo("6. Sri Venkateswara University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for SVU Students",
+    description:
+      "Sri Venkateswara University students can now apply for transcript services online.",
+    stats: [
+      { value: "11,000+", label: "Students Served" },
+      { value: "50+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
+  "sri-krishnadevaraya-university": {
+    short: "SKU",
+    logo: getLogo("7. Sri Krishnadevaraya University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for SKU Students",
+    description:
+      "Sri Krishnadevaraya University students can now apply for transcript services online.",
+    stats: [
+      { value: "7,000+", label: "Students Served" },
+      { value: "35+", label: "Partner Universities" },
+      { value: "93%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
+  "dr-ntr-university-of-health-sciences": {
+    short: "NTRUHS",
+    logo: getLogo("8. Dr. NTR University of Health Sciences.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for NTRUHS Students",
+    description:
+      "Dr. NTR University of Health Sciences students can now apply for transcript services online.",
+    stats: [
+      { value: "12,000+", label: "Students Served" },
+      { value: "40+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "adikavi-nannaya-university": {
+    short: "ANU",
+    logo: getLogo("9. Adikavi Nannaya University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for Adikavi Nannaya University Students",
+    description:
+      "Adikavi Nannaya University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "7,000+", label: "Students Served" },
+      { value: "32+", label: "Partner Universities" },
+      { value: "93%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "yogi-vemana-university": {
+    short: "YVU",
+    logo: "https://via.placeholder.com/150?text=YVU",
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for YVU Students",
+    description:
+      "Yogi Vemana University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "6,000+", label: "Students Served" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "92%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "krishna-university": {
+    short: "KU",
+    logo: getLogo("11. Krishna University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for Krishna University Students",
+    description:
+      "Krishna University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "5,500+", label: "Students Served" },
+      { value: "28+", label: "Partner Universities" },
+      { value: "91%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
   "rayalaseema-university": {
     short: "RU",
-    logo: "https://via.placeholder.com/150?text=RU",
+    logo: getLogo("12. Rayalaseema University.png"),
     heroImage: "partnerclg.png",
     title: "Exclusive Transcript Services for RU Students",
     description:
@@ -296,17 +625,17 @@ const collegesData = {
     ],
   },
 
-  "yogi-venkata-subba-reddy-engineering-college": {
-    short: "YVSREC",
-    logo: "https://via.placeholder.com/150?text=YVSREC",
+  "vikram-simhapuri-university": {
+    short: "VSU",
+    logo: getLogo("13. Vikram Simhapuri University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for YVSREC Students",
+    title: "Exclusive Document Services for VSU Students",
     description:
-      "Yogi Vemana University students can now apply for their documents without visiting the college.",
+      "Vikram Simhapuri University students can now apply for their documents without visiting the campus.",
     stats: [
-      { value: "5,000+", label: "Students Served" },
-      { value: "25+", label: "Partner Universities" },
-      { value: "91%", label: "Success Rate" },
+      { value: "6,000+", label: "Students Served" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "92%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -317,9 +646,114 @@ const collegesData = {
     ],
   },
 
+  "dravidian-university": {
+    short: "DU",
+    logo: getLogo("14. Dravidian University.svg"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for Dravidian University Students",
+    description:
+      "Dravidian University students can now apply for transcript services online.",
+    stats: [
+      { value: "5,000+", label: "Students Served" },
+      { value: "28+", label: "Partner Universities" },
+      { value: "91%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "acharya-ng-ranga-agricultural-university": {
+    short: "ANGRAU",
+    logo: getLogo("15. Acharya N.G. Ranga Agricultural University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for ANGRAU Students",
+    description:
+      "Acharya N.G. Ranga Agricultural University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "10,000+", label: "Students Served" },
+      { value: "40+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "sri-venkateswara-veterinary-university": {
+    short: "SVVU",
+    logo: getLogo("16. Sri Venkateswara Veterinary University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for SVVU Students",
+    description:
+      "Sri Venkateswara Veterinary University students can now apply for transcript services online.",
+    stats: [
+      { value: "6,000+", label: "Students Served" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "92%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "andhra-pradesh-fisheries-university": {
+    short: "APFU",
+    logo: getLogo("17. Andhra Pradesh Fisheries University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for APFU Students",
+    description:
+      "Andhra Pradesh Fisheries University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "4,000+", label: "Students Served" },
+      { value: "25+", label: "Partner Universities" },
+      { value: "90%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "MOI Letter",
+    ],
+  },
+
+  "andhra-kesari-university": {
+    short: "AKU",
+    logo: getLogo("18. Andhra Kesari University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Document Services for AKU Students",
+    description:
+      "Andhra Kesari University students can now apply for their documents without visiting the campus.",
+    stats: [
+      { value: "5,000+", label: "Students Served" },
+      { value: "28+", label: "Partner Universities" },
+      { value: "91%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
   "gitam-university": {
     short: "GITAM",
-    logo: "https://via.placeholder.com/150?text=GITAM",
+    logo: getLogo("19. GITAM University.png"),
     heroImage: "partnerclg.png",
     title: "Exclusive Transcript Services for GITAM Students",
     description:
@@ -341,7 +775,7 @@ const collegesData = {
 
   "kl-university": {
     short: "KLU",
-    logo: "https://via.placeholder.com/150?text=KLU",
+    logo: getLogo("20. KL Deemed to be University.png"),
     heroImage: "partnerclg.png",
     title: "Exclusive Document Services for KLU Students",
     description:
@@ -362,7 +796,7 @@ const collegesData = {
 
   "vignan-university": {
     short: "VIGNAN",
-    logo: "https://via.placeholder.com/150?text=VIGNAN",
+    logo: getLogo("21. Vignan_s Foundation for Science Technology and Research.svg"),
     heroImage: "partnerclg.png",
     title: "Exclusive Transcript Services for VIGNAN Students",
     description:
@@ -381,17 +815,17 @@ const collegesData = {
     ],
   },
 
-  "jntu-pace": {
-    short: "JNTU-PACE",
-    logo: "https://via.placeholder.com/150?text=JNTU-PACE",
+  "srm-university-ap": {
+    short: "SRM AP",
+    logo: getLogo("22. SRM University AP.webp"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for JNTU-PACE Students",
+    title: "Exclusive Transcript Services for SRM AP Students",
     description:
-      "JNTU College of Engineering students can now apply for transcript services online.",
+      "SRM University AP students can now apply for transcript services online.",
     stats: [
-      { value: "12,000+", label: "Students Served" },
-      { value: "45+", label: "Partner Universities" },
-      { value: "96%", label: "Success Rate" },
+      { value: "8,000+", label: "Students Served" },
+      { value: "40+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -402,17 +836,17 @@ const collegesData = {
     ],
   },
 
-  "chaitanya-bharathi-institute-technology": {
-    short: "CBIT",
-    logo: "https://via.placeholder.com/150?text=CBIT",
+  "amrita-vishwa-vidyapeetham-amaravati": {
+    short: "Amrita Amaravati",
+    logo: getLogo("23. Amrita Vishwa Vidyapeetham Amaravati.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for CBIT Students",
+    title: "Exclusive Document Services for Amrita Amaravati Students",
     description:
-      "Chaitanya Bharathi Institute of Technology students can now apply for their documents online.",
+      "Amrita Vishwa Vidyapeetham Amaravati students can now apply for their documents without visiting the campus.",
     stats: [
-      { value: "15,000+", label: "Students Served" },
-      { value: "55+", label: "Partner Universities" },
-      { value: "97%", label: "Success Rate" },
+      { value: "7,000+", label: "Students Served" },
+      { value: "35+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -423,13 +857,13 @@ const collegesData = {
     ],
   },
 
-  "vasavi-college-engineering": {
-    short: "VCE",
-    logo: "https://via.placeholder.com/150?text=VCE",
+  "centurion-university-of-technology-and-management-ap": {
+    short: "CUTM AP",
+    logo: getLogo("24. Centurion University of Technology and Management AP.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for VCE Students",
+    title: "Exclusive Transcript Services for CUTM AP Students",
     description:
-      "Vasavi College of Engineering students can now apply for transcript services online.",
+      "Centurion University of Technology and Management AP students can now apply for transcript services online.",
     stats: [
       { value: "9,000+", label: "Students Served" },
       { value: "38+", label: "Partner Universities" },
@@ -444,37 +878,16 @@ const collegesData = {
     ],
   },
 
-  "malla-reddy-college-engineering": {
-    short: "MRCET",
-    logo: "https://via.placeholder.com/150?text=MRCET",
+  "central-university-tamil-nadu": {
+    short: "CUTN",
+    logo: getLogo("1. Central University of Tamil Nadu.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for MRCET Students",
+    title: "Exclusive Transcript Services for CUTN Students",
     description:
-      "Malla Reddy College of Engineering students can now apply for their documents online.",
+      "Central University of Tamil Nadu students can now apply for transcript services online.",
     stats: [
-      { value: "11,000+", label: "Students Served" },
-      { value: "42+", label: "Partner Universities" },
-      { value: "95%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-    ],
-  },
-
-  "gokaraju-rangaraju-institute-engineering": {
-    short: "GRIET",
-    logo: "https://via.placeholder.com/150?text=GRIET",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for GRIET Students",
-    description:
-      "Gokaraju Rangaraju Institute of Engineering students can now apply for transcript services online.",
-    stats: [
-      { value: "8,000+", label: "Students Served" },
-      { value: "36+", label: "Partner Universities" },
+      { value: "6,000+", label: "Students Served" },
+      { value: "32+", label: "Partner Universities" },
       { value: "93%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
@@ -482,20 +895,20 @@ const collegesData = {
       "Marks Memorandum",
       "Transcripts",
       "Degree Certificate",
-      "MOI Letter",
+      "Migration Certificate",
     ],
   },
 
-  "anurag-university": {
-    short: "ANURAG",
-    logo: "https://via.placeholder.com/150?text=ANURAG",
+  "university-of-madras": {
+    short: "UoM",
+    logo: getLogo("2. University of Madras.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for ANURAG Students",
+    title: "Exclusive Document Services for University of Madras Students",
     description:
-      "Anurag University students can now apply for their documents without visiting the campus.",
+      "University of Madras students can now apply for their academic documents without visiting the campus.",
     stats: [
-      { value: "10,000+", label: "Students Served" },
-      { value: "48+", label: "Partner Universities" },
+      { value: "20,000+", label: "Students Served" },
+      { value: "70+", label: "Partner Universities" },
       { value: "96%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
@@ -503,20 +916,20 @@ const collegesData = {
       "Marks Memorandum",
       "Transcripts",
       "Degree Certificate",
-      "Verifications",
+      "Migration Certificate",
     ],
   },
 
-  "mahatma-gandhi-institute-technology": {
-    short: "MGIT",
-    logo: "https://via.placeholder.com/150?text=MGIT",
+  "anna-university": {
+    short: "AU",
+    logo: getLogo("3. Anna University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for MGIT Students",
+    title: "Exclusive Document Services for Anna University Students",
     description:
-      "Mahatma Gandhi Institute of Technology students can now apply for transcript services online.",
+      "Anna University students can now apply for their academic documents without visiting the campus.",
     stats: [
-      { value: "13,000+", label: "Students Served" },
-      { value: "52+", label: "Partner Universities" },
+      { value: "22,000+", label: "Students Served" },
+      { value: "80+", label: "Partner Universities" },
       { value: "97%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
@@ -528,17 +941,17 @@ const collegesData = {
     ],
   },
 
-  "sree-vidyaniketan-engineering-college": {
-    short: "SVEC",
-    logo: "https://via.placeholder.com/150?text=SVEC",
+  "bharathiar-university": {
+    short: "BU",
+    logo: getLogo("4. Bharathiar University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for SVEC Students",
+    title: "Exclusive Transcript Services for Bharathiar University Students",
     description:
-      "Sree Vidyaniketan Engineering College students can now apply for their documents online.",
+      "Bharathiar University students can now apply for transcript services online.",
     stats: [
-      { value: "6,000+", label: "Students Served" },
-      { value: "28+", label: "Partner Universities" },
-      { value: "92%", label: "Success Rate" },
+      { value: "18,000+", label: "Students Served" },
+      { value: "60+", label: "Partner Universities" },
+      { value: "96%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -549,15 +962,36 @@ const collegesData = {
     ],
   },
 
-  "sri-venkateswara-college-engineering": {
-    short: "SVCE",
-    logo: "https://via.placeholder.com/150?text=SVCE",
+  "bharathidasan-university": {
+    short: "BDU",
+    logo: getLogo("5. Bharathidasan University.gif"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for SVCE Students",
+    title: "Exclusive Document Services for Bharathidasan University Students",
     description:
-      "Sri Venkateswara College of Engineering students can now apply for transcript services online.",
+      "Bharathidasan University students can now apply for their documents without visiting the campus.",
     stats: [
-      { value: "14,000+", label: "Students Served" },
+      { value: "16,000+", label: "Students Served" },
+      { value: "55+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Provisional Certificate",
+    ],
+  },
+
+  "madurai-kamaraj-university": {
+    short: "MKU",
+    logo: getLogo("6. Madurai Kamaraj University.png"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for MKU Students",
+    description:
+      "Madurai Kamaraj University students can now apply for transcript services online.",
+    stats: [
+      { value: "17,000+", label: "Students Served" },
       { value: "58+", label: "Partner Universities" },
       { value: "96%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
@@ -570,58 +1004,16 @@ const collegesData = {
     ],
   },
 
-  "raghu-engineering-college": {
-    short: "REC",
-    logo: "https://via.placeholder.com/150?text=REC",
+  "tamil-nadu-agricultural-university": {
+    short: "TNAU",
+    logo: getLogo("7. Tamil Nadu Agricultural University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for REC Students",
+    title: "Exclusive Document Services for TNAU Students",
     description:
-      "Raghu Engineering College students can now apply for their documents without visiting the campus.",
+      "Tamil Nadu Agricultural University students can now apply for their documents without visiting the campus.",
     stats: [
-      { value: "5,000+", label: "Students Served" },
-      { value: "22+", label: "Partner Universities" },
-      { value: "91%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-    ],
-  },
-
-  "pydah-college-engineering": {
-    short: "PCE",
-    logo: "https://via.placeholder.com/150?text=PCE",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for PCE Students",
-    description:
-      "Pydah College of Engineering students can now apply for transcript services online.",
-    stats: [
-      { value: "4,000+", label: "Students Served" },
-      { value: "18+", label: "Partner Universities" },
-      { value: "90%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-    ],
-  },
-
-  "aditya-engineering-college": {
-    short: "AEC",
-    logo: "https://via.placeholder.com/150?text=AEC",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for AEC Students",
-    description:
-      "Aditya Engineering College students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "12,000+", label: "Students Served" },
-      { value: "46+", label: "Partner Universities" },
+      { value: "10,000+", label: "Students Served" },
+      { value: "45+", label: "Partner Universities" },
       { value: "95%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
@@ -633,59 +1025,17 @@ const collegesData = {
     ],
   },
 
-  "gmr-institute-technology": {
-    short: "GMRIT",
-    logo: "https://via.placeholder.com/150?text=GMRIT",
+  "tamil-university": {
+    short: "TU",
+    logo: getLogo("8. Tamil University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for GMRIT Students",
+    title: "Exclusive Transcript Services for Tamil University Students",
     description:
-      "GMR Institute of Technology students can now apply for transcript services online.",
-    stats: [
-      { value: "7,000+", label: "Students Served" },
-      { value: "32+", label: "Partner Universities" },
-      { value: "94%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-    ],
-  },
-
-  "lendi-institute-engineering-technology": {
-    short: "LIET",
-    logo: "https://via.placeholder.com/150?text=LIET",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for LIET Students",
-    description:
-      "Lendi Institute of Engineering and Technology students can now apply for their documents online.",
-    stats: [
-      { value: "5,000+", label: "Students Served" },
-      { value: "24+", label: "Partner Universities" },
-      { value: "92%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-    ],
-  },
-
-  "chalapathi-institute-engineering-technology": {
-    short: "CIET",
-    logo: "https://via.placeholder.com/150?text=CIET",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for CIET Students",
-    description:
-      "Chalapathi Institute of Engineering and Technology students can now apply for transcript services online.",
+      "Tamil University students can now apply for transcript services online.",
     stats: [
       { value: "6,000+", label: "Students Served" },
-      { value: "26+", label: "Partner Universities" },
-      { value: "91%", label: "Success Rate" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "93%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -696,55 +1046,13 @@ const collegesData = {
     ],
   },
 
-  "bvc-college-engineering": {
-    short: "BVC",
-    logo: "https://via.placeholder.com/150?text=BVC",
+  "periyar-university": {
+    short: "PU",
+    logo: getLogo("9. Periyar University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for BVC Students",
+    title: "Exclusive Transcript Services for Periyar University Students",
     description:
-      "BVC College of Engineering students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "4,000+", label: "Students Served" },
-      { value: "20+", label: "Partner Universities" },
-      { value: "90%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-    ],
-  },
-
-  "sri-padmavathi-mahila-visvavidyalayam": {
-    short: "SPMVV",
-    logo: "https://via.placeholder.com/150?text=SPMVV",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for SPMVV Students",
-    description:
-      "Sri Padmavathi Mahila Visvavidyalayam students can now apply for transcript services online.",
-    stats: [
-      { value: "8,000+", label: "Students Served" },
-      { value: "34+", label: "Partner Universities" },
-      { value: "93%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-    ],
-  },
-
-  "dr-b-r-ambedkar-university": {
-    short: "BRAU",
-    logo: "https://via.placeholder.com/150?text=BRAU",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for BRAU Students",
-    description:
-      "Dr. B.R. Ambedkar University students can now apply for their documents without visiting the campus.",
+      "Periyar University students can now apply for transcript services online.",
     stats: [
       { value: "9,000+", label: "Students Served" },
       { value: "38+", label: "Partner Universities" },
@@ -755,42 +1063,21 @@ const collegesData = {
       "Marks Memorandum",
       "Transcripts",
       "Degree Certificate",
-      "Migration Certificate",
+      "MOI Letter",
     ],
   },
 
-  "sri-krishnadevaraya-university-anantapur": {
-    short: "SKUA",
-    logo: "https://via.placeholder.com/150?text=SKUA",
+  "alagappa-university": {
+    short: "AU",
+    logo: getLogo("10. Alagappa University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for SKUA Students",
+    title: "Exclusive Transcript Services for Alagappa University Students",
     description:
-      "Sri Krishnadevaraya University Anantapur students can now apply for transcript services online.",
+      "Alagappa University students can now apply for transcript services online.",
     stats: [
-      { value: "7,000+", label: "Students Served" },
-      { value: "30+", label: "Partner Universities" },
-      { value: "92%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-    ],
-  },
-
-  "sri-sathya-sai-institute-higher-learning": {
-    short: "SSSIHL",
-    logo: "https://via.placeholder.com/150?text=SSSIHL",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for SSSIHL Students",
-    description:
-      "Sri Sathya Sai Institute of Higher Learning students can now apply for their documents online.",
-    stats: [
-      { value: "5,000+", label: "Students Served" },
-      { value: "25+", label: "Partner Universities" },
-      { value: "95%", label: "Success Rate" },
+      { value: "18,000+", label: "Students Served" },
+      { value: "50+", label: "Partner Universities" },
+      { value: "96%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -801,17 +1088,17 @@ const collegesData = {
     ],
   },
 
-  "national-institute-technology-warangal": {
-    short: "NITW",
-    logo: "https://via.placeholder.com/150?text=NITW",
+  "mother-teresa-womens-university": {
+    short: "MTWU",
+    logo: getLogo("11. Mother Teresa Women_s University.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for NITW Students",
+    title: "Exclusive Transcript Services for MTWU Students",
     description:
-      "NIT Warangal students can now apply for transcript and document services online.",
+      "Mother Teresa Women's University students can now apply for transcript services online.",
     stats: [
-      { value: "20,000+", label: "Students Served" },
-      { value: "90+", label: "Partner Universities" },
-      { value: "98%", label: "Success Rate" },
+      { value: "6,000+", label: "Students Served" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "93%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
@@ -819,19 +1106,40 @@ const collegesData = {
       "Transcripts",
       "Degree Certificate",
       "Provisional Certificate",
-      "Migration Certificate",
     ],
   },
 
-  "international-institute-information-technology-hyderabad": {
-    short: "IIITH",
-    logo: "https://via.placeholder.com/150?text=IIITH",
+  "vit-university": {
+    short: "VIT",
+    logo: getLogo("12. VIT University.webp"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for IIITH Students",
+    title: "Exclusive Transcript Services for VIT Students",
     description:
-      "IIIT Hyderabad students can now apply for their documents without visiting the campus.",
+      "VIT University students can now apply for transcript and evaluation services online.",
     stats: [
-      { value: "15,000+", label: "Students Served" },
+      { value: "25,000+", label: "Students Served" },
+      { value: "80+", label: "Partner Universities" },
+      { value: "98%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "MOI Letter",
+      "Provisional Certificate",
+    ],
+  },
+
+  "srm-institute-of-science-and-technology": {
+    short: "SRM",
+    logo: getLogo("13. SRM Institute of Science and Technology.svg"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for SRM Students",
+    description:
+      "SRM Institute of Science and Technology students can now apply for transcript services online.",
+    stats: [
+      { value: "20,000+", label: "Students Served" },
       { value: "70+", label: "Partner Universities" },
       { value: "97%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
@@ -845,275 +1153,37 @@ const collegesData = {
     ],
   },
 
-  "bits-pilani-hyderabad": {
-    short: "BITS-H",
-    logo: "https://via.placeholder.com/150?text=BITS-H",
+  "sathyabama-institute-of-science-and-technology": {
+    short: "SIST",
+    logo: getLogo("14. Sathyabama Institute of Science and Technology.jpg"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for BITS-H Students",
+    title: "Exclusive Transcript Services for Sathyabama Students",
     description:
-      "BITS Pilani Hyderabad students can now apply for transcript services online.",
+      "Sathyabama Institute of Science and Technology students can now apply for transcript services online.",
     stats: [
-      { value: "12,000+", label: "Students Served" },
-      { value: "60+", label: "Partner Universities" },
-      { value: "99%", label: "Success Rate" },
+      { value: "15,000+", label: "Students Served" },
+      { value: "50+", label: "Partner Universities" },
+      { value: "96%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
       "Marks Memorandum",
       "Transcripts",
       "Degree Certificate",
-      "Provisional Certificate",
+      "Migration Certificate",
     ],
   },
 
-  "iit-hyderabad": {
-    short: "IITH",
-    logo: "https://via.placeholder.com/150?text=IITH",
+  "amrita-vishwa-vidyapeetham": {
+    short: "Amrita",
+    logo: getLogo("15. Amrita Vishwa Vidyapeetham.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for IITH Students",
+    title: "Exclusive Transcript Services for Amrita Students",
     description:
-      "IIT Hyderabad students can now apply for their documents without visiting the campus.",
+      "Amrita Vishwa Vidyapeetham students can now apply for transcript and evaluation services online.",
     stats: [
       { value: "18,000+", label: "Students Served" },
-      { value: "85+", label: "Partner Universities" },
-      { value: "99%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-      "Migration Certificate",
-    ],
-  },
-
-  "iit-tirupati": {
-    short: "IIT-T",
-    logo: "https://via.placeholder.com/150?text=IIT-T",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for IIT-T Students",
-    description:
-      "IIT Tirupati students can now apply for transcript services online.",
-    stats: [
-      { value: "6,000+", label: "Students Served" },
-      { value: "35+", label: "Partner Universities" },
-      { value: "97%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-    ],
-  },
-
-  "iit-dhanbad": {
-    short: "IIT-D",
-    logo: "https://via.placeholder.com/150?text=IIT-D",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for IIT-D Students",
-    description:
-      "IIT Dhanbad students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "14,000+", label: "Students Served" },
-      { value: "65+", label: "Partner Universities" },
-      { value: "98%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-    ],
-  },
-
-  "iit-bhubaneswar": {
-    short: "IIT-BBS",
-    logo: "https://via.placeholder.com/150?text=IIT-BBS",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for IIT-BBS Students",
-    description:
-      "IIT Bhubaneswar students can now apply for transcript services online.",
-    stats: [
-      { value: "8,000+", label: "Students Served" },
-      { value: "40+", label: "Partner Universities" },
-      { value: "96%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Migration Certificate",
-    ],
-  },
-
-  "iit-guwahati": {
-    short: "IIT-G",
-    logo: "https://via.placeholder.com/150?text=IIT-G",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for IIT-G Students",
-    description:
-      "IIT Guwahati students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "16,000+", label: "Students Served" },
-      { value: "75+", label: "Partner Universities" },
-      { value: "97%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-    ],
-  },
-
-  "iit-roorkee": {
-    short: "IIT-R",
-    logo: "https://via.placeholder.com/150?text=IIT-R",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for IIT-R Students",
-    description:
-      "IIT Roorkee students can now apply for transcript services online.",
-    stats: [
-      { value: "22,000+", label: "Students Served" },
-      { value: "95+", label: "Partner Universities" },
-      { value: "98%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-      "Migration Certificate",
-    ],
-  },
-
-  "iit-delhi": {
-    short: "IIT-Delhi",
-    logo: "https://via.placeholder.com/150?text=IIT-Delhi",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for IIT-Delhi Students",
-    description:
-      "IIT Delhi students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "25,000+", label: "Students Served" },
-      { value: "110+", label: "Partner Universities" },
-      { value: "99%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-      "Verifications",
-    ],
-  },
-
-  "iit-bombay": {
-    short: "IIT-B",
-    logo: "https://via.placeholder.com/150?text=IIT-B",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for IIT-B Students",
-    description:
-      "IIT Bombay students can now apply for transcript services online.",
-    stats: [
-      { value: "28,000+", label: "Students Served" },
-      { value: "120+", label: "Partner Universities" },
-      { value: "99%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-      "Migration Certificate",
-    ],
-  },
-
-  "iit-madras": {
-    short: "IIT-M",
-    logo: "https://via.placeholder.com/150?text=IIT-M",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for IIT-M Students",
-    description:
-      "IIT Madras students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "26,000+", label: "Students Served" },
-      { value: "115+", label: "Partner Universities" },
-      { value: "99%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-      "Verifications",
-    ],
-  },
-
-  "iit-kanpur": {
-    short: "IIT-K",
-    logo: "https://via.placeholder.com/150?text=IIT-K",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for IIT-K Students",
-    description:
-      "IIT Kanpur students can now apply for transcript services online.",
-    stats: [
-      { value: "24,000+", label: "Students Served" },
-      { value: "105+", label: "Partner Universities" },
-      { value: "98%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "MOI Letter",
-      "Migration Certificate",
-    ],
-  },
-
-  "iit-kharagpur": {
-    short: "IIT-KGP",
-    logo: "https://via.placeholder.com/150?text=IIT-KGP",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for IIT-KGP Students",
-    description:
-      "IIT Kharagpur students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "27,000+", label: "Students Served" },
-      { value: "118+", label: "Partner Universities" },
-      { value: "99%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Provisional Certificate",
-      "Verifications",
-    ],
-  },
-
-  "delhi-technological-university": {
-    short: "DTU",
-    logo: "https://via.placeholder.com/150?text=DTU",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for DTU Students",
-    description:
-      "Delhi Technological University students can now apply for transcript services online.",
-    stats: [
-      { value: "19,000+", label: "Students Served" },
-      { value: "80+", label: "Partner Universities" },
+      { value: "60+", label: "Partner Universities" },
       { value: "97%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
@@ -1122,41 +1192,105 @@ const collegesData = {
       "Transcripts",
       "Degree Certificate",
       "MOI Letter",
+      "Verifications",
     ],
   },
 
-  "netaji-subhas-university-technology": {
-    short: "NSUT",
-    logo: "https://via.placeholder.com/150?text=NSUT",
+  "hindustan-institute-of-technology-and-science": {
+    short: "HITS",
+    logo: getLogo("16. Hindustan Institute of Technology and Science.png"),
     heroImage: "partnerclg.png",
-    title: "Exclusive Document Services for NSUT Students",
+    title: "Exclusive Document Services for HITS Students",
     description:
-      "Netaji Subhas University of Technology students can now apply for their documents without visiting the campus.",
-    stats: [
-      { value: "17,000+", label: "Students Served" },
-      { value: "72+", label: "Partner Universities" },
-      { value: "96%", label: "Success Rate" },
-      { value: "24/7", label: "Support" },
-    ],
-    services: [
-      "Marks Memorandum",
-      "Transcripts",
-      "Degree Certificate",
-      "Migration Certificate",
-    ],
-  },
-
-  "indraprastha-institute-information-technology": {
-    short: "IIIT-D",
-    logo: "https://via.placeholder.com/150?text=IIIT-D",
-    heroImage: "partnerclg.png",
-    title: "Exclusive Transcript Services for IIIT-D Students",
-    description:
-      "IIIT Delhi students can now apply for transcript services online.",
+      "Hindustan Institute of Technology and Science students can now apply for their documents without visiting the campus.",
     stats: [
       { value: "11,000+", label: "Students Served" },
-      { value: "55+", label: "Partner Universities" },
-      { value: "97%", label: "Success Rate" },
+      { value: "45+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
+  "saveetha-institute-of-medical-and-technical-sciences": {
+    short: "SIMATS",
+    logo: getLogo("17. Saveetha Institute of Medical and Technical Sciences.webp"),
+    heroImage: "partnerclg.png",
+    title: "Exclusive Transcript Services for SIMATS Students",
+    description:
+      "Saveetha Institute of Medical and Technical Sciences students can now apply for transcript services online.",
+    stats: [
+      { value: "10,000+", label: "Students Served" },
+      { value: "40+", label: "Partner Universities" },
+      { value: "95%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Migration Certificate",
+    ],
+  },
+
+  "bhaskar-pharmacy-college": {
+    short: "BPC",
+    
+    heroImage: "partnerclg.png",
+    title: "Bhaskar Pharmacy College",
+    description:
+      "Bhaskar Pharmacy College students can now apply for transcript and document services online.",
+    stats: [
+      { value: "5,000+", label: "Students Served" },
+      { value: "25+", label: "Partner Universities" },
+      { value: "92%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Pharmacy Council Documents",
+    ],
+  },
+
+  "joginpally-br-pharmacy-college": {
+    short: "JBPR",
+    
+    heroImage: "partnerclg.png",
+    title: "Joginpally B.R Pharmacy College",
+    description:
+      "Joginpally B.R Pharmacy College students can now apply for transcript and document services online.",
+    stats: [
+      { value: "6,000+", label: "Students Served" },
+      { value: "30+", label: "Partner Universities" },
+      { value: "93%", label: "Success Rate" },
+      { value: "24/7", label: "Support" },
+    ],
+    services: [
+      "Marks Memorandum",
+      "Transcripts",
+      "Degree Certificate",
+      "Pharmacy Council Documents",
+    ],
+  },
+
+  "siddhartha-institute-of-technology-sciences": {
+    short: "SITS",
+   
+    heroImage: "partnerclg.png",
+    title: "Siddhartha Institute",
+    description:
+      "Siddhartha Institute of Technology Sciences students can now apply for transcript and document services online.",
+    stats: [
+      { value: "7,000+", label: "Students Served" },
+      { value: "32+", label: "Partner Universities" },
+      { value: "94%", label: "Success Rate" },
       { value: "24/7", label: "Support" },
     ],
     services: [
