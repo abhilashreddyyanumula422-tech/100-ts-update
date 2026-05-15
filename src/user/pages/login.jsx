@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, ArrowRight, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { login } from "../../services/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -55,20 +56,9 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://192.168.1.15:8000/api/verify/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password
-        })
-      });
+      const { ok, data } = await login(form.email, form.password);
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (ok) {
         alert("Login Successful ✅");
         localStorage.setItem("user", JSON.stringify(data));
 
@@ -85,7 +75,7 @@ const Login = () => {
       } else {
         alert(data.error || "Login Failed");
       }
-    } catch (error) {
+    } catch {
       alert("Server Error");
     } finally {
       setLoading(false);

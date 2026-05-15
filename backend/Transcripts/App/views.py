@@ -643,7 +643,7 @@ def get_applications(request):
             "agent": app.agent or "Unassigned",
             "district": getattr(app, 'district', 'N/A'), # if added
             "documentsList": [
-                {"id": doc.id, "name": doc.name, "status": "Verified", "url": f"http://192.168.1.12:8000{doc.file.url}"}
+                {"id": doc.id, "name": doc.name, "status": "Verified", "url": f"http://192.168.1.15:8000{doc.file.url}"}
                 for doc in app.documents.all()
             ]
         })
@@ -929,6 +929,146 @@ def application_status(request):
         return JsonResponse({
             "error": "Application not found"
         }, status=404)
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.conf import settings
+from .models import PasswordResetToken, Users, Admin
+from .serializers import ForgotPasswordSerializer, VerifyTokenSerializer, ResetPasswordSerializer
+from django.core.mail import send_mail
+import secrets
+
+@api_view(['POST'])
+def forgot_password(request):
+    serializer = ForgotPasswordSerializer(data=request.data)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    email = serializer.validated_data['email']
+    
+    user = Users.objects.filter(email=email).first()
+    admin = Admin.objects.filter(email=email).first()
+    
+    if not user and not admin:
+        return Response({
+            "message": "No account found with this email",
+            "found": False
+        }, status=status.HTTP_200_OK)
+    
+    token = secrets.token_urlsafe(64)
+    reset_token = PasswordResetToken.objects.create(
+        user=user,
+        admin=admin,
+        token=token
+    )
+    
+    reset_url = f"http://localhost:5173/reset-password?token={token}"
+    
+    subject = "Password Reset Request - 100 Transcripts"
+    message = f"""
+Hello,
+
+We received a request to reset your password for 100 Transcripts.
+
+Please click the link below to reset your password:
+
+{reset_url}
+
+This link will expire in 1 hour.
+
+If you didn't request this, please ignore this email and your password will remain unchanged.
+
+Best regards,
+100 Transcripts Team
+    """
+    
+    email_sent = False
+    try:
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+        email_sent = True
+        print(f"✅ Email sent successfully to {email}")
+    except Exception as e:
+        print(f"❌ Email error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+    
+    return Response({
+        "message": "Password reset initiated",
+        "found": True,
+        "email_sent": email_sent,
+        "token": token,
+        "reset_url": reset_url,
+        "note": "For development, use the token above to reset password directly"
+    }, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def verify_reset_token(request):
+    serializer = VerifyTokenSerializer(data=request.data)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    token = serializer.validated_data['token']
+    
+    try:
+        reset_token = PasswordResetToken.objects.get(token=token)
+    except PasswordResetToken.DoesNotExist:
+        return Response({
+            "valid": False,
+            "message": "Invalid or expired token"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    if not reset_token.is_valid():
+        return Response({
+            "valid": False,
+            "message": "Invalid or expired token"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    return Response({
+        "valid": True,
+        "message": "Token is valid"
+    }, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def reset_password(request):
+    serializer = ResetPasswordSerializer(data=request.data)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    token = serializer.validated_data['token']
+    new_password = serializer.validated_data['password']
+    
+    try:
+        reset_token = PasswordResetToken.objects.get(token=token)
+    except PasswordResetToken.DoesNotExist:
+        return Response({
+            "message": "Invalid or expired token"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    if not reset_token.is_valid():
+        return Response({
+            "message": "Invalid or expired token"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    if reset_token.user:
+        reset_token.user.password = new_password
+        reset_token.user.save()
+    elif reset_token.admin:
+        reset_token.admin.password = new_password
+        reset_token.admin.save()
+    
+    reset_token.is_used = True
+    reset_token.save()
+    
+    return Response({
+        "message": "Password has been reset successfully"
+    }, status=status.HTTP_200_OK)
 
 
 

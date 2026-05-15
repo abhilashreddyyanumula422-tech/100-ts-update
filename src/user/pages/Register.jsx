@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, User, ArrowRight, Phone, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { register } from "../../services/api";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -82,28 +83,20 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://192.168.1.15:8000/api/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          password: form.password
-        })
+      const { ok, data } = await register({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        password: form.password
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (ok) {
         alert("Registered successfully ✅");
         navigate("/login");
       } else {
         alert(data.error || "Registration Failed");
       }
-    } catch (error) {
+    } catch {
       alert("Server error");
     } finally {
       setLoading(false);

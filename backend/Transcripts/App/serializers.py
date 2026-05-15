@@ -81,9 +81,30 @@ class CertificateSerializer(serializers.ModelSerializer):
 
 
 from rest_framework import serializers
-from .models import Payment
+from .models import Payment, PasswordResetToken
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = "__all__"
+
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+class VerifyTokenSerializer(serializers.Serializer):
+    token = serializers.CharField(required=True)
+
+class ResetPasswordSerializer(serializers.Serializer):
+    token = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, min_length=6)
+    confirm_password = serializers.CharField(required=True, min_length=6)
+
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError("Passwords do not match")
+        return data
+
+class PasswordResetTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PasswordResetToken
+        fields = ['token', 'created_at', 'expires_at', 'is_used']

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, ArrowLeft, CheckCircle2, ShieldCheck } from "lucide-react";
+import { forgotPassword } from "../../services/api";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const ForgotPassword = () => {
   
   const [loading, setLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [resetData, setResetData] = useState(null);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,23 +25,20 @@ const ForgotPassword = () => {
     setLoading(true);
     
     try {
-      const response = await fetch("http://192.168.1.15:8000/api/forgot-password/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: form.email
-        })
-      });
+      const { ok, data } = await forgotPassword(form.email);
       
-      if (response.ok) {
-        setIsSent(true);
+      if (ok) {
+        if (data.found) {
+          setResetData(data);
+          setIsSent(true);
+        } else {
+          alert("No account found with this email");
+        }
       } else {
-        const data = await response.json();
         alert(data.error || "Failed to send reset link");
       }
     } catch (error) {
+      console.error("Error:", error);
       alert("Server error. Please try again.");
     } finally {
       setLoading(false);
@@ -129,12 +128,25 @@ const ForgotPassword = () => {
               <h2 className="text-2xl font-black text-slate-800 mb-4">
                 Reset Link Sent!
               </h2>
-              <p className="text-slate-500 mb-8">
+              <p className="text-slate-500 mb-4">
                 Check your email for instructions to reset your password
               </p>
+              
+              {resetData && (
+                <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6">
+                  <p className="text-xs font-bold text-blue-600 mb-2">FOR DEVELOPMENT:</p>
+                  <button
+                    onClick={() => navigate(`/reset-password?token=${resetData.token}`)}
+                    className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all"
+                  >
+                    Reset Password Now (Skip Email)
+                  </button>
+                </div>
+              )}
+              
               <button
                 onClick={() => navigate("/login")}
-                className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-lg hover:bg-blue-700 transition-all"
+                className="w-full bg-slate-800 text-white py-4 rounded-2xl font-black text-lg hover:bg-slate-900 transition-all"
               >
                 Back to Login
               </button>

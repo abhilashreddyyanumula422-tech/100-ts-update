@@ -1,9 +1,9 @@
 import {
   Search, Filter, Eye, CheckCircle, Clock, XCircle, Users, X,
   MapPin, Mail, CreditCard, Truck, FileCheck, CheckCircle2, Circle,
-  Send, Copy, Check, AlertCircle, MessageCircle, Phone
+  Send, Copy, Check, AlertCircle, MessageCircle
 } from "lucide-react";
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import EmptyState from "../../components/EmptyState";
 
 const StudentRequests = () => {
@@ -21,24 +21,24 @@ const StudentRequests = () => {
   const companyName = "100 Transcripts";
 
   // ✅ Dynamic API Base
-  const API_BASE = `http://192.168.1.15:8000`;
+  const API_BASE = `http://192.168.1.20:8000`;
 
   // ✅ FETCH API
-  const fetchRequests = useCallback(async () => {
-    try {
-      const res = await fetch(`${API_BASE}/api/applications/`, {
-        cache: "no-store"
-      });
-      const data = await res.json();
-      setRequests(data);
-    } catch (err) {
-      // Error fetching requests handled
-    }
-  }, [API_BASE]);
-
   useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/applications/`, {
+          cache: "no-store"
+        });
+        const data = await res.json();
+        setRequests(data);
+      } catch {
+        // Error fetching requests handled
+      }
+    };
+    
     fetchRequests();
-  }, [fetchRequests]);
+  }, [API_BASE]);
 
   const handleSendEmail = async () => {
     if (!replyingTo) return;
@@ -65,7 +65,7 @@ const StudentRequests = () => {
         const data = await res.json();
         alert("❌ " + (data.error || "Failed to send"));
       }
-    } catch (err) {
+    } catch {
       // Error handled
       alert("❌ Server error");
     }
@@ -85,11 +85,20 @@ const StudentRequests = () => {
 
       if (!res.ok) throw new Error("Update failed");
 
-      await fetchRequests();
+      // Refetch requests to update the UI
+      const fetchUpdatedRequests = async () => {
+        const res = await fetch(`${API_BASE}/api/applications/`, {
+          cache: "no-store"
+        });
+        const data = await res.json();
+        setRequests(data);
+      };
+      await fetchUpdatedRequests();
+      
       setSelectedStudent(prev =>
         prev ? { ...prev, status: newStatus, admin_message: message, agent: agent !== null ? agent : prev.agent } : null
       );
-    } catch (err) {
+    } catch {
       // Error handled
       alert("Failed to update status");
     }
@@ -203,104 +212,145 @@ Please check your email for detailed information or contact us if you have any q
       </div>
 
       {/* Data Table */}
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
-        {filtered.length === 0 ? (
-          <EmptyState 
-            type="noResults"
-            message="No student requests found"
-            description={search ? "Try adjusting your search criteria" : "There are no student requests to display"}
-          />
-        ) : (
-          <>
-            {/* Desktop Table */}
-            <div className="hidden md:block overflow-x-auto">
-              <table className="w-full text-sm text-left">
-                <thead className="bg-slate-50 text-slate-500 text-xs uppercase font-bold">
-                  <tr>
-                    <th className="p-4">Student</th>
-                    <th className="p-4">Request ID</th>
-                    <th className="p-4">Phone</th>
-                    <th className="p-4">University</th>
-                    <th className="p-4">Request</th>
-                    <th className="p-4">Payment</th>
-                    <th className="p-4">Status</th>
-                    <th className="p-4 text-right pr-6">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((req) => (
-                    <tr key={req.id} className="border-t hover:bg-slate-50 transition">
-                      <td className="p-4">
-                        <div className="font-semibold text-slate-700">{req.fullName}</div>
-                        <div className="text-xs text-blue-500 font-medium">{req.email}</div>
-                      </td>
-                      <td className="p-4 text-slate-600">{req.id}</td>
-                      <td className="p-4 text-slate-600">{req.phone}</td>
-                      <td className="p-4 text-slate-600">{req.university}</td>
-                      <td className="p-4 text-slate-600">{req.type}</td>
-                      <td className="p-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${req.payment === "Paid" ? "bg-green-100 text-green-600" : "bg-yellow-100 text-yellow-600"}`}>
-                          {req.payment}
-                        </span>
-                      </td>
-                      <td className="p-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${String(req.status || "").toLowerCase().trim() === "approved" ? "bg-green-100 text-green-600" : String(req.status || "").toLowerCase().trim() === "pending" ? "bg-yellow-100 text-yellow-600" : "bg-red-100 text-red-600"}`}>
-                          {req.status || "Pending"}
-                        </span>
-                      </td>
-                      <td className="p-4 text-right pr-6 space-x-2">
-                        <button onClick={() => handleWhatsApp(req)} className="p-2 text-green-600 hover:bg-green-100 rounded-lg transition inline-flex align-middle" title="Send WhatsApp message">
-                          <MessageCircle size={18} />
-                        </button>
-                        <button onClick={() => setReplyingTo(req)} className="px-3 py-1 bg-blue-600 text-white rounded-lg text-xs font-bold hover:bg-blue-700 transition">Reply</button>
-                        <button onClick={() => setSelectedStudent(req)} className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition inline-flex align-middle">
-                          <Eye size={18} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+   {/* Desktop Table */}
+<div className="hidden md:block overflow-x-auto">
+  <table className="w-full text-sm text-left">
+    
+    {/* TABLE HEADER */}
+    <thead className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider font-bold border-b border-slate-200">
+      <tr>
+        <th className="p-4">Student</th>
+        <th className="p-4">Request ID</th>
+        <th className="p-4">University</th>
+        <th className="p-4">Request Type</th>
+        <th className="p-4">Phone</th>
+        <th className="p-4">Payment</th>
+        <th className="p-4">Status</th>
+        <th className="p-4 text-right pr-6">Actions</th>
+      </tr>
+    </thead>
 
-            {/* Mobile Card Layout */}
-            <div className="md:hidden space-y-3 p-4">
-              {filtered.map((req) => (
-                <div key={req.id} className="bg-slate-50 rounded-xl p-4 border border-slate-200">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h3 className="font-bold text-slate-800">{req.fullName}</h3>
-                      <p className="text-xs text-blue-500">{req.email}</p>
-                    </div>
-                    <span className={`px-2 py-1 rounded-full text-xs font-bold ${String(req.status || "").toLowerCase().trim() === "approved" ? "bg-green-100 text-green-600" : String(req.status || "").toLowerCase().trim() === "pending" ? "bg-yellow-100 text-yellow-600" : "bg-red-100 text-red-600"}`}>
-                      {req.status || "Pending"}
-                    </span>
-                  </div>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between"><span className="text-slate-500">ID:</span><span className="text-slate-700 font-medium">{req.id}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-500">Phone:</span><span className="text-slate-700 font-medium">{req.phone}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-500">University:</span><span className="text-slate-700 font-medium">{req.university}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-500">Request:</span><span className="text-slate-700 font-medium">{req.type}</span></div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">Payment:</span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-bold ${req.payment === "Paid" ? "bg-green-100 text-green-600" : "bg-yellow-100 text-yellow-600"}`}>{req.payment}</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-2 mt-4">
-                    <button onClick={() => handleWhatsApp(req)} className="flex-1 flex items-center justify-center gap-2 p-2 text-green-600 bg-green-50 rounded-lg transition min-h-[44px]">
-                      <MessageCircle size={18} /> WhatsApp
-                    </button>
-                    <button onClick={() => setReplyingTo(req)} className="flex-1 bg-blue-600 text-white rounded-lg text-xs font-bold hover:bg-blue-700 transition min-h-[44px]">Reply</button>
-                    <button onClick={() => setSelectedStudent(req)} className="flex-1 text-blue-600 bg-blue-50 rounded-lg transition min-h-[44px]">
-                      <Eye size={18} className="mx-auto" />
-                    </button>
-                  </div>
+    {/* TABLE BODY */}
+    <tbody>
+      {filtered.map((req) => (
+        <tr
+          key={req.id}
+          className="border-t border-slate-100 hover:bg-slate-50 transition-all duration-200"
+        >
+          
+          {/* STUDENT */}
+          <td className="p-4">
+            <div className="flex items-center gap-3">
+              
+              {/* Avatar */}
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
+                {req.fullName?.charAt(0)}
+              </div>
+
+              {/* Name + Email */}
+              <div>
+                <div className="font-semibold text-slate-800">
+                  {req.fullName}
                 </div>
-              ))}
+
+                <div className="text-xs text-slate-500">
+                  {req.email}
+                </div>
+              </div>
             </div>
-          </>
-        )}
-      </div>
+          </td>
+
+          {/* REQUEST ID */}
+          <td className="p-4">
+            <span className="font-medium text-slate-700">
+              {req.id}
+            </span>
+          </td>
+
+          {/* UNIVERSITY */}
+          <td className="p-4 text-slate-600 font-medium">
+            {req.university}
+          </td>
+
+          {/* REQUEST TYPE */}
+          <td className="p-4">
+            <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold">
+              {req.type}
+            </span>
+          </td>
+
+          {/* PHONE */}
+          <td className="p-4 text-slate-600">
+            {req.phone}
+          </td>
+
+          {/* PAYMENT */}
+          <td className="p-4">
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-bold ${
+                req.payment === "Paid"
+                  ? "bg-green-100 text-green-700"
+                  : "bg-yellow-100 text-yellow-700"
+              }`}
+            >
+              {req.payment}
+            </span>
+          </td>
+
+          {/* STATUS */}
+          <td className="p-4">
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-bold ${
+                String(req.status || "")
+                  .toLowerCase()
+                  .trim() === "approved"
+                  ? "bg-green-100 text-green-700"
+                  : String(req.status || "")
+                      .toLowerCase()
+                      .trim() === "pending"
+                  ? "bg-yellow-100 text-yellow-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+            >
+              {req.status || "Pending"}
+            </span>
+          </td>
+
+          {/* ACTIONS */}
+          <td className="p-4 text-right pr-6">
+            <div className="flex justify-end gap-2">
+
+              {/* WHATSAPP */}
+              <button
+                onClick={() => handleWhatsApp(req)}
+                className="p-2 rounded-xl bg-green-50 text-green-600 hover:bg-green-100 transition"
+                title="WhatsApp"
+              >
+                <MessageCircle size={17} />
+              </button>
+
+              {/* REPLY */}
+              <button
+                onClick={() => setReplyingTo(req)}
+                className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition"
+              >
+                Reply
+              </button>
+
+              {/* VIEW */}
+              <button
+                onClick={() => setSelectedStudent(req)}
+                className="p-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
+              >
+                <Eye size={17} />
+              </button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
       {/* --- FILTER POPUP MODAL --- */}
       {isFilterModalOpen && (
@@ -444,7 +494,7 @@ Please check your email for detailed information or contact us if you have any q
                           </button>
                           <button
                             onClick={() => {
-                              window.open(`http://192.168.1.15:8000/api/download/${doc.id}/`);
+                              window.open(`http://192.168.1.20:8000/api/download/${doc.id}/`);
                             }}
                             className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-200 transition"
                           >

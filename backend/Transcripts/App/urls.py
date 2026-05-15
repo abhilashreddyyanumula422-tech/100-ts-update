@@ -25,6 +25,9 @@ urlpatterns = [
     path("colleges/", views.get_colleges),
     path("verifications/", views.get_verified_applications, name="get_verifications"),
     path("refund/", views.refund_payment),
+    path("forgot-password/", views.forgot_password, name="forgot_password"),
+    path("verify-reset-token/", views.verify_reset_token, name="verify_reset_token"),
+    path("reset-password/", views.reset_password, name="reset_password"),
     
     
 

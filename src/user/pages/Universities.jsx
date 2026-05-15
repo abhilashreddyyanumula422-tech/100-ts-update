@@ -58,7 +58,7 @@ const Universities = () => {
               <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
                 Your Gateway to
               </span>
-              <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-600 bg-clip-text text-transparent">
                 Transcript Excellence
               </span>
             </h1>
