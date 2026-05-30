@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import digilockerLogo from "../../assets/digilocker_logo.png";
 import { API_BASE_URL as API_BASE } from "../../services/api";
@@ -48,6 +48,15 @@ html, body, #root {
   display: flex;
   padding-top: 70px;
   background: #f8fafc;
+  min-height: 100vh;
+}
+
+@media (min-width: 1025px) {
+  .app-shell {
+    height: calc(100vh - 0px); /* Adjust based on navbar */
+    overflow: hidden;
+    padding-top: 70px;
+  }
 }
 
 /* LEFT PANEL */
@@ -58,8 +67,7 @@ html, body, #root {
   position: sticky;
   top: 70px;
   align-self: flex-start;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
+  background: #ffffff;
   border-right: 1px solid rgba(148, 163, 184, 0.2);
   display: flex;
   flex-direction: column;
@@ -73,6 +81,14 @@ html, body, #root {
 .portal-panel {
   flex: 1;
   background: #f8fafc;
+}
+
+@media (min-width: 1025px) {
+  .portal-panel {
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
 }
 
 .panel-glow-bottom { display: none; }
@@ -1160,6 +1176,31 @@ html, body, #root {
 @media (max-width: 960px) {
   .dual-upload-container { grid-template-columns: 1fr; }
 }
+
+.side-content {
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+}
+
+.side-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.side-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.side-content::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.side-content::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
 `;
 
 /* ─────────────────────────────────────────
@@ -1948,7 +1989,8 @@ const Step4 = ({ form, reset }) => (
 ───────────────────────────────────────── */
 export default function Apply() {
   const location = useLocation();
-  const [flowType, setFlowType] = useState('manual'); // Default to manual
+  const navigate = useNavigate();
+  const [flowType, setFlowType] = useState('manual'); 
   const [activeStep, setActiveStep] = useState(0);
   const [trackId, setTrackId] = useState("");
   const [animKey, setAnimKey] = useState(0);
@@ -2007,7 +2049,7 @@ export default function Apply() {
   }, []);
 
   // ✅ Dynamic API Base
-  const API_BASE = API_BASE_URL;
+  // const API_BASE = API_BASE_URL; // Removed as it is imported at the top
 
   const goStep = useCallback((n) => {
     setActiveStep(n);
@@ -2135,9 +2177,9 @@ export default function Apply() {
     setUpCompressed(p => ({ ...p, [type]: null }));
   }, []);
 
-  const openDigiLocker = useCallback((type, label) => {
-    setDigiModal({ open: true, type, label });
-  }, []);
+  const openDigiLocker = useCallback(() => {
+    navigate("/signin");
+  }, [navigate]);
 
   const handleDigiLockerFetch = useCallback((docs) => {
     const { type } = digiModal;
@@ -2370,15 +2412,6 @@ export default function Apply() {
   const fillPct = Math.round(((activeStep + 1) / (PROC.length)) * 100);
 
   return (
-    <>
-      {digiModal.open && (
-        <DigiLockerModal
-          targetLabel={digiModal.label}
-          onClose={() => setDigiModal({ open: false, type: null, label: "" })}
-          onFetch={handleDigiLockerFetch}
-        />
-      )}
-
       <div className="app-shell">
         <RoadmapPanel activeStep={activeStep} />
         <div className="portal-panel">
@@ -2463,6 +2496,5 @@ export default function Apply() {
           </div>
         </div>
       </div>
-    </>
-  );
+    );
 }

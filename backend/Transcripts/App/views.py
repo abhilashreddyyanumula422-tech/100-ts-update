@@ -643,7 +643,7 @@ def get_applications(request):
             "agent": app.agent or "Unassigned",
             "district": getattr(app, 'district', 'N/A'), # if added
             "documentsList": [
-                {"id": doc.id, "name": doc.name, "status": "Verified", "url": f"http://192.168.1.15:8000{doc.file.url}"}
+                {"id": doc.id, "name": doc.name, "status": "Verified", "url": f"http://127.0.0.1:8000{doc.file.url}"}
                 for doc in app.documents.all()
             ]
         })
