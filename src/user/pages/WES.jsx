@@ -6,7 +6,7 @@ import {
   Building2, CheckCircle2, Sparkles
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo100 from "../../assets/100logo.png";
+import wes2 from "../../assets/wes2.mp4";
 import wes1 from "../../assets/WES1.png";
 
 const WES = () => {
@@ -103,7 +103,7 @@ const WES = () => {
                 <Building2 className="w-4 h-4 text-blue-600" />
                 <span className="text-slate-600 text-[10px] font-black uppercase tracking-widest">Official WES Partnership</span>
               </div>
-              <h1 className="text-5xl lg:text-7xl font-black text-black leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.15] tracking-tight">
                 100 Transcripts & <span className="text-blue-600">WES</span>
               </h1>
               <p className="text-slate-600 text-lg md:text-xl font-medium">
@@ -122,11 +122,13 @@ const WES = () => {
             </motion.div>
 
             <motion.div className="lg:w-1/2 flex justify-center">
-              {/* INCREASED LOGO SIZE HERE */}
-              <img
-                src={logo100}
-                alt="100 Transcripts Logo"
-                className="w-100 md:w-[600px] h-auto object-contain"
+              <video
+                src={wes2}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full md:w-[600px] h-auto object-contain rounded-2xl"
               />
             </motion.div>
           </div>
@@ -137,7 +139,7 @@ const WES = () => {
       <section className="bg-white pb-32 pt-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-4xl font-black text-black mb-2">WES Evaluation</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 tracking-tight">WES Evaluation</h2>
             <p className="text-blue-600 font-bold uppercase tracking-widest text-xs">Seamless Step-by-Step Process</p>
           </div>
 
@@ -158,7 +160,7 @@ const WES = () => {
                     </div>
                     <div className="flex-1">
                       <span className="text-[10px] font-black text-blue-600 uppercase">Step {idx + 1}</span>
-                      <h3 className="text-xl font-black text-black mb-2">{step.title}</h3>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
                       <p className="text-slate-600 text-sm font-medium">{step.description}</p>
                       <AnimatePresence>
                         {activeStep === step.id && (

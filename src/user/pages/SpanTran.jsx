@@ -5,7 +5,7 @@ import {
   Shield, BadgeCheck, Building2, CheckCircle2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import Spantra1 from "../../assets/Spr1.png";
+import spt from "../../assets/spt.mp4";
 
 const SpanTran = () => {
   const [activeStep, setActiveStep] = useState(null);
@@ -98,10 +98,10 @@ const SpanTran = () => {
             >
               <div className="inline-flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-full px-5 py-2">
                 <Building2 className="w-4 h-4 text-blue-600" />
-                <span className="text-slate-600 text-[10px] font-black uppercase tracking-[0.3em]">Official SpanTran Partnership</span>
+                <span className="text-slate-600 text-[10px] font-bold uppercase tracking-[0.2em]">Official SpanTran Partnership</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-black leading-[1.1] tracking-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.15] tracking-tight">
                 100 Transcripts is partnered with <span className="text-blue-600">SpanTran</span>
               </h1>
 
@@ -128,13 +128,13 @@ const SpanTran = () => {
               className="lg:w-1/2 flex justify-center"
             >
               <div className="relative bg-white p-4 flex items-center justify-center">
-                <motion.img
-                  src={Spantra1}
-                  alt="SpanTran Partnership"
-                  className="w-full max-w-lg h-auto object-contain"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6 }}
+                <video
+                  src={spt}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full max-w-lg h-auto object-contain rounded-2xl"
                 />
               </div>
             </motion.div>
@@ -146,7 +146,7 @@ const SpanTran = () => {
       <section className="bg-white pb-32 pt-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-black mb-4">SpanTran Evaluation</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 tracking-tight">SpanTran Evaluation</h2>
             <div className="flex items-center justify-center gap-4">
               <span className="h-[2px] w-12 bg-slate-100" />
               <p className="text-blue-600 font-bold uppercase tracking-widest text-sm">Step by Step Guide</p>
@@ -160,7 +160,7 @@ const SpanTran = () => {
               {steps.map((step, idx) => (
                 <motion.div
                   key={step.id}
-                  className={`group bg-white p-8 rounded-[2rem] border transition-all duration-300 cursor-pointer ${activeStep === step.id ? 'border-blue-500 shadow-xl' : 'border-slate-100 shadow-sm'}`}
+                  className={`group bg-white p-5 rounded-xl border transition-all duration-300 cursor-pointer ${activeStep === step.id ? 'border-blue-300 shadow-xl shadow-blue-500/10 -translate-y-1' : 'border-slate-100 hover:border-blue-200 shadow-sm shadow-slate-200/40 hover:-translate-y-1 hover:shadow-md hover:shadow-blue-500/10'}`}
                   onMouseEnter={() => setActiveStep(step.id)}
                   onMouseLeave={() => setActiveStep(null)}
                 >
@@ -193,7 +193,7 @@ const SpanTran = () => {
             </div>
 
             <div className="lg:sticky lg:top-32 h-fit space-y-8">
-              <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-lg text-center lg:text-left">
+              <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 text-center lg:text-left hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300">
                 <h3 className="text-2xl font-black text-black tracking-tight mb-4">Official Support</h3>
                 <p className="text-slate-600 text-base font-medium leading-relaxed mb-8">Our experts are here to guide you through every step of your SpanTran evaluation process.</p>
                 <a
@@ -207,7 +207,7 @@ const SpanTran = () => {
                 </a>
               </div>
 
-              <div className="bg-blue-600 p-8 rounded-[2.5rem] flex items-center gap-6 shadow-xl">
+              <div className="bg-blue-600 p-6 rounded-xl flex items-center gap-6 shadow-md shadow-blue-500/20">
                 <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
                   <BadgeCheck className="w-8 h-8 text-white" />
                 </div>

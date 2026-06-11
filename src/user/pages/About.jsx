@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Building2, Award, Users, CheckCircle2, Shield, Globe, ArrowRight } from "lucide-react";
+import { Building2, Award, Users, Shield, ArrowRight, CheckCircle, GraduationCap, Globe } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import certificate1 from "../../assets/certificate1.jpg";
 import certificate2 from "../../assets/certificate2.jpg";
@@ -11,6 +11,35 @@ import indiaMap from "../../assets/INDIA-MAp.jpg";
 import isoImg from "../../assets/ISO.jpg";
 import starImg from "../../assets/Star-IMG.jpg";
 import startupImg from "../../assets/Startup-IMG.jpg";
+import about7 from "../../assets/about7.png";
+import about6 from "../../assets/about6.png";
+
+const Counter = ({ from = 0, to, duration = 2, suffix = "" }) => {
+  const [count, setCount] = useState(from);
+
+  useEffect(() => {
+    let startTime;
+    let animationFrame;
+
+    const animateCount = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / (duration * 1000), 1);
+      const easeOut = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
+
+      setCount(Math.floor(from + (to - from) * easeOut));
+
+      if (percentage < 1) {
+        animationFrame = requestAnimationFrame(animateCount);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animateCount);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [from, to, duration]);
+
+  return <span>{count}{suffix}</span>;
+};
 
 const PRIMARY = "#3B5575";
 
@@ -18,128 +47,174 @@ export default function About() {
   const navigate = useNavigate();
 
   const stats = [
-    { label: "Institutions Covered", value: "289+", sub: "Universities across India", icon: Building2 },
-    { label: "MOI Certifications", value: "3200+", sub: "Successfully processed", icon: Award },
-    { label: "Total Applicants", value: "18000+", sub: "Students served globally", icon: Users },
+    { label: "Institutions Covered", value: 289, sub: "Universities across India", icon: Building2 },
+    { label: "MOI Certifications", value: 3200, sub: "Successfully processed", icon: Award },
+    { label: "Total Applicants", value: 18000, sub: "Students served globally", icon: Users },
   ];
 
   const networkImages = [clgImg, ieeImg, indiaMap, isoImg, starImg, startupImg];
 
   return (
-    <div className="bg-white min-h-screen pt-20">
-      
+    <div className="bg-slate-50 min-h-screen pt-20 font-sans selection:bg-blue-500/30">
+
       {/* HERO SECTION */}
-      <section className="relative text-white py-20 px-6 overflow-hidden bg-gradient-to-r from-white-600 to-cyan-600">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-[120px] -mr-40 -mt-40" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] -ml-20 -mb-20" />
-        
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
-          <motion.div 
+      <section className="relative text-white py-20 lg:py-28 px-6 overflow-hidden bg-[#0A0F1C]">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/15 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative z-10">
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8 text-center lg:text-left"
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="space-y-6 text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 shadow-sm">
-              <Shield className="w-4 h-4 text-blue-300" />
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-tight">
-              About <span className="text-sky-600">100 Transcripts</span>
-            </h1>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 shadow-sm"
+            >
+              <Shield className="w-4 h-4 text-blue-400" />
+              <span className="text-xs font-semibold text-slate-300 tracking-wider uppercase">ISO Certified Partner</span>
+            </motion.div>
 
-            <p className="text-black text-lg md:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]"
+            >
+              Empowering Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Global Journey</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-slate-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium"
+            >
               A specialized ISO-certified firm dedicated to securing educational documents and transcripts from universities across India since 2016.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <button
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex flex-wrap justify-center lg:justify-start gap-4 pt-2"
+            >
+              <motion.button
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => navigate("/apply")}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-black shadow-xl hover:scale-105 transition-all flex items-center gap-2 group"
+                className="bg-white text-slate-900 px-7 py-3.5 rounded-xl font-semibold shadow-xl shadow-white/5 hover:shadow-white/10 transition-all flex items-center gap-2 group"
               >
                 Apply Now
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+                <ArrowRight className="w-4 h-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+            </motion.div>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3, type: "spring", damping: 20 }}
             className="relative"
           >
-            <div className="absolute inset-0 bg-blue-500/20 rounded-[3rem] blur-3xl animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-400/20 rounded-2xl blur-2xl" />
             <img
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80"
-              className="relative rounded-[3rem] shadow-2xl w-full border border-white/10"
-              alt="Our Team"
+              src={about7}
+              className="relative rounded-2xl shadow-2xl w-full border border-white/10 object-cover"
+              alt="About 100 Transcripts"
             />
           </motion.div>
         </div>
       </section>
 
       {/* MISSION SECTION */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="order-2 lg:order-1"
+      <section className="py-20 px-6 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, type: "spring", damping: 20 }}
+            className="order-2 lg:order-1 relative group"
           >
-            <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80"
-              className="rounded-[3rem] shadow-2xl w-full border border-slate-200"
-              alt="Collaboration"
-            />
+            <div className="absolute -inset-4 bg-slate-100 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+            <div className="overflow-hidden rounded-2xl shadow-xl border border-slate-200">
+              <img
+                src={about6}
+                className="w-full group-hover:scale-105 transition-transform duration-700 object-cover"
+                alt="Our Mission"
+              />
+            </div>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.2 }}
             className="space-y-6 order-1 lg:order-2"
           >
-            <h2 className="text-3xl md:text-4xl font-black text-slate-800">Our Mission & Vision</h2>
-            <div className="w-20 h-1.5 bg-blue-500 rounded-full" />
-            <p className="text-slate-600 text-lg leading-relaxed font-medium">
-              We simplify the process of obtaining academic certificates and transcripts, helping students and professionals worldwide save time and effort.
+            <div>
+              <h2 className="text-sm font-semibold text-blue-600 tracking-wider uppercase mb-2">Our Mission</h2>
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Bridging the Gap in Global Education</h3>
+            </div>
+
+            <p className="text-slate-600 text-base leading-relaxed font-medium">
+              We simplify the complex process of obtaining academic certificates and transcripts, helping students and professionals worldwide save time, reduce stress, and focus on their goals.
             </p>
-            <p className="text-slate-600 text-lg leading-relaxed font-medium">
-              With a dedicated team across 28 regions in India, we've helped over 18,000 applicants achieve their global education goals through reliable and efficient document processing.
+            <p className="text-slate-600 text-base leading-relaxed font-medium">
+              With a dedicated presence across 28 regions in India, we've helped over 18,000 applicants achieve their global education aspirations through secure, reliable, and efficient document processing.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* STATS SECTION */}
-      <section className="pb-24 px-6 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8">
+      <section className="pb-12 px-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-5">
           {stats.map((stat, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 text-center space-y-4 hover:scale-[1.02] transition-all"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: idx * 0.15, duration: 0.6, type: "spring", damping: 20 }}
+              className="bg-white p-6 md:p-8 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/40 text-center space-y-3 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-200 group relative overflow-hidden"
             >
-              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto text-blue-600">
-                <stat.icon className="w-7 h-7" />
-              </div>
-              <h2 className="text-4xl font-black text-black">{stat.value}</h2>
-              <h3 className="text-lg font-bold text-black">{stat.label}</h3>
-              <p className="text-black text-sm font-medium">{stat.sub}</p>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-bl-full -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110 group-hover:bg-blue-100/50" />
+              <motion.div
+                className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto text-blue-600 border border-slate-100 shadow-sm relative z-10 transition-transform duration-500 group-hover:scale-110"
+              >
+                <stat.icon className="w-6 h-6" />
+              </motion.div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight relative z-10">
+                <Counter from={0} to={stat.value} duration={2} suffix="+" />
+              </h2>
+              <h3 className="text-sm font-semibold text-slate-700 relative z-10">{stat.label}</h3>
+              <p className="text-slate-500 text-sm font-medium relative z-10">{stat.sub}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* RECOGNITIONS */}
-      <section className="py-24 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-black mb-16">Our Recognitions & Certifications</h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-sm font-semibold text-blue-600 tracking-wider uppercase mb-2">Verified Trust</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Our Recognitions & Certifications</h3>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-5">
             {[
               { img: certificate1, title: "StartupIndia Recognition" },
               { img: certificate2, title: "ISO Certification" },
@@ -147,20 +222,21 @@ export default function About() {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white p-6 rounded-[2.5rem] shadow-xl border border-slate-200 group"
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.15, duration: 0.6, type: "spring", damping: 20 }}
+                className="bg-white p-5 rounded-2xl shadow-lg shadow-slate-200/40 border border-slate-100 group transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-200"
               >
-                <h3 className="text-center font-black text-black mb-6 group-hover:text-blue-600 transition-colors">{item.title}</h3>
-                <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-slate-50 flex items-center justify-center">
+                <div className="aspect-[3/4] overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center mb-4 border border-slate-100 relative">
+                  <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/5 transition-colors duration-300 z-10" />
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="w-full h-full object-contain hover:scale-110 transition-transform duration-700"
+                    className="w-[85%] h-[85%] object-contain group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
+                <h3 className="text-center text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{item.title}</h3>
               </motion.div>
             ))}
           </div>
@@ -168,16 +244,24 @@ export default function About() {
       </section>
 
       {/* NETWORK SCROLL */}
-      <section className="py-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 mb-16">
-          <h2 className="text-3xl md:text-4xl font-black text-center text-slate-800">Our Network & Presence</h2>
+      <section className="py-12 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className="text-sm font-semibold text-blue-600 tracking-wider uppercase mb-2">Global Reach</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Our Network & Presence</h3>
+          </motion.div>
         </div>
-        
+
         <div className="relative">
           <div className="flex gap-6 animate-scroll whitespace-nowrap">
             {[...networkImages, ...networkImages].map((img, idx) => (
-              <div key={idx} className="min-w-[300px] bg-white p-4 rounded-3xl shadow-xl border border-slate-100">
-                <img src={img} alt="Network" className="w-full h-48 object-contain" />
+              <div key={idx} className="min-w-[280px] bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center justify-center">
+                <img src={img} alt="Network" className="w-full h-32 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0" />
               </div>
             ))}
           </div>
@@ -185,27 +269,60 @@ export default function About() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-24 px-6 max-w-5xl mx-auto">
+      <section className="py-12 px-6 max-w-5xl mx-auto">
         <motion.div
-          className="rounded-[3rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl bg-gradient-to-r from-blue-600 to-cyan-600"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          className="rounded-[2rem] p-10 md:p-16 text-center text-white relative overflow-hidden bg-[#0A0F1C] border border-slate-800"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, type: "spring", damping: 20 }}
         >
-          <div className="absolute top-0 left-0 w-full h-full bg-blue-400/5 blur-3xl" />
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-6 relative z-10">
-            Ready to Start Your Global Journey?
-          </h2>
-          <p className="text-blue-100 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium relative z-10">
-            Let 100 Transcripts LLP simplify your documentation process with certified transcripts and credential evaluations.
-          </p>
-          <button
-            onClick={() => navigate("/apply")}
-            className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-10 py-5 rounded-2xl font-black text-lg shadow-xl hover:scale-105 transition-all relative z-10 group"
+          <motion.div
+            className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[80px] -ml-20 -mb-20 pointer-events-none"
+            animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 relative z-10 text-white tracking-tight"
           >
-            Get Started Now
-            <ArrowRight className="w-5 h-5 inline-block ml-2 group-hover:translate-x-1 transition-transform" />
-          </button>
+            Ready to Start Your Global Journey?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="text-slate-400 text-base md:text-lg mb-8 max-w-2xl mx-auto font-medium relative z-10 leading-relaxed"
+          >
+            Let 100 Transcripts LLP simplify your documentation process with certified transcripts and credential evaluations.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="relative z-10"
+          >
+            <motion.button
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/apply")}
+              className="bg-white text-slate-900 px-8 py-4 rounded-xl font-semibold shadow-xl shadow-white/5 hover:shadow-white/10 transition-all flex items-center gap-2 mx-auto group"
+            >
+              Get Started Now
+              <ArrowRight className="w-5 h-5 text-slate-900 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </motion.div>
         </motion.div>
       </section>
 

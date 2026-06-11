@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import eceLogo from "../../assets/ECE_Logo_Color.png";
@@ -61,11 +61,25 @@ const itemVariants = {
 };
 
 const Partners = () => {
-  const leftPartners = partners.slice(0, 3);
-  const rightPartners = partners.slice(3, 6);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { current } = scrollRef;
+        // If at the end, scroll back to start, else scroll right
+        if (current.scrollLeft + current.clientWidth >= current.scrollWidth - 10) {
+          current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          current.scrollBy({ left: 350, behavior: "smooth" });
+        }
+      }
+    }, 3000); // scrolls every 3 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section className="w-full py-16 sm:py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
+    <section className="w-full pt-8 pb-16 sm:pt-12 sm:pb-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2" />
@@ -89,7 +103,7 @@ const Partners = () => {
             OUR PARTNERS
           </motion.span>
 
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-6 leading-tight tracking-tight">
             Credential Associates We{" "}
             <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
               Serve
@@ -102,91 +116,53 @@ const Partners = () => {
           </p>
         </motion.div>
 
-        {/* Partners Grid - Left and Right */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          {/* Left Side */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-4"
+        {/* Partners Horizontal Scroll */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scroll-smooth px-2" 
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {leftPartners.map((partner, index) => (
+            <style>{`
+              .flex::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
+            {partners.map((partner, index) => (
               <motion.a
                 key={partner.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.03, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                 href={partner.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-6 p-6 bg-white rounded-2xl border-2 border-gray-100 shadow-md hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300"
+                className="flex-none w-[320px] sm:w-[380px] snap-center group flex items-center gap-5 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-shadow duration-300"
               >
-                <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl group-hover:scale-105 transition-transform duration-300">
                   <img
                     src={partner.logo}
                     alt={partner.name}
-                    className="h-12 w-auto object-contain"
+                    className="h-10 sm:h-12 w-auto object-contain"
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                     {partner.name}
                   </h3>
                   <p className="text-sm text-gray-500 mt-1">Official Partner</p>
                 </div>
-                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full group-hover:bg-blue-600 transition-colors">
+                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-blue-50 rounded-full group-hover:bg-blue-600 transition-colors">
                   <svg className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </div>
               </motion.a>
             ))}
-          </motion.div>
-
-          {/* Right Side */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-4"
-          >
-            {rightPartners.map((partner, index) => (
-              <motion.a
-                key={partner.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                href={partner.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-6 p-6 bg-white rounded-2xl border-2 border-gray-100 shadow-md hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="h-12 w-auto object-contain"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                    {partner.name}
-                  </h3>
-                  <p className="text-sm text-gray-500 mt-1">Official Partner</p>
-                </div>
-                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full group-hover:bg-blue-600 transition-colors">
-                  <svg className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </div>
-              </motion.a>
-            ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

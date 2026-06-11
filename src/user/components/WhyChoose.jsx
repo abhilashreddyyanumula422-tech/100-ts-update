@@ -2,9 +2,9 @@ import React from "react";
 import { Clock, ShieldCheck, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 
-import FastProcessing from "../../assets/FastProcessing.png";
-import Secure from "../../assets/Secure.png";
-import Research from "../../assets/research.png";
+import FastProcessing from "../../assets/Fast.png";
+import Secure from "../../assets/Security.png";
+import Research from "../../assets/services.png";
 
 const features = [
   {
@@ -46,7 +46,7 @@ const WhyChoose = () => {
             <span className="w-12 h-[3px] bg-blue-600"></span>
           </div>
 
-          
+
 
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-base">
             With years of experience and a strong pan-India network, we make
@@ -68,13 +68,13 @@ const WhyChoose = () => {
             >
               {/* ICON */}
               {/* IMAGE */}
-<div className="w-full h-32 sm:h-44 flex items-center justify-center mb-4">
-  <img
-    src={item.image}
-    alt={item.title}
-    className="h-full object-contain group-hover:scale-110 transition duration-300"
-  />
-</div>
+              <div className="w-full h-32 sm:h-44 flex items-center justify-center mb-4">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full object-contain group-hover:scale-110 transition duration-300"
+                />
+              </div>
 
               {/* TITLE */}
               <h3 className="mt-2 text-base sm:text-lg font-semibold text-[#2f4a6d]">

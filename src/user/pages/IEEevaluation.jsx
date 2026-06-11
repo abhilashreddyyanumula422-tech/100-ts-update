@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import {
   Check, ArrowRight, FileText, Upload, UserPlus,
   Award, Clock, Shield, ExternalLink, Info, BadgeCheck,
-  Building2, CheckCircle2
+  Building2, CheckCircle2, UploadCloud, FileCheck, ClipboardCheck
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ieeLogo from "../../assets/100logo.png";
+import iee2 from "../../assets/iee2.mp4";
 import workflowImg from "../../assets/workflow.png";
 
 const IEEevaluation = () => {
@@ -179,9 +179,12 @@ const IEEevaluation = () => {
               className="lg:w-1/2 flex justify-center"
             >
               <div className="relative">
-                <motion.img
-                  src={ieeLogo}
-                  alt="IEE Partnership"
+                <motion.video
+                  src={iee2}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="max-w-xs md:max-w-sm lg:max-w-md h-auto"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
@@ -225,65 +228,56 @@ const IEEevaluation = () => {
                   step: 1,
                   title: "Create IEE Account",
                   description: "Choose between our exclusive partner discount or the standard registration process.",
-                  icon: "👤",
+                  icon: <UserPlus className="w-6 h-6 text-blue-600" />,
                   color: "blue"
                 },
                 {
                   step: 2,
                   title: "Prepare Documents",
                   description: "Gather required academic documents including CMM, Degree Certificate, and other necessary papers.",
-                  icon: "📄",
-                  color: "green"
+                  icon: <FileText className="w-6 h-6 text-blue-600" />,
+                  color: "blue"
                 },
                 {
                   step: 3,
                   title: "Upload & Submit",
                   description: "Submit your documents securely through our platform for IEE verification and evaluation.",
-                  icon: "⬆️",
+                  icon: <UploadCloud className="w-6 h-6 text-blue-600" />,
                   color: "blue"
                 },
                 {
                   step: 4,
                   title: "Get Evaluation",
                   description: "Receive your comprehensive credential evaluation report from IEE.",
-                  icon: "📋",
-                  color: "orange"
+                  icon: <FileCheck className="w-6 h-6 text-blue-600" />,
+                  color: "blue"
                 }
               ].map((item, index) => (
                 <motion.div
                   key={item.step}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.15 }}
                   whileHover={{
                     scale: 1.02,
-                    x: 10,
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
+                    y: -5,
+                    boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.15)"
                   }}
-                  className="flex items-start gap-4 p-6 bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="flex items-start gap-4 p-5 bg-white rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 hover:border-blue-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 group"
                 >
                   <motion.div
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      rotate: [0, 5, -5, 0]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: index * 0.5
-                    }}
-                    className={`w-12 h-12 rounded-full ${item.color === 'blue' ? 'bg-blue-100' : item.color === 'green' ? 'bg-green-100' : item.color === 'blue' ? 'bg-blue-100' : item.color === 'orange' ? 'bg-orange-100' : 'bg-gray-100'} flex items-center justify-center text-2xl flex-shrink-0`}
+                    className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/30 flex items-center justify-center flex-shrink-0 border border-blue-100/50 group-hover:scale-110 group-hover:bg-blue-100 transition-all duration-500"
                   >
                     {item.icon}
                   </motion.div>
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <div className={`w-8 h-8 rounded-full ${item.color === 'blue' ? 'bg-blue-600' : item.color === 'green' ? 'bg-green-600' : item.color === 'blue' ? 'bg-blue-600' : item.color === 'orange' ? 'bg-orange-600' : 'bg-gray-600'} text-white flex items-center justify-center text-sm font-bold`}>
+                      <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-black shadow-md shadow-blue-600/30">
                         {item.step}
                       </div>
-                      <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
+                      <h3 className="text-xl font-black text-slate-800 tracking-tight">{item.title}</h3>
                     </div>
-                    <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                    <p className="text-slate-600 text-sm font-medium leading-relaxed">{item.description}</p>
                   </div>
                 </motion.div>
               ))}
@@ -403,7 +397,7 @@ const IEEevaluation = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className={`group bg-white p-8 sm:p-10 rounded-[2.5rem] border transition-all duration-500 cursor-pointer ${activeStep === step.id ? 'border-blue-500 shadow-2xl shadow-blue-900/5 -translate-y-1' : 'border-slate-100 hover:border-blue-100 shadow-md shadow-slate-900/5'}`}
+                  className={`group bg-white p-5 rounded-xl border transition-all duration-500 cursor-pointer ${activeStep === step.id ? 'border-blue-300 shadow-xl shadow-blue-500/10 -translate-y-1' : 'border-slate-100 hover:border-blue-200 shadow-sm shadow-slate-200/40 hover:-translate-y-1 hover:shadow-md hover:shadow-blue-500/10'}`}
                   onMouseEnter={() => setActiveStep(step.id)}
                   onMouseLeave={() => setActiveStep(null)}
                 >
@@ -438,8 +432,8 @@ const IEEevaluation = () => {
             </div>
 
             <div className="lg:sticky lg:top-32 h-fit space-y-8">
-              <div className="bg-white p-10 sm:p-12 rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-50 rounded-full blur-3xl -mr-24 -mt-24 transition-colors group-hover:bg-blue-100" />
+              <div className="bg-white p-6 sm:p-8 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 relative overflow-hidden group hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -mr-16 -mt-16 transition-colors group-hover:bg-blue-100/50" />
                 <div className="relative z-10 space-y-6 text-center lg:text-left">
                   <h3 className="text-2xl font-black text-black tracking-tight">Official IEE ECA Report</h3>
                   <p className="text-slate-600 text-base font-medium leading-relaxed">Download a sample IEE evaluation report to understand the format and details provided to institutions.</p>
@@ -455,7 +449,7 @@ const IEEevaluation = () => {
                 </div>
               </div>
 
-              <div className="bg-blue-600 p-10 rounded-[3rem] relative overflow-hidden group shadow-xl shadow-blue-500/20">
+              <div className="bg-blue-600 p-6 sm:p-8 rounded-xl relative overflow-hidden group shadow-md shadow-blue-500/20">
                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative z-10 flex items-center gap-6">
                   <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">

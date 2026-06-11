@@ -95,7 +95,7 @@ const ProvisionalCertificate = () => {
       `}</style>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <main className="pt-24 pb-12 px-4"> {/* pt-24 adds space for a fixed header */}
+        <main className="pt-24 pb-12 px-4">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -197,14 +197,14 @@ const ProvisionalCertificate = () => {
                   variants={fadeUp}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                   className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-center mx-3 flex-shrink-0"
-                  style={{ width: '120px' }}
+                  style={{ width: '160px' }} // Updated width
                 >
                   <img
                     src={agency.logo}
                     alt={agency.short}
-                    className="w-16 h-16 object-contain mb-2"
+                    className="w-24 h-24 object-contain mb-2" // Updated size
                   />
-                  <h4 className="font-semibold text-gray-900 text-xs text-center">
+                  <h4 className="font-semibold text-gray-900 text-sm text-center">
                     {agency.short}
                   </h4>
                 </motion.div>
@@ -212,9 +212,6 @@ const ProvisionalCertificate = () => {
             </div>
           </div>
         </motion.div>
-
-
-
       </div>
     </div>
   );

@@ -1,30 +1,34 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Globe2, GraduationCap, ShieldCheck } from "lucide-react";
 
 const features = [
   {
     title: "Global Partnerships",
     description: "Official partner support for IEE, ECE, and SpanTran applications",
-    icon: "🌍",
-    color: "from-blue-500 to-indigo-600",
+    icon: Globe2,
+    gradient: "from-blue-50 to-blue-100",
+    iconColor: "text-blue-600",
   },
   {
     title: "Expert Guidance",
     description: "Guidance for WES, IQAS, CES, and UK ENIC document processing",
-    icon: "📋",
-    color: "from-blue-500 to-pink-600",
+    icon: GraduationCap,
+    gradient: "from-indigo-50 to-indigo-100",
+    iconColor: "text-indigo-600",
   },
   {
     title: "Certified Excellence",
     description: "ISO-certified service workflow with pan-India university coverage",
-    icon: "✨",
-    color: "from-cyan-500 to-blue-600",
+    icon: ShieldCheck,
+    gradient: "from-purple-50 to-purple-100",
+    iconColor: "text-purple-600",
   },
 ];
 
 const WhoWeAre = () => {
   return (
-    <section className="w-full bg-white py-16 sm:py-24 relative overflow-hidden">
+    <section className="w-full bg-white pt-6 pb-10 sm:pt-8 sm:pb-14 relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-100 to-blue-100 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2" />
@@ -35,18 +39,18 @@ const WhoWeAre = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8"
         >
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block px-4 py-2 mb-6 text-sm font-bold tracking-wider text-blue-600 bg-blue-50 rounded-full border-2 border-blue-200"
+            className="inline-block px-3 py-1.5 mb-3 text-xs font-bold tracking-wider text-blue-600 bg-blue-50 rounded-full border-2 border-blue-200"
           >
             WHO WE ARE
           </motion.span>
           
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-900 mb-2 leading-tight tracking-tight">
             Your Trusted Partner for
             <br />
             <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
@@ -54,7 +58,7 @@ const WhoWeAre = () => {
             </span>
           </h2>
           
-          <p className="max-w-3xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed">
+          <p className="max-w-3xl mx-auto text-sm sm:text-base text-gray-600 leading-relaxed">
             At <span className="font-bold text-blue-600">100 Transcripts LLP</span>, we've helped over 
             <span className="font-extrabold text-blue-600"> 17,000+ students</span> achieve their dreams with 
             fast, reliable, and secure transcript services across India.
@@ -62,25 +66,27 @@ const WhoWeAre = () => {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="group relative"
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300`} />
-              <div className="relative h-full p-8 bg-white rounded-3xl border-2 border-gray-100 hover:border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300">
-                <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  {feature.icon}
+        <div className="grid md:grid-cols-3 gap-4 mb-8">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                className="group h-full"
+              >
+                <div className="h-full p-5 bg-white rounded-[20px] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                  <div className={`w-11 h-11 mb-3 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}>
+                    <Icon className={`w-5 h-5 ${feature.iconColor}`} />
+                  </div>
+                  <h3 className="text-base font-semibold text-slate-900 mb-1.5">{feature.title}</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Stats Section */}
@@ -88,7 +94,7 @@ const WhoWeAre = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
         >
           {[
             { value: "17K+", label: "Happy Students" },
@@ -98,9 +104,9 @@ const WhoWeAre = () => {
           ].map((stat, index) => (
             <div
               key={index}
-              className="text-center p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100 shadow-md"
+              className="text-center p-4 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100 shadow-md"
             >
-              <div className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent mb-2">
+              <div className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent mb-1">
                 {stat.value}
               </div>
               <div className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
@@ -118,7 +124,7 @@ const WhoWeAre = () => {
           className="max-w-7xl mx-auto"
         >
           {/* gap-12 adds more space between the Map and the Text */}
-          <div className="grid lg:grid-cols-2 gap-12 items-stretch">
+          <div className="grid lg:grid-cols-2 gap-8 items-stretch">
             {/* Left Side - Map Card */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -177,16 +183,16 @@ const WhoWeAre = () => {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-col justify-center space-y-8 lg:pl-8"
+              className="flex flex-col justify-center space-y-5 lg:pl-6"
             >
               <div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   Simplifying Academic Credentials for a{" "}
                   <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                     Global Future
                   </span>
                 </h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-8">
+                <p className="text-sm text-gray-700 leading-relaxed mb-4">
                   Founded with the vision to streamline transcript procurement, 100 Transcripts LLP bridges students and institutions worldwide with secure, efficient document delivery—leveraging <span className="font-bold text-blue-600">15+ years of experience</span> in academic documentation and international credential evaluations.
                 </p>
               </div>

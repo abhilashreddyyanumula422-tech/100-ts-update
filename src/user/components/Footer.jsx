@@ -88,7 +88,7 @@ const Footer = () => {
   const [openTerms, setOpenTerms] = useState(false);
 
   return (
-    <footer className="bg-gradient-to-b from-[#050816] to-black text-white border-t border-white/10 overflow-hidden">
+    <footer className="bg-[#0A1424] text-white border-t border-white/10 overflow-hidden">
 
       <div className="mx-auto max-w-7xl px-6 py-4 lg:px-6">
 
@@ -228,7 +228,7 @@ const Footer = () => {
                       100 Transcripts LLP
                     </p>
                     <p className="mt-2 text-xs leading-6 text-slate-300">
-                      Plot No: 801, Mathrusree Nagar,<br/>
+                      Plot No: 801, Mathrusree Nagar,<br />
                       Hyderabad, Telangana 500049
                     </p>
                   </div>
@@ -286,7 +286,7 @@ const Footer = () => {
             © {currentYear} 100 Transcripts LLP. All rights reserved.
           </p>
 
- 
+
         </div>
       </div>
 

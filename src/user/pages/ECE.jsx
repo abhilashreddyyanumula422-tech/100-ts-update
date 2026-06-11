@@ -8,7 +8,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 
 // Assets
-import ecePartnership from "../../assets/ECE-Partnership1.png";
+import ecemp from "../../assets/ecemp.mp4";
 import eceFlow from "../../assets/eceflow.png";
 
 const ECE = () => {
@@ -113,10 +113,10 @@ const ECE = () => {
             >
               <div className="inline-flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-full px-5 py-2 shadow-sm">
                 <Building2 className="w-4 h-4 text-blue-600" />
-                <span className="text-blue-600 text-[10px] font-black uppercase tracking-[0.3em]">Official ECE Partnership</span>
+                <span className="text-blue-600 text-[10px] font-bold uppercase tracking-[0.2em]">Official ECE Partnership</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-black leading-[1.1] tracking-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.15] tracking-tight">
                 100 Transcripts is partnered with <span className="text-blue-600">ECE</span>
               </h1>
 
@@ -142,10 +142,13 @@ const ECE = () => {
               transition={{ duration: 0.8 }}
               className="lg:w-1/2 flex justify-center"
             >
-              <img
-                src={ecePartnership}
-                alt="ECE Partnership Flow Chart"
-                className="w-full max-w-xl h-auto rounded-2xl mix-blend-multiply"
+              <video
+                src={ecemp}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full max-w-xl h-auto mix-blend-multiply contrast-[1.2] brightness-[1.1]"
               />
             </motion.div>
           </div>
@@ -162,7 +165,7 @@ const ECE = () => {
       <section className="bg-[#f8fafc] pb-32 pt-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-black mb-4">ECE Evaluation Process</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 tracking-tight">ECE Evaluation Process</h2>
             <div className="flex items-center justify-center gap-4">
               <span className="h-[2px] w-12 bg-blue-200" />
               <p className="text-blue-600 font-bold uppercase tracking-widest text-sm">Step by Step Guide</p>
@@ -181,7 +184,7 @@ const ECE = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className={`group bg-white p-8 sm:p-10 rounded-[2.5rem] border transition-all duration-500 cursor-pointer ${activeStep === step.id ? 'border-blue-500 shadow-2xl shadow-blue-900/5 -translate-y-1' : 'border-slate-100 hover:border-blue-100 shadow-md shadow-slate-900/5'}`}
+                  className={`group bg-white p-5 rounded-xl border transition-all duration-500 cursor-pointer ${activeStep === step.id ? 'border-blue-300 shadow-xl shadow-blue-500/10 -translate-y-1' : 'border-slate-100 hover:border-blue-200 shadow-sm shadow-slate-200/40 hover:-translate-y-1 hover:shadow-md hover:shadow-blue-500/10'}`}
                   onMouseEnter={() => setActiveStep(step.id)}
                   onMouseLeave={() => setActiveStep(null)}
                 >
@@ -215,8 +218,8 @@ const ECE = () => {
               ))}
 
               {/* REPORT CARD - Now positioned on the LEFT below steps */}
-              <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden group mt-12">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-50 rounded-full blur-3xl -mr-24 -mt-24 transition-colors group-hover:bg-blue-100" />
+              <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 relative overflow-hidden group mt-12 hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -mr-16 -mt-16 transition-colors group-hover:bg-blue-100/50" />
                 <div className="relative z-10 space-y-6 text-center lg:text-left">
                   <h3 className="text-2xl font-black text-black tracking-tight">Official ECE ECA Report</h3>
                   <p className="text-slate-600 text-base font-medium leading-relaxed">Download a sample ECE evaluation report to understand the format provided to institutions.</p>
@@ -233,9 +236,9 @@ const ECE = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                className="bg-blue-50/30 backdrop-blur-sm p-6 sm:p-8 rounded-[3rem] border border-blue-100 shadow-2xl overflow-hidden group"
+                className="bg-blue-50/30 backdrop-blur-sm p-5 rounded-xl border border-blue-100 shadow-md shadow-slate-200/40 overflow-hidden group"
               >
-                <div className="relative bg-white rounded-[2rem] p-4 shadow-xl border border-white overflow-hidden">
+                <div className="relative bg-white rounded-xl p-4 shadow-xl border border-white overflow-hidden">
                   <img
                     src={eceFlow}
                     alt="ECE Workflow"
@@ -244,7 +247,7 @@ const ECE = () => {
                 </div>
               </motion.div>
 
-              <div className="bg-blue-600 p-10 rounded-[3rem] relative overflow-hidden group shadow-xl shadow-blue-500/20">
+              <div className="bg-blue-600 p-6 sm:p-8 rounded-xl relative overflow-hidden group shadow-md shadow-blue-500/20">
                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative z-10 flex items-center gap-6">
                   <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">

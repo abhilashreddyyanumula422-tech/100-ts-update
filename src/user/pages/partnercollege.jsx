@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import collegesData from "../data/collegesData";
 import Partners from "../components/Partners";
 import HowItWorks from "../components/HowItWorks";
+import CollegeServices from "../components/CollegeServices";
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -51,16 +52,12 @@ const PartnerCollege = () => {
   const [college, setCollege] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
+
   // Get college name and short name
   const collegeName = college?.title || "College";
   const shortName = college?.short || "CLG";
 
-  const [formData, setFormData] = useState({
-    fullName: "", email: "", university: collegeName, college: collegeName,
-    course: "", phone: "", alternativeNumber: "", requirement: "",
-    termsAccepted: false, declarationAccepted: false,
-  });
+
 
   // Try to fetch actual college data from collegesData.jsx
   useEffect(() => {
@@ -68,24 +65,19 @@ const PartnerCollege = () => {
       setLoading(true);
       // Ensure collegeId is treated as a string key or handle numeric indexing if needed
       const foundCollege = collegesData[collegeId];
-      
+
       if (foundCollege) {
         const col = { id: collegeId, ...foundCollege };
         setCollege(col);
         setError(""); // Clear any previous error
         const colName = col.title || "College";
-        setFormData(prev => ({
-          ...prev,
-          university: colName,
-          college: colName
-        }));
       } else {
         setError("College not found in local records");
         setCollege(null);
       }
       setLoading(false);
     };
-    
+
     fetchCollege();
   }, [collegeId]);
 
@@ -104,7 +96,7 @@ const PartnerCollege = () => {
   // Default services for colleges
   const services = college?.services?.length > 0 ? college.services : [
     "Marks Memorandum",
-    "MOI Letter", 
+    "MOI Letter",
     "Transcripts",
     "Degree Certificate",
     "Verifications (for Organizations)",
@@ -127,14 +119,7 @@ const PartnerCollege = () => {
     { title: "Dispatch / Delivery", text: "Your documents are prepared and sent as per the required evaluation or verification process." },
   ];
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
-  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   if (loading) {
     return (
@@ -173,11 +158,11 @@ const PartnerCollege = () => {
         <div className="absolute inset-0 bg-right bg-no-repeat opacity-100 hidden md:block" style={{ backgroundImage: `url(${partnerclge})`, backgroundSize: "contain" }} />
         {/* Mobile background */}
         <div className="absolute inset-0 bg-center bg-no-repeat opacity-10 md:hidden" style={{ backgroundImage: `url(${partnerclge})`, backgroundSize: "cover" }} />
-        
+
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,251,255,0.98)_0%,rgba(248,251,255,0.95)_28%,rgba(248,251,255,0.78)_48%,rgba(248,251,255,0.30)_70%,rgba(248,251,255,0.02)_100%)] hidden md:block" />
         {/* Mobile gradient */}
         <div className="absolute inset-0 bg-white/90 md:hidden" />
-        
+
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.14),_transparent_28%)]" />
         <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 6, repeat: Infinity }} className="absolute left-0 top-0 h-72 w-72 bg-blue-200 rounded-full blur-3xl" />
 
@@ -194,7 +179,7 @@ const PartnerCollege = () => {
                 </div>
               </div>
 
-              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-[#233a59]">
+              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-[#233a59] tracking-tight">
                 Exclusive Services for{" "}
                 <span className="block md:inline text-blue-700">{collegeName}</span>
               </motion.h1>
@@ -235,116 +220,29 @@ const PartnerCollege = () => {
       </section>
 
       {/* ══ SERVICES ══ */}
-      <section className="py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
-          <motion.div initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-12 text-center">
-            <div className="flex items-center justify-center gap-4">
-              <span className="h-[3px] w-12 bg-blue-600" />
-              <p className="text-sm font-bold uppercase tracking-wider text-blue-600">Our Services</p>
-              <span className="h-[3px] w-12 bg-blue-600" />
-            </div>
-            <h2 className="mt-3 text-3xl font-bold text-[#2f4a6d] md:text-4xl">Comprehensive Document Services</h2>
-            <p className="mx-auto mt-4 max-w-3xl text-sm leading-7 text-slate-600 md:text-base">
-              Exclusive services for {collegeName} students for credential evaluations, university submissions, and official verification needs.
-            </p>
-          </motion.div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => (
-              <motion.div key={service} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: index * 0.08 }} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-700"><FiFileText /></div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-[#233a59]">{service}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">Dedicated support for processing and submitting this document requirement efficiently.</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CollegeServices 
+        services={services} 
+        description={`Exclusive services for ${collegeName} students for credential evaluations, university submissions, and official verification needs.`}
+      />
 
-      {/* ══ SUBMIT FORM ══ */}
+      {/* ══ GET STARTED ══ */}
       <section id="submit-documents" className="bg-white py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-            <motion.div initial={{ opacity: 0, x: -35 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-              <div className="sticky top-28 rounded-[28px] bg-gradient-to-r from-blue-600 to-cyan-600 p-8 text-white shadow-xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Get Started</p>
-                <h2 className="mt-3 text-3xl font-bold leading-tight">Submit Your Documents</h2>
-                <p className="mt-4 text-sm leading-7 text-blue-100/90">Please fill in your details below, and our team will get back to you shortly with the next steps.</p>
-                <div className="mt-8 space-y-4">
-                  <div className="flex items-start gap-3"><FiShield className="mt-1 text-blue-300" /><p className="text-sm text-blue-100/90">Safe, guided, and secure submission process</p></div>
-                  <div className="flex items-start gap-3"><FiClock className="mt-1 text-blue-300" /><p className="text-sm text-blue-100/90">Faster turnaround with dedicated college support</p></div>
-                  <div className="flex items-start gap-3"><FaWhatsapp className="mt-1 text-blue-300" /><p className="text-sm text-blue-100/90">Upload all documents mentioned in WhatsApp for smooth processing</p></div>
-                </div>
+        <div className="mx-auto max-w-4xl px-6 md:px-12">
+          <motion.div initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <div className="rounded-[28px] bg-gradient-to-r from-blue-600 to-cyan-600 p-10 text-center text-white shadow-xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Get Started</p>
+              <h2 className="mt-4 text-3xl md:text-4xl font-bold leading-tight">Ready to Submit Your Documents?</h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-blue-100/90">Safe, guided, and secure submission process with faster turnaround through our dedicated college support.</p>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+                <Link to="/apply" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-10 py-4 text-base font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:bg-slate-50">
+                  Apply Now <FiArrowRight />
+                </Link>
+                <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-blue-200/40 bg-transparent px-8 py-4 text-base font-bold text-white transition hover:bg-blue-600/30">
+                  <FaWhatsapp size={18} /> Contact Support
+                </a>
               </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, x: 35 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-              <form onSubmit={handleSubmit} className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-                <div className="grid gap-5 md:grid-cols-2">
-                  <div className="md:col-span-2">
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">Full Name *</label>
-                    <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500" placeholder="Enter your full name" required />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">Email Address *</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500" placeholder="Enter your email" required />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">University / Board Name *</label>
-                    <input type="text" name="university" value={formData.university} onChange={handleChange} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500" required />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">College Name *</label>
-                    <input type="text" name="college" value={formData.college} onChange={handleChange} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500" required />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">Course *</label>
-                    <input type="text" name="course" value={formData.course} onChange={handleChange} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500" placeholder="Example: B.Tech, MBA..." required />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">Phone *</label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500" placeholder="E.g. 8123 4567 89" required />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">Alternative Number *</label>
-                    <input type="tel" name="alternativeNumber" value={formData.alternativeNumber} onChange={handleChange} className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-500" placeholder="+1 234 456 7890" required />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">Select your Requirements *</label>
-                    <select name="requirement" value={formData.requirement} onChange={handleChange} className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-blue-500" required>
-                      <option value="">Select</option>
-                      {requirements.map((item) => (<option key={item} value={item}>{item}</option>))}
-                    </select>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="mb-2 block text-sm font-semibold text-slate-700">Upload clear copies for smooth process *</label>
-                    <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-blue-200 bg-blue-50/60 px-6 py-10 text-center transition hover:bg-blue-50">
-                      <FiUploadCloud className="text-3xl text-blue-700" />
-                      <p className="mt-3 text-sm font-semibold text-[#2f4a6d]">Drag and Drop (or) Choose Files</p>
-                      <p className="mt-2 text-xs text-slate-500">Upload all documents mentioned in WhatsApp</p>
-                      <input type="file" multiple className="hidden" />
-                    </label>
-                  </div>
-                  <div className="md:col-span-2 space-y-4">
-                    <label className="flex items-start gap-3 text-sm text-slate-600">
-                      <input type="checkbox" name="termsAccepted" checked={formData.termsAccepted} onChange={handleChange} className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600" required />
-                      <span>I have read & accepted Terms & Conditions</span>
-                    </label>
-                    <label className="flex items-start gap-3 text-sm text-slate-600">
-                      <input type="checkbox" name="declarationAccepted" checked={formData.declarationAccepted} onChange={handleChange} className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600" />
-                      <span>I am not a physically challenged/ pregnant women (If YES, please upload a proof to avail free services)</span>
-                    </label>
-                  </div>
-                  <div className="md:col-span-2">
-                    <button type="submit" className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-3.5 text-sm font-semibold text-white transition hover:from-blue-700 hover:to-cyan-700">Submit</button>
-                  </div>
-                </div>
-              </form>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
