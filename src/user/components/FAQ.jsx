@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Plus, Minus, MessageCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
@@ -41,7 +41,7 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="w-full py-20 bg-white">
+    <section className="w-full pt-8 pb-20 bg-white">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
 
@@ -52,15 +52,10 @@ const FAQ = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-10 sm:mb-14"
         >
-          <div className="flex items-center justify-center gap-4">
-
-            <span className="w-8 sm:w-12 h-[2px] bg-blue-600"></span>
-
-            <p className="text-xs sm:text-sm font-bold uppercase text-blue-600 tracking-wider">
+          <div className="flex flex-col items-center justify-center mb-4">
+            <span className="inline-block px-4 py-1.5 text-xs sm:text-sm font-bold tracking-wider text-blue-600 bg-blue-50 rounded-full border-2 border-blue-200 uppercase">
               FAQs
-            </p>
-
-            <span className="w-8 sm:w-12 h-[2px] bg-blue-600"></span>
+            </span>
           </div>
 
           <h2 className="mt-4 text-3xl sm:text-4xl font-bold text-[#2f4a6d]">
@@ -125,67 +120,62 @@ const FAQ = () => {
               return (
                 <motion.div
                   key={index}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className={`rounded-3xl border transition-all duration-300 overflow-hidden ${
                     isOpen
-                      ? "border-blue-500 bg-blue-50/40 shadow-lg"
-                      : "border-gray-200 bg-white hover:border-blue-200"
+                      ? "border-blue-500 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 shadow-xl shadow-blue-500/10 scale-[1.02]"
+                      : "border-gray-200 bg-white hover:border-blue-200 hover:shadow-lg hover:bg-slate-50"
                   }`}
                 >
 
                   {/* QUESTION */}
                   <button
-                    onClick={() =>
-                      setOpenIndex(isOpen ? null : index)
-                    }
-                    className="w-full flex items-center justify-between gap-4 p-6 text-left"
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left focus:outline-none"
                   >
-
                     <span
-                      className={`text-base sm:text-lg font-semibold transition-colors ${
-                        isOpen
-                          ? "text-blue-700"
-                          : "text-[#2f4a6d]"
+                      className={`text-sm sm:text-base font-semibold transition-colors duration-300 ${
+                        isOpen ? "text-blue-700" : "text-[#2f4a6d]"
                       }`}
                     >
                       {faq.question}
                     </span>
 
-                    <div
-                      className={`flex h-9 w-9 items-center justify-center rounded-full transition-all ${
+                    <motion.div
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
+                      className={`flex shrink-0 h-8 w-8 items-center justify-center rounded-full transition-colors duration-300 ${
                         isOpen
-                          ? "bg-blue-600 text-white"
+                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/30"
                           : "bg-gray-100 text-gray-500"
                       }`}
                     >
-                      {isOpen ? (
-                        <Minus size={18} />
-                      ) : (
-                        <Plus size={18} />
-                      )}
-                    </div>
+                      {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                    </motion.div>
                   </button>
 
-                  {/* ANSWER */}
-                  <div
-                    className={`transition-all duration-300 overflow-hidden ${
-                      isOpen
-                        ? "max-h-96 opacity-100"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    <div className="px-6 pb-6">
-
-                      <div className="h-px w-full bg-gray-200 mb-4"></div>
-
-                      <p className="text-sm leading-7 text-gray-600">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
+                  {/* ANSWER ANIMATED */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 pt-2">
+                          <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-200 to-transparent mb-5"></div>
+                          <p className="text-sm sm:text-base leading-relaxed text-gray-600">
+                            {faq.answer}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                 </motion.div>
               );

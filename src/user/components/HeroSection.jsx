@@ -52,7 +52,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative bg-gradient-to-br from-blue-50 via-white to-blue-100 pt-28 sm:pt-32 pb-16 sm:pb-24 overflow-hidden min-h-[90vh] flex items-center">
+    <div className="relative bg-gradient-to-br from-blue-50 via-white to-blue-100 pt-[70px] pb-6 sm:pb-8 overflow-hidden flex items-center">
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blue-100/30 rounded-full blur-[80px] md:blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 left-0 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-blue-50/50 rounded-full blur-[60px] md:blur-[100px] -z-10 -translate-x-1/4 translate-y-1/4"></div>

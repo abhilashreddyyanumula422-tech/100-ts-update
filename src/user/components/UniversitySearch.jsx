@@ -322,7 +322,7 @@ const UniversitySearch = () => {
   };
 
   return (
-    <section id="university-search" className="w-full py-20 lg:py-32 bg-[#F8FAFC] relative overflow-hidden">
+    <section id="university-search" className="w-full pt-12 pb-20 lg:pt-16 lg:pb-32 bg-[#F8FAFC] relative overflow-hidden">
       
       {/* GRADIENTS */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[140px] -translate-y-1/2 translate-x-1/3" />
@@ -446,15 +446,15 @@ const UniversitySearch = () => {
                 <motion.button
                   onClick={handleApply}
                   whileHover={{
-                    y: -4,
+                    y: -2,
                   }}
                   whileTap={{
                     scale: 0.98,
                   }}
-                  className="w-full inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-lg font-bold rounded-full shadow-2xl transition-all"
+                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-sm font-bold rounded-full shadow-lg hover:shadow-xl transition-all"
                 >
                   <Search
-                    size={24}
+                    size={18}
                     strokeWidth={3}
                   />
 

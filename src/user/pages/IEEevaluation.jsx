@@ -110,7 +110,7 @@ const IEEevaluation = () => {
     <div className="min-h-screen bg-white">
 
       {/* HERO SECTION - CLEAN DESIGN LIKE UPLOADED IMAGE */}
-      <section className="relative pt-16 pb-20 bg-white overflow-hidden">
+      <section className="relative pt-28 lg:pt-36 pb-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             {/* LEFT SIDE - CONTENT */}
@@ -173,23 +173,48 @@ const IEEevaluation = () => {
 
             {/* RIGHT SIDE - IMAGE */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="lg:w-1/2 flex justify-center"
+              transition={{ duration: 1, delay: 0.3 }}
+              className="lg:w-1/2 relative flex justify-center items-center mt-12 lg:mt-0"
             >
-              <div className="relative">
-                <motion.video
-                  src={iee2}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="max-w-xs md:max-w-sm lg:max-w-md h-auto"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
+              {/* Premium Subtle Ambient Glow */}
+              <motion.div 
+                animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute w-full h-full bg-blue-50/60 rounded-full blur-[100px] -z-10"
+              />
+
+              <motion.div
+                animate={{ y: [-12, 12, -12] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="relative w-full max-w-lg flex items-center justify-center p-2"
+              >
+                {/* 
+                  Edge Fade Mask: Keeps the entire center clearly visible, 
+                  only dissolving the outer 15% smoothly into the background.
+                */}
+                <div 
+                  className="relative w-full overflow-hidden flex items-center justify-center"
+                  style={{
+                    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                    WebkitMaskComposite: "source-in",
+                    maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+                    maskComposite: "intersect"
+                  }}
+                >
+                  <motion.video
+                    src={iee2}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-[110%] h-auto object-contain mix-blend-multiply brightness-110 contrast-105"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>

@@ -26,7 +26,7 @@ const features = [
 
 const WhyChoose = () => {
   return (
-    <section className="w-full py-20 bg-gradient-to-b from-slate-50 to-white">
+    <section className="w-full pt-8 pb-20 bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
 
         {/* 🔥 PREMIUM HEADING */}
@@ -36,14 +36,10 @@ const WhyChoose = () => {
           transition={{ duration: 0.6 }}
           className="mb-14"
         >
-          <div className="flex items-center justify-center gap-4">
-            <span className="w-12 h-[3px] bg-blue-600"></span>
-
-            <p className="text-sm md:text-base font-bold uppercase text-blue-600 tracking-wider">
+          <div className="flex flex-col items-center justify-center mb-4">
+            <span className="inline-block px-4 py-1.5 text-xs sm:text-sm font-bold tracking-wider text-blue-600 bg-blue-50 rounded-full border-2 border-blue-200 uppercase">
               Why Choose Us
-            </p>
-
-            <span className="w-12 h-[3px] bg-blue-600"></span>
+            </span>
           </div>
 
 

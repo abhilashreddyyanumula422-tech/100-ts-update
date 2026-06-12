@@ -68,7 +68,7 @@ const Universities = () => {
   return (
     <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50 min-h-screen">
       {/* Hero Section - Integrated search & tight spacing */}
-      <section className="relative overflow-hidden pt-20 pb-12 md:pt-28 md:pb-16">
+      <section className="relative overflow-hidden pt-[70px] pb-12 md:pb-16">
         {/* Animated Background Blobs */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -234,7 +234,7 @@ const Universities = () => {
       </section>
 
       {/* Universities Grid with Pagination */}
-      <section className="py-10 md:py-14">
+      <section className="pt-10 md:pt-14 pb-8">
         <div className="relative mx-auto max-w-7xl px-6">
 
           {/* Results count */}
@@ -317,7 +317,7 @@ const Universities = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex items-center justify-center gap-2 mt-14"
+              className="flex items-center justify-center gap-2 mt-8"
             >
               {/* Previous */}
               <button
@@ -369,8 +369,8 @@ const Universities = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden py-20 md:py-28">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-500" />
+      <section className="relative overflow-hidden py-12 md:py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600" />
         
         {/* Animated Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden">

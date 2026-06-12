@@ -55,12 +55,12 @@ export default function About() {
   const networkImages = [clgImg, ieeImg, indiaMap, isoImg, starImg, startupImg];
 
   return (
-    <div className="bg-slate-50 min-h-screen pt-20 font-sans selection:bg-blue-500/30">
+    <div className="bg-slate-50 min-h-screen font-sans selection:bg-blue-500/30">
 
       {/* HERO SECTION */}
-      <section className="relative text-white py-20 lg:py-28 px-6 overflow-hidden bg-[#0A0F1C]">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/15 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none" />
+      <section className="relative pt-[110px] pb-20 lg:pb-28 px-6 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-400/10 rounded-full blur-[120px] -mr-40 -mt-40 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-400/10 rounded-full blur-[100px] -ml-20 -mb-20 pointer-events-none" />
 
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative z-10">
           <motion.div
@@ -73,26 +73,26 @@ export default function About() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-4 py-1.5 shadow-sm"
+              className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-md border border-white/40 rounded-full px-4 py-1.5 shadow-sm"
             >
-              <Shield className="w-4 h-4 text-blue-400" />
-              <span className="text-xs font-semibold text-slate-300 tracking-wider uppercase">ISO Certified Partner</span>
+              <Shield className="w-4 h-4 text-blue-600" />
+              <span className="text-xs font-bold text-blue-800 tracking-wider uppercase">ISO Certified Partner</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1]"
             >
-              Empowering Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Global Journey</span>
+              Empowering Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Global Journey</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-slate-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium"
+              className="text-slate-600 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium"
             >
               A specialized ISO-certified firm dedicated to securing educational documents and transcripts from universities across India since 2016.
             </motion.p>
@@ -174,7 +174,7 @@ export default function About() {
       </section>
 
       {/* STATS SECTION */}
-      <section className="pb-12 px-6 max-w-7xl mx-auto">
+      <section className="pb-12 px-6 max-w-5xl mx-auto">
         <div className="grid md:grid-cols-3 gap-5">
           {stats.map((stat, idx) => (
             <motion.div
@@ -183,19 +183,25 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: idx * 0.15, duration: 0.6, type: "spring", damping: 20 }}
-              className="bg-white p-6 md:p-8 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/40 text-center space-y-3 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-200 group relative overflow-hidden"
+              className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/40 text-center space-y-2 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-200 group relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-bl-full -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110 group-hover:bg-blue-100/50" />
+              <motion.div 
+                animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: idx * 0.3 }}
+                className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full -mr-8 -mt-8 group-hover:bg-blue-500/20 transition-colors duration-500" 
+              />
               <motion.div
-                className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto text-blue-600 border border-slate-100 shadow-sm relative z-10 transition-transform duration-500 group-hover:scale-110"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: idx * 0.2 }}
+                className="w-10 h-10 bg-white rounded-xl flex items-center justify-center mx-auto text-blue-600 border border-slate-100 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-500"
               >
-                <stat.icon className="w-6 h-6" />
+                <stat.icon className="w-5 h-5" />
               </motion.div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight relative z-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight relative z-10 mt-3">
                 <Counter from={0} to={stat.value} duration={2} suffix="+" />
               </h2>
-              <h3 className="text-sm font-semibold text-slate-700 relative z-10">{stat.label}</h3>
-              <p className="text-slate-500 text-sm font-medium relative z-10">{stat.sub}</p>
+              <h3 className="text-xs sm:text-sm font-semibold text-slate-700 relative z-10">{stat.label}</h3>
+              <p className="text-slate-500 text-xs sm:text-sm font-medium relative z-10">{stat.sub}</p>
             </motion.div>
           ))}
         </div>
@@ -271,19 +277,19 @@ export default function About() {
       {/* CTA SECTION */}
       <section className="py-12 px-6 max-w-5xl mx-auto">
         <motion.div
-          className="rounded-[2rem] p-10 md:p-16 text-center text-white relative overflow-hidden bg-[#0A0F1C] border border-slate-800"
+          className="rounded-[2rem] p-10 md:p-16 text-center text-white relative overflow-hidden bg-gradient-to-br from-blue-600 to-cyan-600 shadow-2xl border border-blue-400/30"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.7, type: "spring", damping: 20 }}
         >
           <motion.div
-            className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none"
+            className="absolute top-0 right-0 w-96 h-96 bg-white/20 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none"
             animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[80px] -ml-20 -mb-20 pointer-events-none"
+            className="absolute bottom-0 left-0 w-80 h-80 bg-white/20 rounded-full blur-[80px] -ml-20 -mb-20 pointer-events-none"
             animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
@@ -302,7 +308,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="text-slate-400 text-base md:text-lg mb-8 max-w-2xl mx-auto font-medium relative z-10 leading-relaxed"
+            className="text-blue-50 text-base md:text-lg mb-8 max-w-2xl mx-auto font-medium relative z-10 leading-relaxed"
           >
             Let 100 Transcripts LLP simplify your documentation process with certified transcripts and credential evaluations.
           </motion.p>
@@ -314,13 +320,13 @@ export default function About() {
             className="relative z-10"
           >
             <motion.button
-              whileHover={{ scale: 1.02, y: -2 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate("/apply")}
-              className="bg-white text-slate-900 px-8 py-4 rounded-xl font-semibold shadow-xl shadow-white/5 hover:shadow-white/10 transition-all flex items-center gap-2 mx-auto group"
+              className="bg-white text-blue-700 px-8 py-4 rounded-xl font-bold shadow-xl shadow-black/10 hover:shadow-black/20 transition-all flex items-center gap-2 mx-auto group"
             >
               Get Started Now
-              <ArrowRight className="w-5 h-5 text-slate-900 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 text-blue-700 group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </motion.div>
         </motion.div>

@@ -106,19 +106,17 @@ const Reviews = () => {
   const ratingLabels = ["", "Poor", "Fair", "Good", "Very Good", "Excellent"];
 
   return (
-    <section className="w-full overflow-hidden bg-white py-20">
-      <div className="mx-auto mb-10 sm:mb-14 max-w-7xl px-4 sm:px-6 text-center md:px-12">
+    <section className="w-full overflow-hidden bg-white pt-2 pb-4">
+      <div className="mx-auto mb-6 sm:mb-8 max-w-7xl px-4 sm:px-6 text-center md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center justify-center gap-4">
-            <span className="h-[2px] sm:h-[3px] w-8 sm:w-12 bg-blue-600"></span>
-            <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-blue-600">
+          <div className="flex flex-col items-center justify-center mb-2">
+            <span className="inline-block px-4 py-1.5 text-xs sm:text-sm font-bold tracking-wider text-blue-600 bg-blue-50 rounded-full border-2 border-blue-200 uppercase">
               Reviews
-            </p>
-            <span className="h-[2px] sm:h-[3px] w-8 sm:w-12 bg-blue-600"></span>
+            </span>
           </div>
 
           <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-[#2f4a6d] md:text-4xl">
@@ -129,31 +127,6 @@ const Reviews = () => {
             Trusted by thousands of students and professionals across India for
             fast, reliable, and stress-free transcript support.
           </p>
-
-          <motion.div
-            className="mt-8 flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <motion.button
-              onClick={() => setShowModal(true)}
-              whileHover={{ scale: 1.05, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="group flex items-center gap-3 px-8 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold uppercase tracking-wider rounded-full shadow-lg shadow-blue-500/30 transition-all duration-300"
-            >
-              <Star size={18} className="fill-white" />
-              <span>Give Review</span>
-              <svg
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </motion.button>
-          </motion.div>
         </motion.div>
       </div>
 
@@ -172,10 +145,15 @@ const Reviews = () => {
             <motion.div
               variants={itemVariants}
               key={index}
-              className="group mx-4 flex min-h-[220px] min-w-[290px] flex-col justify-between rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:shadow-xl md:min-w-[360px]"
+              className="group mx-4 flex min-h-[220px] min-w-[290px] flex-col justify-between rounded-3xl border border-slate-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl md:min-w-[360px] relative overflow-hidden"
             >
-              <div>
-                <div className="mb-4 flex items-center gap-1 text-yellow-400">
+              {/* Decorative Quote */}
+              <div className="absolute -top-4 right-4 text-blue-600 opacity-5 font-serif text-9xl pointer-events-none select-none">
+                "
+              </div>
+
+              <div className="relative z-10">
+                <div className="mb-5 flex items-center gap-1 text-yellow-400">
                   {[...Array(item.rating)].map((_, i) => (
                     <Star
                       key={i}
@@ -186,27 +164,53 @@ const Reviews = () => {
                   ))}
                 </div>
 
-                <p className="whitespace-normal text-sm leading-7 text-gray-600 md:text-[15px]">
+                <p className="whitespace-normal text-sm leading-relaxed text-slate-600 md:text-[15px]">
                   "{item.review}"
                 </p>
               </div>
 
-              <div className="mt-6 flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
+              <div className="mt-6 flex items-center gap-4 relative z-10 pt-4 border-t border-slate-50">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-base font-bold text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                   {item.name.charAt(0)}
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-[#2f4a6d]">
+                  <h4 className="text-[15px] font-bold text-slate-900">
                     {item.name}
                   </h4>
-                  <p className="text-xs text-gray-400">Verified Customer</p>
+                  <p className="text-[11px] text-blue-500 font-bold uppercase tracking-wider mt-0.5">Verified Customer</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
+
+      {/* ── Give Review Button ── */}
+      <motion.div
+        className="mt-12 flex justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <motion.button
+          onClick={() => setShowModal(true)}
+          whileHover={{ scale: 1.05, y: -3 }}
+          whileTap={{ scale: 0.95 }}
+          className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-bold uppercase tracking-wider rounded-full shadow-xl shadow-blue-500/30 transition-all duration-300 hover:shadow-blue-500/50"
+        >
+          <Star size={18} className="fill-white" />
+          <span>Give Review</span>
+          <svg
+            className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </motion.button>
+      </motion.div>
 
       {/* ══════════════════════════════════════════
           ✨  GIVE REVIEW MODAL

@@ -45,66 +45,29 @@ html, body, #root {
 
 /* ══ Layout ══ */
 .app-shell {
-  display: flex;
   padding-top: 70px;
   background: #f8fafc;
   min-height: 100vh;
+  display: block;
+}
+
+.portal-panel {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 0px;
 }
 
 @media (min-width: 1025px) {
   .app-shell {
-    height: calc(100vh - 0px); /* Adjust based on navbar */
-    overflow: hidden;
-    padding-top: 70px;
-  }
-}
-
-/* LEFT PANEL */
-.image-panel {
-  width: 320px;
-  min-width: 320px;
-  height: calc(100vh - 70px);
-  position: sticky;
-  top: 70px;
-  align-self: flex-start;
-  background: #ffffff;
-  border-right: 1px solid rgba(148, 163, 184, 0.2);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  flex-shrink: 0;
-  z-index: 10;
-  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.04);
-}
-
-/* RIGHT PANEL */
-.portal-panel {
-  flex: 1;
-  background: #f8fafc;
-}
-
-@media (min-width: 1025px) {
-  .portal-panel {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 0px);
     overflow-y: auto;
     scrollbar-width: thin;
   }
+  .portal-panel {
+    height: auto;
+  }
 }
-
-.panel-glow-bottom { display: none; }
-
-.image-panel-inner {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 32px 24px 28px;
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-.image-panel-inner::-webkit-scrollbar { display: none; }
 
 /* Brand */
 .panel-brand {
@@ -129,50 +92,24 @@ html, body, #root {
   letter-spacing: 0.3px;
 }
 
-/* ══ Roadmap ══ */
+/* ══ Horizontal Roadmap ══ */
 .roadmap {
   display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 0;
+  justify-content: space-between;
+  margin: 40px auto 60px;
+  max-width: 1000px;
+  position: relative;
 }
 
 .rm-step {
   display: flex;
-  gap: 16px;
-  position: relative;
-}
-
-/* Left column: icon circle + connector */
-.rm-line-col {
-  display: flex;
   flex-direction: column;
   align-items: center;
-  flex-shrink: 0;
-  width: 48px;
-}
-
-/* Vertical connector */
-.rm-connector {
-  width: 2px;
+  gap: 12px;
   flex: 1;
-  min-height: 12vh;
   position: relative;
-  overflow: hidden;
-  background: #e2e8f0;
-  border-radius: 2px;
-  margin: 4px 0;
 }
 
-/* Fill overlay that grows when step is done */
-.rm-connector-fill {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  background: linear-gradient(135deg, #3b82f6, #6366f1, #a855f7);
-  border-radius: 2px;
-}
-
-/* Step icon circle */
 .rm-node {
   width: 48px;
   height: 48px;
@@ -181,138 +118,37 @@ html, body, #root {
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  flex-shrink: 0;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid #e2e8f0;
   background: #ffffff;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+  z-index: 2;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Number badge on top-left of circle */
-.rm-node-num {
+.rm-step.is-done .rm-node { border-color: #34d399; background: #ecfdf5; }
+.rm-step.is-active .rm-node { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59,130,246,0.15); }
+
+.rm-connector {
   position: absolute;
-  top: -6px; right: -6px;
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #ffffff;
-  line-height: 1;
-  transition: all 0.3s;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  top: 24px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: #e2e8f0;
+  z-index: 1;
 }
 
-/* Done state */
-.rm-step.is-done .rm-node {
-  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-  border-color: #34d399;
-}
-.rm-step.is-done .rm-node-num {
-  background: linear-gradient(135deg, #10b981, #059669);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-  animation: checkPop 0.4s cubic-bezier(.34,1.7,.64,1) both;
-}
-
-/* Active state */
-.rm-step.is-active .rm-node {
-  border-color: transparent;
-  background: linear-gradient(135deg, #eff6ff, #eef2ff);
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15), 
-              0 0 0 2px rgba(129, 140, 248, 0.4);
-  animation: stepPulse 2.5s ease-in-out infinite;
-}
-.rm-step.is-active .rm-node-num {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-}
-.rm-step.is-active .step-emoji {
-  animation: iconBounce 2s ease-in-out infinite;
-  display: inline-block;
-}
-
-/* Upcoming state */
-.rm-step.is-upcoming .rm-node {
-  opacity: 0.7;
-}
-.rm-step.is-upcoming .rm-node-num {
-  background: linear-gradient(135deg, #94a3b8, #64748b);
-  box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
-}
-
-/* Step content */
-.rm-content {
-  flex: 1;
-  padding: 10px 0 28px;
-  transition: opacity 0.4s;
-}
-.rm-step.is-upcoming .rm-content {
-  opacity: 0.6;
-}
+.rm-step.is-done .rm-connector { background: #34d399; }
 
 .rm-step-label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  color: #0f172a;
-  line-height: 1.3;
-  margin-bottom: 4px;
-  transition: color 0.3s;
-}
-.rm-step.is-active .rm-step-label { 
-  background: linear-gradient(135deg, #1d4ed8, #6366f1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.rm-step.is-done   .rm-step-label { 
-  color: #047857; 
-}
-.rm-step.is-upcoming .rm-step-label { 
-  color: #64748b; 
-}
-
-.rm-step-hint {
-  font-size: 12px;
   color: #64748b;
-  line-height: 1.5;
+  text-align: center;
 }
-.rm-step.is-active .rm-step-hint { 
-  color: #4f46e5; 
-}
-.rm-step.is-done   .rm-step-hint { 
-  color: #34d399; 
-}
+.rm-step.is-active .rm-step-label { color: #0f172a; }
+.rm-step.is-done .rm-step-label { color: #047857; }
 
-/* Active pill */
-.rm-active-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 5px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 100px;
-  padding: 2px 9px;
-  font-size: 9.5px;
-  font-weight: 700;
-  color: #2563eb;
-  animation: fadeUp 0.4s ease both;
-}
-.rm-active-pill::before {
-  content: '';
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: #3b82f6;
-  animation: pulse 1.5s infinite;
-  flex-shrink: 0;
-}
-
-/* Stats */
+/* ══ Stats ══ */
 .panel-stats {
   display: flex;
   gap: 8px;
@@ -351,7 +187,7 @@ html, body, #root {
 
 
 /* ══ Portal wrap ══ */
-.portal-wrap { max-width: 1200px; margin: 0 auto; padding: 48px 32px 72px; }
+.portal-wrap { max-width: 1200px; margin: 0 auto; padding: 0px 32px 72px; }
 
 /* ══ Hero ══ */
 .hero-header { text-align:center; padding: 8px 0 6px; animation:fadeDown .7s ease both; }
@@ -410,67 +246,114 @@ html, body, #root {
 }
 .track-btn:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4); }
 
-/* ══ Process ribbon ══ */
-.process-section { margin: 32px 0 16px; animation:fadeUp .8s .2s ease both; }
-.proc-ribbon {
-  display:flex; align-items:stretch;
-  background:#ffffff; 
-  border:1px solid rgba(148, 163, 184, 0.2);
-  border-radius:24px; overflow:hidden;
-  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+/* ══ Horizontal Progress Bar ══ */
+.hp-container {
+  position: relative;
+  margin: 8px auto 40px;
+  max-width: 1000px;
+  padding: 0 20px;
+  animation: fadeUp 0.8s 0.2s ease both;
 }
-.proc-cell {
-  flex:1; padding:24px 12px 20px; text-align:center; position:relative;
-  border-right:1px solid #f1f5f9;
-  transition:all .4s cubic-bezier(.4,0,.2,1);
+.hp-track-bg {
+  position: absolute;
+  top: 16px;
+  left: 80px;
+  right: 80px;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  z-index: 0;
 }
-.proc-cell:last-child { border-right:none; }
-.proc-cell.pc-done   { background:rgba(34,197,94,.04); }
-.proc-cell.pc-active { 
-  background:rgba(99, 102, 241,.06); 
-  border-right-color: rgba(129, 140, 248, 0.3);
+.hp-track-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.proc-orb {
-  width:56px; height:56px; border-radius:18px; margin:0 auto 12px;
-  display:flex; align-items:center; justify-content:center; font-size:24px;
-  background:#ffffff; 
-  border:2px solid #e2e8f0;
+.hp-steps {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.hp-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 160px;
+}
+.hp-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #94a3b8;
+  position: relative;
+  transition: all 0.4s ease;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-  position:relative; 
-  transition:all .4s cubic-bezier(.4,0,.2,1);
-}
-.proc-cell.pc-done   .proc-orb { 
-  background:linear-gradient(135deg, #ecfdf5, #d1fae5); 
-  border-color:#34d399; 
-  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.15);
-}
-.proc-cell.pc-active .proc-orb { 
-  background:linear-gradient(135deg, #eff6ff, #eef2ff); 
-  border-color:transparent;
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15), 
-              0 0 0 3px rgba(129, 140, 248, 0.3);
-  animation:float 2.8s ease-in-out infinite; 
-}
-.proc-cell.pc-done .proc-orb::after {
-  content:'✓'; position:absolute; top:-6px; right:-6px;
-  width:22px; height:22px; border-radius:50%;
-  background:linear-gradient(135deg, #10b981, #059669); 
-  color:#fff; font-size:12px; font-weight:800;
-  display:flex; align-items:center; justify-content:center;
-  border: 2px solid white;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-  animation:pop .35s cubic-bezier(.34,1.7,.64,1) both;
-}
-.proc-name { font-size:11px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#94a3b8; margin-bottom:4px; }
-.proc-cell.pc-done .proc-name, .proc-cell.pc-active .proc-name { color:#0f172a; }
-.proc-hint { font-size:12px; color:#64748b; line-height:1.5; }
-.proc-cell.pc-active .proc-hint { 
-  color:#4f46e5; 
-  font-weight: 500;
 }
 
-.flow-track { height:6px; background:#e2e8f0; border-radius:100px; margin:0 0 18px; overflow:hidden; }
-.flow-fill   { height:100%; border-radius:100px; background:linear-gradient(90deg,#3b82f6,#6366f1,#a855f7); transition:width .8s cubic-bezier(.4,0,.2,1); }
+.hp-badge {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  line-height: 1;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hp-step.active .hp-circle {
+  animation: float 3s ease-in-out infinite;
+}
+.hp-step.done .hp-circle {
+  background: #ffffff;
+}
+.hp-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-align: center;
+  transition: color 0.4s ease;
+}
+.hp-step.active .hp-label { color: #0f172a; }
+.hp-step.done .hp-label { color: #059669; }
+
+@media (max-width: 640px) {
+  .hp-container {
+    max-width: 100%;
+  }
+  .hp-track-bg { display: none; }
+  .hp-steps {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding-left: 20px;
+    border-left: 3px solid #e2e8f0;
+    margin-left: 26px;
+  }
+  .hp-step {
+    flex-direction: row;
+    width: auto;
+  }
+  .hp-circle {
+    margin-left: -48px;
+  }
+}
 
 /* ══ Main card ══ */
 .main-card { 
@@ -863,19 +746,7 @@ html, body, #root {
 /* ══ Responsive ══ */
 @media (max-width: 1024px) {
   .app-shell { flex-direction: column; }
-  .image-panel {
-    width: 100%;
-    min-width: 100%;
-    height: auto;
-    position: relative;
-    padding: 24px 20px;
-    min-height: unset;
-  }
-  .image-panel-inner { flex-direction: row; flex-wrap: wrap; padding: 0; gap: 16px; }
-  .panel-brand { margin-bottom: 0; text-align: left; }
-  .roadmap { display: none; }
-  .panel-stats { margin-top: 0; }
-  .portal-panel { margin-left: 0; width: 100%; }
+  .portal-panel { margin-left: 0; width: 100%; padding-top: 10px; }
   .portal-wrap { padding: 32px 16px 60px; }
   .main-card { padding: 18px 14px; border-radius: 18px; }
   .form-grid { grid-template-columns: 1fr; }
@@ -1388,120 +1259,7 @@ const STEP_COLORS6 = [
   { bg: "#f3e5f5", color: "#6a1b9a" },
 ];
 
-function RoadmapPanel({ activeStep: _activeStep }) {
-  const [loopIndex, setLoopIndex] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setLoopIndex(prev => (prev + 1) % (PROC_FULL.length + 1));
-    }, 2800);
-    return () => clearInterval(timer);
-  }, []);
-
-  const isVideoState = (i) => i < loopIndex;
-  const isActiveVideo = (i) => i === loopIndex;
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
-  };
-
-  const itemVariant = {
-    hidden: { x: -20, opacity: 0 },
-    show: { x: 0, opacity: 1 }
-  };
-
-  return (
-    <div className="image-panel" style={{ background: "#ffffff" }}>
-      <div className="image-panel-inner" style={{ padding: "24px 20px" }}>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="panel-brand">
-          <h2 style={{ fontSize: 16, color: "#0f172a", marginBottom: 4, fontWeight: 800 }}>Processing Roadmap</h2>
-          <p style={{ fontSize: 11, color: "#3b82f6", fontWeight: 700 }}>Visual Guide • Step-by-Step</p>
-        </motion.div>
-
-        <motion.div className="roadmap" variants={container} initial="hidden" animate="show" style={{ marginTop: 20, marginBottom: 20 }}>
-          {PROC_FULL.map((step, i) => {
-            const isDone = isVideoState(i);
-            const isActive = isActiveVideo(i);
-            const col = STEP_COLORS6[i];
-            const isLast = i === PROC_FULL.length - 1;
-
-            return (
-              <motion.div key={i} className="rm-step" variants={itemVariant}>
-                <div className="rm-line-col">
-                  <motion.div
-                    className="rm-node"
-                    animate={{
-                      scale: isActive ? 1.1 : 1,
-                      borderColor: isActive || isDone ? col.color : "#e2e8f0",
-                      background: isActive ? col.bg : isDone ? "#f0f9ff" : "#ffffff",
-                      boxShadow: isActive ? `0 0 15px ${col.color}44` : "none"
-                    }}
-                    transition={{ duration: 0.5 }}
-                    style={{ position: "relative", zIndex: 10 }}
-                  >
-                    <motion.div
-                      className="rm-node-num"
-                      animate={{ background: isDone ? "#0284c7" : isActive ? col.color : "#94a3b8" }}
-                    >
-                      {isDone ? "✓" : i + 1}
-                    </motion.div>
-                    <span style={{ fontSize: 18, filter: !isActive && !isDone ? "grayscale(1) opacity(0.4)" : "none" }}>
-                      {step.icon}
-                    </span>
-                  </motion.div>
-
-                  {!isLast && (
-                    <div className="rm-connector" style={{ background: "#f1f5f9", overflow: "visible", width: 2 }}>
-                      <motion.div
-                        className="rm-connector-fill"
-                        animate={{ height: isDone ? "100%" : "0%" }}
-                        transition={{ duration: 0.8 }}
-                        style={{
-                          background: `linear-gradient(to bottom, ${col.color}, ${STEP_COLORS6[i + 1].color})`,
-                          width: "100%",
-                          position: "absolute",
-                          top: 0
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div className="rm-content" style={{ paddingBottom: isLast ? 0 : "20px" }}>
-                  <motion.div
-                    animate={{
-                      color: isDone ? "#15803d" : isActive ? col.color : "#94a3b8",
-                      opacity: isActive || isDone ? 1 : 0.4,
-                      x: isActive ? 4 : 0
-                    }}
-                    style={{ fontSize: 12, fontWeight: 800, marginBottom: 2 }}
-                  >
-                    {step.label}
-                  </motion.div>
-                  <motion.div
-                    animate={{ opacity: isActive ? 1 : 0.4 }}
-                    style={{ fontSize: 10, color: "#64748b", lineHeight: 1.4 }}
-                  >
-                    {step.hint}
-                  </motion.div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        <div className="sidebar-security" style={{ marginTop: "auto" }}>
-          <div className="security-icon">🛡️</div>
-          <div className="security-text">
-            <h4>Your Data is Secure</h4>
-            <p>We use advanced encryption to protect your information.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 
 /* ─────────────────────────────────────────
@@ -1538,7 +1296,7 @@ const UpBlock = ({ type, label, options, upProg, upNames, upCompressed, onFile, 
       <div className="upload-lbl">
         {isDigiFlow ? '🔐' : '📎'} {label}
       </div>
-      
+
       {!isDigiFlow && (
         <div className="upload-row">
           <input
@@ -1559,9 +1317,9 @@ const UpBlock = ({ type, label, options, upProg, upNames, upCompressed, onFile, 
           <div className="prog-text">{prog === 100 ? "✅ Fetched successfully" : isDigiFlow ? `Fetching… ${prog}%` : `Uploading… ${prog}%`}</div>
         </div>
       )}
-      
+
       {nm && <div className="file-nm" style={isDigiFlow ? { color: '#4f46e5', fontWeight: 600 } : {}}>📄 {nm}</div>}
-      
+
       {comprInfo && comprInfo.compressed && !isDigiFlow && (
         <div className="file-compressed">
           🗜 Compressed: {comprInfo.originalKB}KB → {comprInfo.newKB}KB (saved {comprInfo.savedKB}KB)
@@ -1595,7 +1353,10 @@ const UpBlock = ({ type, label, options, upProg, upNames, upCompressed, onFile, 
 /* ─────────────────────────────────────────
    STEP COMPONENTS
 ───────────────────────────────────────── */
-const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames, upCompressed, onFile, delFile, onDigiLocker, onSubmit, adminMessage }) => (
+const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames, upCompressed, onFile, delFile, onDigiLocker, onSubmit, adminMessage }) => {
+  const [showManualUpload, setShowManualUpload] = React.useState(false);
+
+  return (
   <form onSubmit={onSubmit}>
     {adminMessage && (
       <div className="info-panel amber" style={{ marginBottom: 24, border: "2px solid #fbbf24" }}>
@@ -1696,99 +1457,76 @@ const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames,
       </>
     )}
 
-    <div className="sec-title">Upload Documents</div>
-    <div className="dual-upload-container">
-      {/* LEFT PANEL: MANUAL UPLOAD */}
-      <div className="upload-side manual-side">
-        <div className="side-title">
-          <span>📎</span> Normal Way (Manual Upload)
-        </div>
-        <div className="side-content">
+    <div className="flex flex-col items-center mb-10 mt-12 text-center px-4">
+      <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-8">How would you like to submit your documents?</h2>
+      
+      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto">
+        {/* BUTTON 1: Fetch from DigiLocker */}
+        <button
+          type="button"
+          onClick={() => onDigiLocker('all', 'All Documents')}
+          className="flex-1 bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-800 hover:text-blue-700 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+        >
+          <img src={digilockerLogo} alt="DigiLocker" className="h-9 w-auto object-contain" />
+          Fetch from DigiLocker
+        </button>
+
+        {/* BUTTON 2: Upload Documents */}
+        <button
+          type="button"
+          onClick={() => setShowManualUpload(true)}
+          className="flex-1 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-800 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+        >
+          <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+          Upload Documents
+        </button>
+      </div>
+    </div>
+
+    {/* Conditionally Rendered Manual Upload Block */}
+    {showManualUpload && (
+      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm w-full max-w-3xl mx-auto mb-12 relative">
+        <button 
+          type="button"
+          onClick={() => setShowManualUpload(false)}
+          className="absolute top-6 left-6 text-slate-400 hover:text-slate-700 flex items-center gap-1.5 font-medium text-sm transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+          Back
+        </button>
+        <h3 className="text-lg font-bold text-slate-800 mb-8 mt-2 text-center">Upload Your Documents</h3>
+        <div className="flex flex-col gap-5">
           <UpBlock type="cmm" label="CMM / Yearly Marks Sheet"
             options={["CMM", "Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"]}
             upProg={upProg} upNames={upNames} upCompressed={upCompressed}
             onFile={onFile} delFile={delFile} flowType="manual" />
-          
+
           <UpBlock type="degree" label="Degree / Provisional Certificate"
             options={["Degree Certificate", "Provisional Certificate"]}
             upProg={upProg} upNames={upNames} upCompressed={upCompressed}
             onFile={onFile} delFile={delFile} flowType="manual" />
-          
+
           <UpBlock type="internship" label="Internship Certificate"
             options={["Internship Certificate"]}
             upProg={upProg} upNames={upNames} upCompressed={upCompressed}
             onFile={onFile} delFile={delFile} flowType="manual" />
         </div>
       </div>
+    )}
 
-      {/* RIGHT PANEL: DIGILOCKER */}
-      <div className="upload-side digilocker-side">
-        <div className="side-title">
-          <img src={digilockerLogo} alt="DigiLocker" style={{ height: '24px', width: 'auto' }} /> DigiLocker (Instantly Fetch)
-        </div>
-        <div className="side-content">
-          <div className="info-panel sky" style={{ padding: '24px', textAlign: 'center', background: '#f5f7ff', border: '2px solid #e0e7ff', borderRadius: '18px' }}>
-            <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center' }}>
-              <img src={digilockerLogo} alt="DigiLocker" style={{ height: '60px', width: 'auto' }} />
-            </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b', marginBottom: '8px' }}>One-Click Fetch</h3>
-            <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.5', marginBottom: '20px' }}>
-              Securely login to your DigiLocker account to automatically fetch your verified Degree, Marksheets, and other certificates.
-            </p>
-            
-            <button 
-              type="button" 
-              className="btn-digilocker" 
-              style={{ width: '100%', padding: '16px', justifyContent: 'center', fontSize: '14px', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '10px' }} 
-              onClick={() => onDigiLocker('all', 'All Documents')}
-            >
-              <img src={digilockerLogo} alt="" style={{ height: '20px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
-              Login & Fetch Documents
-            </button>
-
-            {/* Display status if documents are fetched */}
-            {(upNames.cmm || upNames.degree || upNames.internship) && (
-              <div style={{ marginTop: '20px', textAlign: 'left', background: '#fff', padding: '12px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                <p style={{ fontSize: '11px', fontWeight: 700, color: '#4f46e5', textTransform: 'uppercase', marginBottom: '8px' }}>Fetched Documents:</p>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, gap: '6px', display: 'flex', flexDirection: 'column' }}>
-                  {upNames.cmm && <li style={{ fontSize: '12px', color: '#1e293b' }}>✅ {upNames.cmm}</li>}
-                  {upNames.degree && <li style={{ fontSize: '12px', color: '#1e293b' }}>✅ {upNames.degree}</li>}
-                  {upNames.internship && <li style={{ fontSize: '12px', color: '#1e293b' }}>✅ {upNames.internship}</li>}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
+    <div className="guideline-section" style={{ padding: '24px', background: '#f8fafc', borderRadius: '16px', border: '1px solid #e2e8f0', marginTop: '32px' }}>
+      <div className="guideline-title" style={{ fontSize: '18px', fontWeight: '800', color: '#1e293b', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <span>📸</span> Photo Instructions
       </div>
-    </div>
-
-    <div className="guideline-section">
-      <div className="guideline-title">
-        <span>📸</span> Important: Photo & Document Guidelines
-      </div>
-      <div className="guideline-grid">
-        <div className="guideline-item">
-          <div className="guideline-img-wrap">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" alt="Correct" />
-            <div className="guideline-badge badge-ok">Correct</div>
-          </div>
-          <div className="guideline-label">Clear face, plain background</div>
-        </div>
-        <div className="guideline-item">
-          <div className="guideline-img-wrap">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400&blur=10" alt="Blurry" />
-            <div className="guideline-badge badge-no">Too Blurry</div>
-          </div>
-          <div className="guideline-label">Out of focus or dark</div>
-        </div>
-        <div className="guideline-item">
-          <div className="guideline-img-wrap">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400&sat=-100" alt="Accessories" />
-            <div className="guideline-badge badge-no">Incorrect</div>
-          </div>
-          <div className="guideline-label">Glasses, hats or busy bg</div>
-        </div>
-      </div>
+      <ul style={{ listStyleType: 'disc', paddingLeft: '24px', color: '#475569', fontSize: '14px', lineHeight: '1.8', margin: 0 }}>
+        <li>Use a clear and high-quality photo.</li>
+        <li>Face should be fully visible.</li>
+        <li>Use a plain/light background.</li>
+        <li>Good lighting, no shadows.</li>
+        <li>No blur or low-quality images.</li>
+        <li>No sunglasses, masks, or cropped faces.</li>
+        <li>Upload a recent passport-style photo.</li>
+      </ul>
     </div>
 
     <div className="check-list">
@@ -1805,7 +1543,8 @@ const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames,
       <button type="submit" className="btn-primary">Proceed to Payment &nbsp;→</button>
     </div>
   </form>
-);
+  );
+};
 
 const Step1 = ({ form: _form, goStep, handlePayment }) => (
   <div>
@@ -1984,13 +1723,186 @@ const Step4 = ({ form, reset }) => (
   </div>
 );
 
+const NumberedRoadmap = ({ activeStep = 0 }) => {
+  const steps = [
+    { num: 1, label: "Upload Documents", color: "from-blue-500 to-cyan-400", shadow: "shadow-blue-500/40" },
+    { num: 2, label: "Verification", color: "from-indigo-500 to-purple-400", shadow: "shadow-indigo-500/40" },
+    { num: 3, label: "Payment", color: "from-pink-500 to-rose-400", shadow: "shadow-pink-500/40" },
+    { num: 4, label: "Final Submission", color: "from-emerald-500 to-teal-400", shadow: "shadow-emerald-500/40" }
+  ];
+
+  return (
+    <div className="w-full max-w-4xl mx-auto mb-10 px-4 sm:px-6 mt-4">
+      <div className="relative flex justify-between items-start">
+
+        {steps.map((step, index) => {
+          const isCompleted = index < activeStep;
+          const isActive = index === activeStep;
+          const isUpcoming = index > activeStep;
+
+          return (
+            <React.Fragment key={index}>
+              <div className="relative z-10 flex flex-col items-center w-[60px] sm:w-[100px]">
+
+                {/* Circle */}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    scale: isActive ? 1.15 : 1,
+                    backgroundColor: isCompleted || isActive ? "#fff" : "#f8fafc",
+                    borderColor: isCompleted || isActive ? "transparent" : "#e2e8f0"
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center border-2 text-xs sm:text-sm font-bold transition-all relative
+                    ${isActive ? `bg-gradient-to-br ${step.color} shadow-lg ${step.shadow} text-white border-transparent` : ""}
+                    ${isCompleted ? "bg-slate-800 text-white border-slate-800" : ""}
+                    ${isUpcoming ? "text-slate-400 border-slate-200 bg-white" : ""}
+                  `}
+                >
+                  {/* Gradient background for active state to override border */}
+                  {isActive && (
+                    <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${step.color}`} />
+                  )}
+                  {isCompleted && (
+                    <div className="absolute inset-0 rounded-full bg-slate-800" />
+                  )}
+
+                  {/* Number or Checkmark */}
+                  <span className="relative z-10 flex items-center justify-center">
+                    {isCompleted ? (
+                      <motion.svg
+                        initial={{ scale: 0 }} animate={{ scale: 1 }}
+                        className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </motion.svg>
+                    ) : (
+                      <span className={isActive ? "text-white" : "text-slate-500"}>{step.num}</span>
+                    )}
+                  </span>
+
+                  {/* Glow ring for active */}
+                  {isActive && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: [0.4, 0.1, 0.4], scale: [1.2, 1.4, 1.2] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      className={`absolute inset-0 rounded-full bg-gradient-to-br ${step.color} -z-10`}
+                    />
+                  )}
+                </motion.div>
+
+                {/* Label */}
+                <div className="mt-2 text-center">
+                  <div className={`text-[8px] sm:text-[9px] font-bold uppercase tracking-wider mb-0.5 transition-colors duration-300
+                    ${isActive ? "text-blue-600" : isCompleted ? "text-slate-500" : "text-slate-400"}
+                  `}>
+                    Step {step.num}
+                  </div>
+                  <div className={`text-[9px] sm:text-[10px] font-bold transition-colors duration-300 w-full leading-tight
+                    ${isActive ? "text-slate-900" : isCompleted ? "text-slate-700" : "text-slate-400"}
+                  `}>
+                    {step.label}
+                  </div>
+                </div>
+              </div>
+
+              {/* Connecting Arrow */}
+              {index < steps.length - 1 && (
+                <div className="flex-1 flex items-center justify-center mt-3 sm:mt-4 px-1">
+                  <div className="w-full relative flex items-center">
+                    <div className={`w-full h-[1px] sm:h-[2px] transition-colors duration-500 ${index < activeStep ? "bg-blue-500" : "bg-slate-200"}`} />
+                    <svg className={`absolute right-0 -mr-1 w-3 h-3 transition-colors duration-500 ${index < activeStep ? "text-blue-500" : "text-slate-200"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const HorizontalRoadmap = () => {
+  const [loopIndex, setLoopIndex] = useState(0);
+
+  const steps = [
+    { num: 1, label: "Upload Documents", hint: "Submitting digital paperwork", icon: "📤", color: "#3b82f6", bg: "#eff6ff" },
+    { num: 2, label: "Admin Verification", hint: "Team checks for authenticity", icon: "🔍", color: "#22c55e", bg: "#f0fdf4" },
+    { num: 3, label: "Secure Payment", hint: "Processing application fees", icon: "💳", color: "#e11d48", bg: "#fff1f2" },
+    { num: 4, label: "Delivery Successful", hint: "Documents delivered safely", icon: "🚚", color: "#64748b", bg: "#f8fafc" }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLoopIndex(prev => (prev + 1) % (steps.length + 1));
+    }, 2800);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="hp-container">
+      <div className="hp-track-bg">
+        <div className="hp-track-fill" style={{ width: `${(loopIndex / steps.length) * 100}%` }} />
+      </div>
+      <div className="hp-steps">
+        {steps.map((step, i) => {
+          const isDone = i < loopIndex;
+          const isActive = i === loopIndex;
+          return (
+            <div key={i} className={`hp-step ${isDone ? "done" : ""} ${isActive ? "active" : ""}`}>
+              <div
+                className="hp-circle"
+                style={{
+                  borderColor: isActive || isDone ? step.color : "#e2e8f0",
+                  background: isActive ? step.bg : isDone ? "#f0f9ff" : "#ffffff",
+                  boxShadow: isActive ? `0 0 15px ${step.color}44` : "none",
+                  filter: !isActive && !isDone ? "grayscale(1) opacity(0.4)" : "none",
+                  position: "relative"
+                }}
+              >
+                <div
+                  className="absolute -top-2 -right-2 w-5 h-5 rounded-full text-[11px] font-extrabold text-white flex items-center justify-center border-2 border-white shadow-sm transition-all duration-300"
+                  style={{
+                    background: isDone ? "#0ea5e9" : isActive ? step.color : "#94a3b8"
+                  }}
+                >
+                  {isDone ? "✓" : step.num}
+                </div>
+                {step.icon}
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div className="hp-label" style={{
+                  color: isDone ? "#15803d" : isActive ? step.color : "#64748b",
+                  transition: "all 0.3s ease",
+                  fontWeight: "800",
+                  fontSize: "14px",
+                  whiteSpace: "nowrap"
+                }}>
+                  {step.label}
+                </div>
+                <div style={{ fontSize: "10px", color: isDone ? "#22c55e" : isActive ? step.color : "#64748b", marginTop: "2px", fontWeight: "600", opacity: 1, whiteSpace: "nowrap" }}>
+                  {step.hint}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 /* ─────────────────────────────────────────
    MAIN COMPONENT
 ───────────────────────────────────────── */
 export default function Apply() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [flowType, setFlowType] = useState('manual'); 
+  const [flowType, setFlowType] = useState('manual');
   const [activeStep, setActiveStep] = useState(0);
   const [trackId, setTrackId] = useState("");
   const [animKey, setAnimKey] = useState(0);
@@ -2184,7 +2096,7 @@ export default function Apply() {
   const handleDigiLockerFetch = useCallback((docs) => {
     const { type } = digiModal;
     if (!type || !docs.length) return;
-    
+
     if (type === 'all') {
       // Map docs to available types
       const mapping = {
@@ -2193,7 +2105,7 @@ export default function Apply() {
         provisional: 'degree',
         migration: 'internship' // Just as a fallback for demo
       };
-      
+
       docs.forEach(doc => {
         const targetType = mapping[doc.id];
         if (targetType) {
@@ -2368,10 +2280,10 @@ export default function Apply() {
 
         // ✅ Opens QR / UPI apps directly
         modal: {
-            ondismiss: function () {
-              // Payment popup closed
-            },
+          ondismiss: function () {
+            // Payment popup closed
           },
+        },
       };
 
       const rzp = new window.Razorpay(options);
@@ -2412,89 +2324,69 @@ export default function Apply() {
   const fillPct = Math.round(((activeStep + 1) / (PROC.length)) * 100);
 
   return (
-      <div className="app-shell">
-        <RoadmapPanel activeStep={activeStep} />
-        <div className="portal-panel">
-          <div className="portal-wrap">
-            <div className="process-section">
-              <div className="flow-track">
-                <div className="flow-fill" style={{ width: `${Math.min(fillPct, 100)}%` }} />
-              </div>
-              <div className="proc-ribbon">
-                {PROC.map((p, i) => {
-                  // Correction for UI flow
-                  const uiStep = activeStep === 2 ? 3 : activeStep === 3 ? 4 : activeStep === 4 ? 5 : activeStep;
-                  const iDone = i < uiStep;
-                  const iActive = i === uiStep;
+    <div className="app-shell">
+      <div className="portal-panel">
+        <div className="portal-wrap">
+          <HorizontalRoadmap activeStep={activeStep} />
+          <NumberedRoadmap activeStep={activeStep} />
 
-                  return (
-                    <div key={i} className={`proc-cell ${iDone ? "pc-done" : ""} ${iActive ? "pc-active" : ""}`}>
-                      <div className="proc-orb">{p.icon}</div>
-                      <div className="proc-name">{p.label}</div>
-                      <div className="proc-hint">{p.hint}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="main-card card-anim" key={animKey}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeStep + (flowType || "")}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                >
-                  {activeStep === 0 && (
-                    <Step0
-                      form={form} onChange={onChange}
-                      degrees={degrees} addDeg={addDeg} rmDeg={rmDeg} chDeg={chDeg}
-                      upProg={upProg} upNames={upNames} upCompressed={upCompressed}
-                      onFile={onFile} delFile={delFile}
-                      onDigiLocker={openDigiLocker}
-                      onSubmit={onSubmit}
-                      adminMessage={adminMessage}
-                    />
-                  )}
-                  {activeStep === 1 && (
-                    <Step2
-                      appStatus={appStatus}
-                      adminMessage={adminMessage}
-                      goStep={goStep}
-                      onRetry={() => goStep(0)}
-                    />
-                  )}
-                  {activeStep === 2 && (
-                    <Step1
-                      form={form}
-                      goStep={() => goStep(1)}
-                      handlePayment={handlePayment}
-                    />
-                  )}
-                  {activeStep === 3 && <Step3 reset={reset} handleRefund={handleRefund} />}
-                  {activeStep === 4 && <Step4 form={form} reset={reset} />}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            <div className="hero-header" style={{ animationDelay: '0.4s', marginTop: 40, marginBottom: 12 }}>
-              <h2 style={{ fontSize: 24, fontWeight: 900, color: '#0f172a' }}>Already Applied? <em>Check Status</em></h2>
-              <p>Enter your unique tracking ID to see your processing progress</p>
-            </div>
-
-            <form className="track-bar" onSubmit={handleTrack} style={{ marginTop: 20 }}>
-              <input
-                type="text"
-                className="track-input"
-                placeholder="Enter Tracking ID (e.g. TRK123456)"
-                value={trackId}
-                onChange={(e) => setTrackId(e.target.value)}
-              />
-              <button type="submit" className="track-btn">Track Status</button>
-            </form>
+          <div className="main-card card-anim" key={animKey}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep + (flowType || "")}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+              >
+                {activeStep === 0 && (
+                  <Step0
+                    form={form} onChange={onChange}
+                    degrees={degrees} addDeg={addDeg} rmDeg={rmDeg} chDeg={chDeg}
+                    upProg={upProg} upNames={upNames} upCompressed={upCompressed}
+                    onFile={onFile} delFile={delFile}
+                    onDigiLocker={openDigiLocker}
+                    onSubmit={onSubmit}
+                    adminMessage={adminMessage}
+                  />
+                )}
+                {activeStep === 1 && (
+                  <Step2
+                    appStatus={appStatus}
+                    adminMessage={adminMessage}
+                    goStep={goStep}
+                    onRetry={() => goStep(0)}
+                  />
+                )}
+                {activeStep === 2 && (
+                  <Step1
+                    form={form}
+                    goStep={() => goStep(1)}
+                    handlePayment={handlePayment}
+                  />
+                )}
+                {activeStep === 3 && <Step3 reset={reset} handleRefund={handleRefund} />}
+                {activeStep === 4 && <Step4 form={form} reset={reset} />}
+              </motion.div>
+            </AnimatePresence>
           </div>
+
+          <div className="hero-header" style={{ animationDelay: '0.4s', marginTop: 40, marginBottom: 12 }}>
+            <h2 style={{ fontSize: 24, fontWeight: 900, color: '#0f172a' }}>Already Applied? <em>Check Status</em></h2>
+            <p>Enter your unique tracking ID to see your processing progress</p>
+          </div>
+
+          <form className="track-bar" onSubmit={handleTrack} style={{ marginTop: 20 }}>
+            <input
+              type="text"
+              className="track-input"
+              placeholder="Enter Tracking ID (e.g. TRK123456)"
+              value={trackId}
+              onChange={(e) => setTrackId(e.target.value)}
+            />
+            <button type="submit" className="track-btn">Track Status</button>
+          </form>
         </div>
       </div>
-    );
+    </div>
+  );
 }

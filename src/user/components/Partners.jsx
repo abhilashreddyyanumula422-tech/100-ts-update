@@ -61,49 +61,32 @@ const itemVariants = {
 };
 
 const Partners = () => {
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (scrollRef.current) {
-        const { current } = scrollRef;
-        // If at the end, scroll back to start, else scroll right
-        if (current.scrollLeft + current.clientWidth >= current.scrollWidth - 10) {
-          current.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          current.scrollBy({ left: 350, behavior: "smooth" });
-        }
-      }
-    }, 3000); // scrolls every 3 seconds
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <section className="w-full pt-8 pb-16 sm:pt-12 sm:pb-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
+    <section className="w-full pt-4 pb-16 sm:pt-8 sm:pb-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-[100vw] mx-auto px-6 relative z-10 overflow-hidden">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block px-4 py-2 mb-6 text-sm font-bold tracking-wider text-blue-600 bg-blue-50 rounded-full border-2 border-blue-200"
+            className="inline-block px-4 py-2 mb-4 text-sm font-bold tracking-wider text-blue-600 bg-blue-50 rounded-full border-2 border-blue-200"
           >
             OUR PARTNERS
           </motion.span>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-6 leading-tight tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 mb-4 leading-tight tracking-tight">
             Credential Associates We{" "}
             <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
               Serve
@@ -116,31 +99,32 @@ const Partners = () => {
           </p>
         </motion.div>
 
-        {/* Partners Horizontal Scroll */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div 
-            ref={scrollRef}
-            className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scroll-smooth px-2" 
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
+        {/* Partners Infinite Scroll */}
+        <div className="relative w-full max-w-7xl mx-auto overflow-hidden">
+          {/* Fade edges */}
+          <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          
+          <div className="flex w-max animate-scroll gap-6 py-4 px-4 hover:animation-paused">
             <style>{`
-              .flex::-webkit-scrollbar {
-                display: none;
+              @keyframes scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(calc(-50% - 12px)); }
+              }
+              .animate-scroll {
+                animation: scroll 30s linear infinite;
+              }
+              .animate-scroll:hover {
+                animation-play-state: paused;
               }
             `}</style>
-            {partners.map((partner, index) => (
-              <motion.a
-                key={partner.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.03, y: -5 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+            {[...partners, ...partners].map((partner, index) => (
+              <a
+                key={index}
                 href={partner.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-none w-[320px] sm:w-[380px] snap-center group flex items-center gap-5 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition-shadow duration-300"
+                className="flex-none w-[320px] sm:w-[380px] group flex items-center gap-5 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-200 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl group-hover:scale-105 transition-transform duration-300">
                   <img
@@ -160,7 +144,7 @@ const Partners = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </div>
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>
