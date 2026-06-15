@@ -154,10 +154,10 @@ const PartnerCollege = () => {
   return (
     <div className="bg-white text-slate-900">
       {/* ══ HERO ══ */}
-      <section className="relative overflow-hidden bg-white pt-24 pb-12 md:pt-36 md:pb-24">
-        <div className="absolute inset-0 bg-right bg-no-repeat opacity-100 hidden md:block" style={{ backgroundImage: `url(${partnerclge})`, backgroundSize: "contain" }} />
+      <section className="relative overflow-hidden bg-white pt-20 pb-8 md:pt-28 md:pb-12 min-h-[90vh] flex items-center">
+        <div className="absolute inset-0 bg-right bg-no-repeat opacity-100 hidden md:block" style={{ backgroundImage: `url(${college?.heroImage && college.heroImage !== 'partnerclg.png' ? college.heroImage : partnerclge})`, backgroundSize: "cover" }} />
         {/* Mobile background */}
-        <div className="absolute inset-0 bg-center bg-no-repeat opacity-10 md:hidden" style={{ backgroundImage: `url(${partnerclge})`, backgroundSize: "cover" }} />
+        <div className="absolute inset-0 bg-center bg-no-repeat opacity-10 md:hidden" style={{ backgroundImage: `url(${college?.heroImage && college.heroImage !== 'partnerclg.png' ? college.heroImage : partnerclge})`, backgroundSize: "cover" }} />
 
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,251,255,0.98)_0%,rgba(248,251,255,0.95)_28%,rgba(248,251,255,0.78)_48%,rgba(248,251,255,0.30)_70%,rgba(248,251,255,0.02)_100%)] hidden md:block" />
         {/* Mobile gradient */}
@@ -166,11 +166,11 @@ const PartnerCollege = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.14),_transparent_28%)]" />
         <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 6, repeat: Infinity }} className="absolute left-0 top-0 h-72 w-72 bg-blue-200 rounded-full blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-4 md:px-8">
+        <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
             <motion.div initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="relative w-full text-center md:text-left">
-              <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
-                <div className="w-20 h-20 md:w-16 md:h-16 rounded-xl bg-white shadow-lg p-2 flex items-center justify-center border border-slate-100">
+              <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
+                <div className="w-16 h-16 md:w-14 md:h-14 rounded-xl bg-white shadow-lg p-2 flex items-center justify-center border border-slate-100">
                   <img src={college?.logo} alt={shortName} className="max-w-full max-h-full object-contain" />
                 </div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-widest text-blue-700 shadow-sm backdrop-blur-sm">
@@ -179,16 +179,16 @@ const PartnerCollege = () => {
                 </div>
               </div>
 
-              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-5 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-[#233a59] tracking-tight">
+              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-3 text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-[#233a59] tracking-tight">
                 Exclusive Services for{" "}
                 <span className="block md:inline text-blue-700">{collegeName}</span>
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-6 mx-auto md:mx-0 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-4 mx-auto md:mx-0 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
                 {college?.description || `${collegeName} students can now apply for transcript and document services without visiting the college. We make the process simple, guided, and reliable for credential evaluations and official submissions.`}
               </motion.p>
 
-              <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
+              <div className="mt-5 flex flex-wrap justify-center md:justify-start gap-3">
                 {["Fast processing", "Secure documentation", "Dedicated support"].map((t) => (
                   <div key={t} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs md:text-sm font-bold text-slate-700 shadow-sm ring-1 ring-slate-200">
                     <FiCheckCircle className="text-blue-600" /> {t}
@@ -196,18 +196,18 @@ const PartnerCollege = () => {
                 ))}
               </div>
 
-              <div className="mt-10 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
-                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-8 py-4 text-sm font-bold text-white shadow-xl transition">
+              <div className="mt-6 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-xl transition hover:shadow-cyan-500/30">
                   <FaWhatsapp size={18} /> Contact Us
                 </motion.a>
-                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#submit-documents" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-blue-200 bg-white px-8 py-4 text-sm font-bold text-blue-700 shadow-lg">
+                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#submit-documents" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-bold text-white shadow-xl transition hover:shadow-cyan-500/30">
                   Submit Documents <FiArrowRight />
                 </motion.a>
               </div>
 
-              <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {stats.map((item, index) => (
-                  <motion.div key={item.label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: index * 0.08 }} viewport={{ once: true }} className="rounded-2xl bg-white/90 px-4 py-6 text-center shadow-xl ring-1 ring-slate-100 backdrop-blur-sm">
+                  <motion.div key={item.label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: index * 0.08 }} viewport={{ once: true }} className="rounded-2xl bg-white/90 px-4 py-4 text-center shadow-xl ring-1 ring-slate-100 backdrop-blur-sm">
                     <p className="text-2xl font-black text-[#2f4a6d]"><Counter value={item.value} /></p>
                     <p className="mt-2 text-[10px] font-bold leading-tight text-slate-500 uppercase tracking-widest">{item.label}</p>
                   </motion.div>
@@ -220,8 +220,8 @@ const PartnerCollege = () => {
       </section>
 
       {/* ══ SERVICES ══ */}
-      <CollegeServices 
-        services={services} 
+      <CollegeServices
+        services={services}
         description={`Exclusive services for ${collegeName} students for credential evaluations, university submissions, and official verification needs.`}
       />
 
@@ -229,15 +229,21 @@ const PartnerCollege = () => {
       <section id="submit-documents" className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-4xl px-6 md:px-12">
           <motion.div initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="rounded-[28px] bg-gradient-to-r from-blue-600 to-cyan-600 p-10 text-center text-white shadow-xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Get Started</p>
-              <h2 className="mt-4 text-3xl md:text-4xl font-bold leading-tight">Ready to Submit Your Documents?</h2>
-              <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-blue-100/90">Safe, guided, and secure submission process with faster turnaround through our dedicated college support.</p>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <Link to="/apply" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-10 py-4 text-base font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:bg-slate-50">
+            <div className="rounded-[2rem] p-10 md:p-16 text-center text-white relative overflow-hidden bg-gradient-to-br from-blue-600 to-cyan-600 shadow-2xl border border-blue-400/30">
+              {/* Decorative glows */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-[80px] pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] pointer-events-none" />
+              
+              <div className="relative z-10">
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-100">Get Started</p>
+                <h2 className="mt-4 text-3xl md:text-4xl font-bold leading-tight text-white">Ready to Submit Your Documents?</h2>
+                <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-blue-50">Safe, guided, and secure submission process with faster turnaround through our dedicated college support.</p>
+              </div>
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-4 relative z-10">
+                <Link to="/apply" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-10 py-4 text-base font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:shadow-black/10">
                   Apply Now <FiArrowRight />
                 </Link>
-                <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-blue-200/40 bg-transparent px-8 py-4 text-base font-bold text-white transition hover:bg-blue-600/30">
+                <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:shadow-black/10">
                   <FaWhatsapp size={18} /> Contact Support
                 </a>
               </div>
@@ -246,63 +252,7 @@ const PartnerCollege = () => {
         </div>
       </section>
 
-      {/* ══ PROCESS STEPS ══ */}
-      <section className="relative overflow-hidden bg-white pt-28 pb-16 md:pt-36 md:pb-24">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.08),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(47,74,109,0.08),transparent_28%)]" />
-        <div className="relative mx-auto max-w-7xl px-6 md:px-12">
-          <motion.div initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mb-12 text-center">
-            <div className="flex items-center justify-center gap-4">
-              <span className="h-[3px] w-12 bg-blue-600" />
-              <p className="text-sm font-bold uppercase tracking-wider text-blue-600">Application Process</p>
-              <span className="h-[3px] w-12 bg-blue-600" />
-            </div>
-            <h2 className="mt-3 text-3xl font-bold text-[#2f4a6d] md:text-4xl">Simple and Guided Process</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-600 md:text-base">A clear step-by-step workflow designed to make transcript and document processing smooth, secure, and easy to follow.</p>
-          </motion.div>
 
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="relative">
-              <div className="absolute left-[21px] top-6 hidden h-[78%] w-[2px] bg-gradient-to-b from-blue-200 via-blue-300 to-transparent md:block" />
-              <div className="space-y-5">
-                {processSteps.map((step, index) => (
-                  <motion.div key={step.title} initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: index * 0.1 }} viewport={{ once: true }} className="group relative flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg">
-                    <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-md shadow-blue-200">{index + 1}</div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-[#233a59]">{step.title}</h3>
-                      <p className="mt-2 text-sm leading-7 text-slate-600">{step.text}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.65 }} viewport={{ once: true }} className="relative">
-              <div className="absolute -left-6 top-10 h-24 w-24 rounded-full bg-blue-100/70 blur-3xl" />
-              <div className="absolute -right-6 bottom-10 h-28 w-28 rounded-full bg-cyan-100/70 blur-3xl" />
-              <div className="relative overflow-hidden rounded-[30px] border border-blue-100 bg-[linear-gradient(145deg,#eff6ff_0%,#ffffff_45%,#f8fbff_100%)] p-6 shadow-[0_20px_60px_rgba(37,99,235,0.10)] md:p-8">
-                <div className="absolute right-4 top-4 h-20 w-20 rounded-full bg-blue-100/70 blur-2xl" />
-                <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="mx-auto flex max-w-md flex-col items-center text-center">
-                  <div className="relative flex h-44 w-44 items-center justify-center rounded-full bg-[radial-gradient(circle,#dbeafe_0%,#bfdbfe_45%,#93c5fd_100%)] shadow-inner">
-                    <motion.div animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} className="flex h-28 w-28 items-center justify-center rounded-3xl bg-white shadow-lg">
-                      <FiFileText className="text-5xl text-blue-700" />
-                    </motion.div>
-                    <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }} className="absolute -left-2 top-8 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2f4a6d] text-white shadow-lg"><FiUploadCloud className="text-xl" /></motion.div>
-                    <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }} className="absolute -right-2 top-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg"><FiCheckCircle className="text-xl" /></motion.div>
-                    <motion.div animate={{ x: [0, 8, 0] }} transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }} className="absolute bottom-4 left-6 flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-blue-700 shadow-md"><FiShield className="text-lg" /></motion.div>
-                    <motion.div animate={{ x: [0, -8, 0] }} transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }} className="absolute bottom-6 right-6 flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-blue-700 shadow-md"><FiClock className="text-lg" /></motion.div>
-                  </div>
-                  <h3 className="mt-8 text-2xl font-bold text-[#233a59]">Smooth Document Workflow</h3>
-                  <p className="mt-3 max-w-md text-sm leading-7 text-slate-600 md:text-base">From request submission to final dispatch, every stage is managed with clarity, secure handling, and dedicated support for students.</p>
-                  <div className="mt-8 grid w-full grid-cols-2 gap-3">
-                    <div className="rounded-2xl bg-white px-4 py-4 text-center shadow-sm ring-1 ring-slate-100"><p className="text-xl font-bold text-blue-700">4 Steps</p><p className="mt-1 text-xs font-medium text-slate-500">Easy Process</p></div>
-                    <div className="rounded-2xl bg-white px-4 py-4 text-center shadow-sm ring-1 ring-slate-100"><p className="text-xl font-bold text-blue-700">Fast</p><p className="mt-1 text-xs font-medium text-slate-500">Guided Support</p></div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       <HowItWorks />
       <Partners />

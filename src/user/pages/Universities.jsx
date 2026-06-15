@@ -24,17 +24,17 @@ const itemVariants = {
 const Universities = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const colleges = Object.entries(collegesData).map(([id, data]) => ({
     id,
     ...data,
   }));
 
-  const filteredColleges = searchTerm.length > 0 
+  const filteredColleges = searchTerm.length > 0
     ? colleges.filter((college) =>
-        college.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        college.short.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      college.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      college.short.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : colleges;
 
   // Pagination logic
@@ -68,12 +68,12 @@ const Universities = () => {
   return (
     <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50 min-h-screen">
       {/* Hero Section - Integrated search & tight spacing */}
-      <section className="relative overflow-hidden pt-[70px] pb-12 md:pb-16">
+      <section className="relative overflow-hidden pt-[100px] md:pt-[100px] pb-12 md:pb-16">
         {/* Animated Background Blobs */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            animate={{ 
-              x: [0, 50, 0], 
+            animate={{
+              x: [0, 50, 0],
               y: [0, -30, 0],
               scale: [1, 1.1, 1]
             }}
@@ -81,8 +81,8 @@ const Universities = () => {
             className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-full blur-3xl"
           />
           <motion.div
-            animate={{ 
-              x: [0, -50, 0], 
+            animate={{
+              x: [0, -50, 0],
               y: [0, 30, 0],
               scale: [1, 1.15, 1]
             }}
@@ -99,10 +99,10 @@ const Universities = () => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.15] tracking-tight">
-              <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent pb-2">
                 Your Gateway to
               </span>
-              <span className="block bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-600 bg-clip-text text-transparent pb-2">
                 Transcript Excellence
               </span>
             </h1>
@@ -113,7 +113,7 @@ const Universities = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="max-w-3xl mx-auto text-lg sm:text-xl text-slate-600 leading-relaxed mb-8"
             >
-              We've partnered with India's most prestigious universities to deliver 
+              We've partnered with India's most prestigious universities to deliver
               <span className="font-bold text-slate-800"> seamless, secure, and lightning-fast</span> transcript services.
             </motion.p>
 
@@ -167,7 +167,7 @@ const Universities = () => {
                           to={`/universities/${college.id}`}
                           className="flex items-center gap-3 px-5 py-3.5 hover:bg-gradient-to-r from-blue-50 to-purple-50 transition-all duration-300 border-b border-slate-50 last:border-none group"
                         >
-                          <div className="w-10 h-10 rounded-lg bg-white shadow border border-slate-100 p-1.5 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                          <div className="w-10 h-10 rounded-full bg-white shadow border border-slate-100 p-1.5 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                             <img src={college.logo} alt="" className="max-w-full max-h-full object-contain" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -244,7 +244,7 @@ const Universities = () => {
             </p>
           </div>
 
-          <motion.div 
+          <motion.div
             key={currentPage}
             variants={containerVariants}
             initial="hidden"
@@ -256,27 +256,27 @@ const Universities = () => {
                 <motion.div
                   variants={itemVariants}
                   whileHover={{ y: -6 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 260, 
-                    damping: 20 
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20
                   }}
                   className="group relative"
                 >
                   {/* Card Glow */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   {/* Main Card */}
                   <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl border border-white/70 shadow-lg group-hover:shadow-2xl overflow-hidden transition-all duration-500">
                     <div className="relative p-6 flex flex-col items-center text-center">
                       {/* Bigger Logo */}
                       <div className="relative mb-5">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-                        <div className="relative w-28 h-28 rounded-2xl bg-gradient-to-br from-white to-slate-50 shadow-xl border border-slate-100 p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                          <img 
-                            src={college.logo} 
-                            alt={college.short} 
-                            className="max-w-full max-h-full object-contain" 
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500" />
+                        <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-white to-slate-50 shadow-xl border border-slate-100 p-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                          <img
+                            src={college.logo}
+                            alt={college.short}
+                            className="max-w-full max-h-full object-contain"
                           />
                         </div>
                       </div>
@@ -297,9 +297,8 @@ const Universities = () => {
                       </p>
 
                       {/* CTA Button */}
-                      <div className="relative overflow-hidden rounded-xl w-full">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="relative flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 font-bold text-sm group-hover:text-white transition-all duration-300 border border-blue-100 group-hover:border-transparent">
+                      <div className="w-full mt-2">
+                        <div className="relative flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold text-sm transition-all duration-300 shadow-md group-hover:shadow-lg group-hover:shadow-cyan-500/30 group-hover:-translate-y-0.5">
                           View Details
                           <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                         </div>
@@ -313,7 +312,7 @@ const Universities = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -323,11 +322,10 @@ const Universities = () => {
               <button
                 onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 400, behavior: 'smooth' }); }}
                 disabled={currentPage === 1}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                  currentPage === 1 
-                    ? 'bg-slate-100 text-slate-300 cursor-not-allowed' 
-                    : 'bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 shadow-md border border-slate-200 hover:border-blue-200'
-                }`}
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${currentPage === 1
+                  ? 'bg-slate-100 text-slate-300 cursor-not-allowed'
+                  : 'bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 shadow-md border border-slate-200 hover:border-blue-200'
+                  }`}
               >
                 <FiChevronLeft size={18} />
               </button>
@@ -340,11 +338,10 @@ const Universities = () => {
                   <button
                     key={page}
                     onClick={() => { setCurrentPage(page); window.scrollTo({ top: 400, behavior: 'smooth' }); }}
-                    className={`w-10 h-10 rounded-xl font-bold text-sm transition-all duration-300 ${
-                      currentPage === page
-                        ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30 scale-110'
-                        : 'bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 shadow-md border border-slate-200 hover:border-blue-200'
-                    }`}
+                    className={`w-10 h-10 rounded-xl font-bold text-sm transition-all duration-300 ${currentPage === page
+                      ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30 scale-110'
+                      : 'bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 shadow-md border border-slate-200 hover:border-blue-200'
+                      }`}
                   >
                     {page}
                   </button>
@@ -355,11 +352,10 @@ const Universities = () => {
               <button
                 onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 400, behavior: 'smooth' }); }}
                 disabled={currentPage === totalPages}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                  currentPage === totalPages 
-                    ? 'bg-slate-100 text-slate-300 cursor-not-allowed' 
-                    : 'bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 shadow-md border border-slate-200 hover:border-blue-200'
-                }`}
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${currentPage === totalPages
+                  ? 'bg-slate-100 text-slate-300 cursor-not-allowed'
+                  : 'bg-white text-slate-600 hover:bg-blue-50 hover:text-blue-600 shadow-md border border-slate-200 hover:border-blue-200'
+                  }`}
               >
                 <FiChevronRight size={18} />
               </button>
@@ -369,54 +365,56 @@ const Universities = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden py-12 md:py-16">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600" />
-        
-        {/* Animated Decorative Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-40 -right-40 w-[600px] h-[600px] border-2 border-white/10 rounded-full"
-          />
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-60 -left-60 w-[800px] h-[800px] border border-white/5 rounded-full"
-          />
-        </div>
+      <section className="py-12 md:py-16 px-4">
+        <div className="relative overflow-hidden mx-auto max-w-5xl rounded-[2.5rem] shadow-2xl py-8 md:py-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600" />
 
-        <div className="relative mx-auto max-w-4xl px-6 text-center z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-xl px-6 py-3 rounded-full mb-8 border border-white/30">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-sm font-bold text-white/90">EXPANDING NETWORK</span>
-            </div>
+          {/* Animated Decorative Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              className="absolute -top-40 -right-40 w-[600px] h-[600px] border-2 border-white/10 rounded-full"
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              className="absolute -bottom-60 -left-60 w-[800px] h-[800px] border border-white/5 rounded-full"
+            />
+          </div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-[1.15] tracking-tight">
-              Can't Find Your University?
-            </h2>
-            
-            <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-              We're continuously partnering with more institutions. 
-              Contact us today and let us help you with your transcript needs.
-            </p>
-            
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-3 bg-white text-blue-700 px-8 py-4 rounded-full font-bold text-base shadow-2xl shadow-white/30 hover:shadow-3xl hover:shadow-white/40 transition-all duration-500 hover:scale-105 group"
+          <div className="relative mx-auto max-w-4xl px-6 text-center z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
             >
-              Contact Us Now
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </motion.div>
+              <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-xl px-6 py-3 rounded-full mb-4 border border-white/30">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-sm font-bold text-white/90">EXPANDING NETWORK</span>
+              </div>
+
+              <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold text-white mb-3 leading-[1.15] tracking-tight">
+                Can't Find Your University?
+              </h2>
+
+              <p className="text-base sm:text-lg text-white/80 mb-6 max-w-2xl mx-auto leading-relaxed">
+                We're continuously partnering with more institutions.
+                Contact us today and let us help you with your transcript needs.
+              </p>
+
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-3 bg-white text-blue-700 px-8 py-4 rounded-full font-bold text-base shadow-2xl shadow-white/30 hover:shadow-3xl hover:shadow-white/40 transition-all duration-500 hover:scale-105 group"
+              >
+                Contact Us Now
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>

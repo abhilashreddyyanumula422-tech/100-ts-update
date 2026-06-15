@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 // Added Search to the imports below
 import { School, MapPin, Mail, Edit, Plus, X, Save, Search } from 'lucide-react';
+import {
+  getAllColleges,
+  addCollege,
+  getCollegeCertificates,
+  updateCertificate,
+  deleteCertificate,
+  addCertificate
+} from "../../services/api";
 
 const CollegeRequest = () => {
   // ✅ 1. Added the search state (This fixes the error)
@@ -14,14 +22,13 @@ const CollegeRequest = () => {
 
   const fetchColleges = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/allcolleges/");
+      const response = await getAllColleges();
 
-      if (!res.ok) {
+      if (!response.ok) {
         throw new Error("Failed to fetch");
       }
 
-      const data = await res.json();
-      setColleges(data);
+      setColleges(response.data);
 
     } catch (err) {
       // Error fetching colleges handled
@@ -55,19 +62,10 @@ const CollegeRequest = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        "http://127.0.0.1:8000/api/add_college/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await addCollege(formData);
 
-      const data = await res.json();
-
-      if (res.ok) {
-        setColleges([...colleges, data]);
+      if (response.ok) {
+        setColleges([...colleges, response.data]);
         setIsModalOpen(false);
         setFormData({
           name: "",
@@ -90,15 +88,11 @@ const CollegeRequest = () => {
 
   const fetchCertificates = async (collegeId) => {
     try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/colleges/${collegeId}/certificates/`
-      );
-
-      const data = await res.json();
+      const response = await getCollegeCertificates(collegeId);
 
       setEditingCollege(prev => ({
         ...prev,
-        certificates: data
+        certificates: response.data
       }));
 
     } catch (err) {
@@ -107,20 +101,16 @@ const CollegeRequest = () => {
   };
 
 
-  const updateCertificate = async (certId, updatedCert) => {
+  const updateCertificateHandler = async (certId, updatedCert) => {
     try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/certificates/${certId}/`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedCert),
-        }
+      const response = await updateCertificate(
+        certId,
+        updatedCert.college,
+        updatedCert.name,
+        updatedCert.price
       );
 
-      if (!res.ok) throw new Error("Update failed");
+      if (!response.ok) throw new Error("Update failed");
 
       await fetchCertificates(editingCollege.id);
     } catch (err) {
@@ -128,16 +118,11 @@ const CollegeRequest = () => {
     }
   };
 
-  const deleteCertificate = async (certId) => {
+  const deleteCertificateHandler = async (certId) => {
     try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/certificates/${certId}/`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await deleteCertificate(certId);
 
-      if (!res.ok) throw new Error("Delete failed");
+      if (!response.ok) throw new Error("Delete failed");
 
       await fetchCertificates(editingCollege.id);
     } catch (err) {
@@ -421,25 +406,20 @@ const CollegeRequest = () => {
 
                           if (isEditing) {
                             // ✅ UPDATE
-                            await updateCertificate(isEditing, {
-                              name: editingCollege.certType,
-                              price: editingCollege.certPrice,
-                            });
-                          } else {
-                            // ✅ CREATE
-                            const newCert = {
+                            await updateCertificateHandler(isEditing, {
                               name: editingCollege.certType,
                               price: editingCollege.certPrice,
                               college: editingCollege.id,
-                            };
-
-                            const res = await fetch("http://127.0.0.1:8000/api/add_certificate/", {
-                              method: "POST",
-                              headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify(newCert),
                             });
+                          } else {
+                            // ✅ CREATE
+                            const response = await addCertificate(
+                              editingCollege.id,
+                              editingCollege.certType,
+                              editingCollege.certPrice
+                            );
 
-                            if (!res.ok) throw new Error("Failed to add certificate");
+                            if (!response.ok) throw new Error("Failed to add certificate");
                           }
 
                           // 🔄 REFRESH LIST
@@ -505,7 +485,7 @@ const CollegeRequest = () => {
                         <button
                           onClick={async () => {
                             try {
-                              await deleteCertificate(cert.id);
+                              await deleteCertificateHandler(cert.id);
                               await fetchCertificates(editingCollege.id); // ✅ force refresh
                             } catch (err) {
                               // Delete error handled

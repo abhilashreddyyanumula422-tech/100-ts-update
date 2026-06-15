@@ -24,7 +24,7 @@ const WES = () => {
             href="https://100transcripts.com/wp-content/uploads/2025/02/How-to-create-WES-Account-for-%E2%80%98Canada-PR.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all text-sm group"
+            className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-3 rounded-full font-bold hover:shadow-cyan-500/30 transition-all text-sm group shadow-xl"
           >
             <Sparkles className="w-4 h-4" />
             <span>Canada PR Guide</span>
@@ -77,7 +77,7 @@ const WES = () => {
         <div className="mt-4">
           <Link
             to="/apply"
-            className="inline-flex items-center gap-3 bg-blue-600 text-white px-8 py-3 rounded-xl font-black hover:bg-blue-700 transition-all text-sm shadow-lg"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-full font-black hover:shadow-cyan-500/30 transition-all text-sm shadow-xl"
           >
             <Upload className="w-4 h-4" />
             Start Application
@@ -121,13 +121,13 @@ const WES = () => {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
               className="lg:w-1/2 relative flex justify-center items-center mt-12 lg:mt-0"
             >
-              <motion.div 
+              <motion.div
                 animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute w-full h-full bg-blue-50/60 rounded-full blur-[100px] -z-10"
@@ -136,9 +136,9 @@ const WES = () => {
               <motion.div
                 animate={{ y: [-12, 12, -12] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative w-full max-w-lg flex items-center justify-center p-2"
+                className="relative w-full max-w-2xl flex items-center justify-center p-2"
               >
-                <div 
+                <div
                   className="relative w-full overflow-hidden flex items-center justify-center"
                   style={{
                     WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
@@ -153,7 +153,7 @@ const WES = () => {
                     loop
                     muted
                     playsInline
-                    className="w-[110%] h-auto object-contain mix-blend-multiply brightness-110 contrast-105"
+                    className="w-[125%] h-auto object-contain mix-blend-multiply brightness-110 contrast-105"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.5 }}
                   />
@@ -221,7 +221,7 @@ const WES = () => {
                   href="https://100transcripts.com/wes-final-eca-report/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-4 bg-blue-600 text-white px-8 py-4 rounded-xl font-black text-sm hover:bg-blue-700 transition-all w-full justify-center"
+                  className="inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-black text-sm hover:shadow-cyan-500/30 transition-all w-full justify-center shadow-xl"
                 >
                   View Sample Report
                   <ExternalLink className="w-4 h-4" />

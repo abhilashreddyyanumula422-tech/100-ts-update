@@ -45,7 +45,7 @@ html, body, #root {
 
 /* ══ Layout ══ */
 .app-shell {
-  padding-top: 70px;
+  padding-top: 110px;
   background: #f8fafc;
   min-height: 100vh;
   display: block;
@@ -558,11 +558,11 @@ html, body, #root {
 
 /* ══ Buttons ══ */
 .btn-primary {
-  background:linear-gradient(135deg,#3b82f6,#6366f1,#8b5cf6); 
+  background:linear-gradient(to right,#2563eb,#06b6d4); 
   color:#fff; 
   border:none;
-  border-radius:16px; 
-  padding:14px 32px; 
+  border-radius:9999px; 
+  padding:10px 24px; 
   font-size:14px; 
   font-weight:700;
   cursor:pointer; 
@@ -570,12 +570,13 @@ html, body, #root {
   transition:all .2s cubic-bezier(.4,0,.2,1);
   display:inline-flex; 
   align-items:center; 
+  justify-content:center;
   gap:6px;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
 }
 .btn-primary:hover { 
-  transform:translateY(-3px); 
-  box-shadow:0 12px 32px rgba(99, 102, 241,.4); 
+  transform:scale(1.05); 
+  box-shadow:0 12px 32px rgba(37, 99, 235, 0.4); 
 }
 .btn-primary:active { 
   transform:scale(.97); 
@@ -1357,192 +1358,192 @@ const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames,
   const [showManualUpload, setShowManualUpload] = React.useState(false);
 
   return (
-  <form onSubmit={onSubmit}>
-    {adminMessage && (
-      <div className="info-panel amber" style={{ marginBottom: 24, border: "2px solid #fbbf24" }}>
-        <span className="info-icon">⚠️</span>
-        <div style={{ flex: 1 }}>
-          <h3 style={{ color: "#92400e", marginBottom: 4 }}>Action Required / Rejection Message</h3>
-          <p style={{ color: "#b45309", fontSize: "14px", fontWeight: 500 }}>{adminMessage}</p>
+    <form onSubmit={onSubmit}>
+      {adminMessage && (
+        <div className="info-panel amber" style={{ marginBottom: 24, border: "2px solid #fbbf24" }}>
+          <span className="info-icon">⚠️</span>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ color: "#92400e", marginBottom: 4 }}>Action Required / Rejection Message</h3>
+            <p style={{ color: "#b45309", fontSize: "14px", fontWeight: 500 }}>{adminMessage}</p>
+          </div>
+        </div>
+      )}
+
+      <div className="step-header">
+        <div className="step-icon icon-blue">📄</div>
+        <div>
+          <div className="step-title">Transcript Application Form</div>
+          <div className="step-subtitle">Fill in your details and provide document copies to begin</div>
         </div>
       </div>
-    )}
 
-    <div className="step-header">
-      <div className="step-icon icon-blue">📄</div>
-      <div>
-        <div className="step-title">Transcript Application Form</div>
-        <div className="step-subtitle">Fill in your details and provide document copies to begin</div>
-      </div>
-    </div>
-
-    <div className="sec-title">Personal Information</div>
-    <div className="form-grid">
-      {[
-        { id: "fullName", label: "Full Name", type: "text", ph: "e.g. Ravi Kumar", req: true },
-        { id: "email", label: "Email Address", type: "email", ph: "email@example.com", req: true },
-        { id: "phone", label: "Phone Number", type: "tel", ph: "+91 98765 43210", req: true },
-        { id: "altPhone", label: "Alternative Number", type: "tel", ph: "+91 98765 43210", req: true },
-      ].map(({ id, label, type, ph, req }) => (
-        <div className="field" key={id}>
-          <label>{label} {req && <span className="req">*</span>}</label>
-          <input
-            type={type}
-            name={id}
-            value={form[id]}
-            onChange={onChange}
-            placeholder={ph}
-            autoComplete="off"
-            inputMode={type === "tel" ? "numeric" : undefined}
-          />
-        </div>
-      ))}
-      <div className="field">
-        <label>Select Requirement <span className="req">*</span></label>
-        <select name="requirement" value={form.requirement} onChange={onChange}>
-          <option value="">— Choose Service —</option>
-          <option value="Transcripts">Transcripts</option>
-          <option value="WES">WES</option>
-          <option value="Genuineness">Genuineness</option>
-        </select>
-      </div>
-      <div className="field">
-        <label>Reference Number</label>
-        <input type="text" name="referenceNumber" value={form.referenceNumber} onChange={onChange} placeholder="If you have one" />
-      </div>
-    </div>
-
-    <div className="sec-title">Academic Degrees (Optional)</div>
-    {degrees.length === 0 ? (
-      <div className="optional-deg-box" onClick={addDeg}>
-        <div className="opt-icon">🎓</div>
-        <div className="opt-text">
-          <strong>Add Degree Details</strong>
-          <span>Click to add your university and course information if applicable</span>
-        </div>
-        <button type="button" className="btn-add-mini">+ Add</button>
-      </div>
-    ) : (
-      <>
-        {degrees.map(d => (
-          <div className="degree-card" key={d.id}>
-            <div className="deg-header">
-              <span className="deg-num">Degree {d.id}</span>
-              <button type="button" className="btn-rm" onClick={() => rmDeg(d.id)}>✕ Remove</button>
-            </div>
-            <div className="form-grid">
-              <div className="field">
-                <label>Degree Type</label>
-                <select value={d.type} onChange={e => chDeg(d.id, "type", e.target.value)}>
-                  <option value="">Select Type</option>
-                  {["B.Tech", "B.Sc", "B.Com", "M.Tech", "MBA", "Diploma"].map(t => <option key={t}>{t}</option>)}
-                </select>
-              </div>
-              <div className="field">
-                <label>University / Board <span className="req">*</span></label>
-                <input type="text" value={d.university} placeholder="e.g. Osmania University" onChange={e => chDeg(d.id, "university", e.target.value)} />
-              </div>
-              <div className="field">
-                <label>Course / Specialization</label>
-                <input type="text" value={d.course} placeholder="e.g. Computer Science" onChange={e => chDeg(d.id, "course", e.target.value)} />
-              </div>
-              <div className="field">
-                <label>College / School Name <span className="req">*</span></label>
-                <input type="text" value={d.college} placeholder="e.g. JNTU College" onChange={e => chDeg(d.id, "college", e.target.value)} />
-              </div>
-            </div>
+      <div className="sec-title">Personal Information</div>
+      <div className="form-grid">
+        {[
+          { id: "fullName", label: "Full Name", type: "text", ph: "e.g. Ravi Kumar", req: true },
+          { id: "email", label: "Email Address", type: "email", ph: "email@example.com", req: true },
+          { id: "phone", label: "Phone Number", type: "tel", ph: "+91 98765 43210", req: true },
+          { id: "altPhone", label: "Alternative Number", type: "tel", ph: "+91 98765 43210", req: true },
+        ].map(({ id, label, type, ph, req }) => (
+          <div className="field" key={id}>
+            <label>{label} {req && <span className="req">*</span>}</label>
+            <input
+              type={type}
+              name={id}
+              value={form[id]}
+              onChange={onChange}
+              placeholder={ph}
+              autoComplete="off"
+              inputMode={type === "tel" ? "numeric" : undefined}
+            />
           </div>
         ))}
-        <button type="button" className="btn-add" onClick={addDeg}>+ Add Another Degree</button>
-      </>
-    )}
-
-    <div className="flex flex-col items-center mb-10 mt-12 text-center px-4">
-      <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-8">How would you like to submit your documents?</h2>
-      
-      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto">
-        {/* BUTTON 1: Fetch from DigiLocker */}
-        <button
-          type="button"
-          onClick={() => onDigiLocker('all', 'All Documents')}
-          className="flex-1 bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-800 hover:text-blue-700 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
-        >
-          <img src={digilockerLogo} alt="DigiLocker" className="h-9 w-auto object-contain" />
-          Fetch from DigiLocker
-        </button>
-
-        {/* BUTTON 2: Upload Documents */}
-        <button
-          type="button"
-          onClick={() => setShowManualUpload(true)}
-          className="flex-1 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-800 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
-        >
-          <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
-          Upload Documents
-        </button>
-      </div>
-    </div>
-
-    {/* Conditionally Rendered Manual Upload Block */}
-    {showManualUpload && (
-      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm w-full max-w-3xl mx-auto mb-12 relative">
-        <button 
-          type="button"
-          onClick={() => setShowManualUpload(false)}
-          className="absolute top-6 left-6 text-slate-400 hover:text-slate-700 flex items-center gap-1.5 font-medium text-sm transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-          Back
-        </button>
-        <h3 className="text-lg font-bold text-slate-800 mb-8 mt-2 text-center">Upload Your Documents</h3>
-        <div className="flex flex-col gap-5">
-          <UpBlock type="cmm" label="CMM / Yearly Marks Sheet"
-            options={["CMM", "Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"]}
-            upProg={upProg} upNames={upNames} upCompressed={upCompressed}
-            onFile={onFile} delFile={delFile} flowType="manual" />
-
-          <UpBlock type="degree" label="Degree / Provisional Certificate"
-            options={["Degree Certificate", "Provisional Certificate"]}
-            upProg={upProg} upNames={upNames} upCompressed={upCompressed}
-            onFile={onFile} delFile={delFile} flowType="manual" />
-
-          <UpBlock type="internship" label="Internship Certificate"
-            options={["Internship Certificate"]}
-            upProg={upProg} upNames={upNames} upCompressed={upCompressed}
-            onFile={onFile} delFile={delFile} flowType="manual" />
+        <div className="field">
+          <label>Select Requirement <span className="req">*</span></label>
+          <select name="requirement" value={form.requirement} onChange={onChange}>
+            <option value="">— Choose Service —</option>
+            <option value="Transcripts">Transcripts</option>
+            <option value="WES">WES</option>
+            <option value="Genuineness">Genuineness</option>
+          </select>
+        </div>
+        <div className="field">
+          <label>Reference Number</label>
+          <input type="text" name="referenceNumber" value={form.referenceNumber} onChange={onChange} placeholder="If you have one" />
         </div>
       </div>
-    )}
 
-    <div className="guideline-section" style={{ padding: '24px', background: '#f8fafc', borderRadius: '16px', border: '1px solid #e2e8f0', marginTop: '32px' }}>
-      <div className="guideline-title" style={{ fontSize: '18px', fontWeight: '800', color: '#1e293b', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span>📸</span> Photo Instructions
+      <div className="sec-title">Academic Degrees (Optional)</div>
+      {degrees.length === 0 ? (
+        <div className="optional-deg-box" onClick={addDeg}>
+          <div className="opt-icon">🎓</div>
+          <div className="opt-text">
+            <strong>Add Degree Details</strong>
+            <span>Click to add your university and course information if applicable</span>
+          </div>
+          <button type="button" className="btn-add-mini">+ Add</button>
+        </div>
+      ) : (
+        <>
+          {degrees.map(d => (
+            <div className="degree-card" key={d.id}>
+              <div className="deg-header">
+                <span className="deg-num">Degree {d.id}</span>
+                <button type="button" className="btn-rm" onClick={() => rmDeg(d.id)}>✕ Remove</button>
+              </div>
+              <div className="form-grid">
+                <div className="field">
+                  <label>Degree Type</label>
+                  <select value={d.type} onChange={e => chDeg(d.id, "type", e.target.value)}>
+                    <option value="">Select Type</option>
+                    {["B.Tech", "B.Sc", "B.Com", "M.Tech", "MBA", "Diploma"].map(t => <option key={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div className="field">
+                  <label>University / Board <span className="req">*</span></label>
+                  <input type="text" value={d.university} placeholder="e.g. Osmania University" onChange={e => chDeg(d.id, "university", e.target.value)} />
+                </div>
+                <div className="field">
+                  <label>Course / Specialization</label>
+                  <input type="text" value={d.course} placeholder="e.g. Computer Science" onChange={e => chDeg(d.id, "course", e.target.value)} />
+                </div>
+                <div className="field">
+                  <label>College / School Name <span className="req">*</span></label>
+                  <input type="text" value={d.college} placeholder="e.g. JNTU College" onChange={e => chDeg(d.id, "college", e.target.value)} />
+                </div>
+              </div>
+            </div>
+          ))}
+          <button type="button" className="btn-add" onClick={addDeg}>+ Add Another Degree</button>
+        </>
+      )}
+
+      <div className="flex flex-col items-center mb-10 mt-12 text-center px-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-8">How would you like to submit your documents?</h2>
+
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto">
+          {/* BUTTON 1: Fetch from DigiLocker */}
+          <button
+            type="button"
+            onClick={() => onDigiLocker('all', 'All Documents')}
+            className="flex-1 bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-800 hover:text-blue-700 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+          >
+            <img src={digilockerLogo} alt="DigiLocker" className="h-9 w-auto object-contain" />
+            Fetch from DigiLocker
+          </button>
+
+          {/* BUTTON 2: Upload Documents */}
+          <button
+            type="button"
+            onClick={() => setShowManualUpload(true)}
+            className="flex-1 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-800 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+          >
+            <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            Upload Documents
+          </button>
+        </div>
       </div>
-      <ul style={{ listStyleType: 'disc', paddingLeft: '24px', color: '#475569', fontSize: '14px', lineHeight: '1.8', margin: 0 }}>
-        <li>Use a clear and high-quality photo.</li>
-        <li>Face should be fully visible.</li>
-        <li>Use a plain/light background.</li>
-        <li>Good lighting, no shadows.</li>
-        <li>No blur or low-quality images.</li>
-        <li>No sunglasses, masks, or cropped faces.</li>
-        <li>Upload a recent passport-style photo.</li>
-      </ul>
-    </div>
 
-    <div className="check-list">
-      <label className="check-item">
-        <input type="checkbox" name="termsAccepted" checked={form.termsAccepted} onChange={onChange} />
-        <span>I have read and accepted the <strong>Terms &amp; Conditions</strong> of this service</span>
-      </label>
-      <label className="check-item">
-        <input type="checkbox" name="specialCondition" checked={form.specialCondition} onChange={onChange} />
-        <span>I confirm that I am not physically challenged / pregnant or under similar special conditions</span>
-      </label>
-    </div>
-    <div className="actions">
-      <button type="submit" className="btn-primary">Proceed to Payment &nbsp;→</button>
-    </div>
-  </form>
+      {/* Conditionally Rendered Manual Upload Block */}
+      {showManualUpload && (
+        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm w-full max-w-3xl mx-auto mb-12 relative">
+          <button
+            type="button"
+            onClick={() => setShowManualUpload(false)}
+            className="absolute top-6 left-6 text-slate-400 hover:text-slate-700 flex items-center gap-1.5 font-medium text-sm transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            Back
+          </button>
+          <h3 className="text-lg font-bold text-slate-800 mb-8 mt-2 text-center">Upload Your Documents</h3>
+          <div className="flex flex-col gap-5">
+            <UpBlock type="cmm" label="CMM / Yearly Marks Sheet"
+              options={["CMM", "Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6", "Semester 7", "Semester 8"]}
+              upProg={upProg} upNames={upNames} upCompressed={upCompressed}
+              onFile={onFile} delFile={delFile} flowType="manual" />
+
+            <UpBlock type="degree" label="Degree / Provisional Certificate"
+              options={["Degree Certificate", "Provisional Certificate"]}
+              upProg={upProg} upNames={upNames} upCompressed={upCompressed}
+              onFile={onFile} delFile={delFile} flowType="manual" />
+
+            <UpBlock type="internship" label="Internship Certificate"
+              options={["Internship Certificate"]}
+              upProg={upProg} upNames={upNames} upCompressed={upCompressed}
+              onFile={onFile} delFile={delFile} flowType="manual" />
+          </div>
+        </div>
+      )}
+
+      <div className="guideline-section" style={{ padding: '24px', background: '#f8fafc', borderRadius: '16px', border: '1px solid #e2e8f0', marginTop: '32px' }}>
+        <div className="guideline-title" style={{ fontSize: '18px', fontWeight: '800', color: '#1e293b', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span>📸</span> Photo Instructions
+        </div>
+        <ul style={{ listStyleType: 'disc', paddingLeft: '24px', color: '#475569', fontSize: '14px', lineHeight: '1.8', margin: 0 }}>
+          <li>Use a clear and high-quality photo.</li>
+          <li>Face should be fully visible.</li>
+          <li>Use a plain/light background.</li>
+          <li>Good lighting, no shadows.</li>
+          <li>No blur or low-quality images.</li>
+          <li>No sunglasses, masks, or cropped faces.</li>
+          <li>Upload a recent passport-style photo.</li>
+        </ul>
+      </div>
+
+      <div className="check-list">
+        <label className="check-item">
+          <input type="checkbox" name="termsAccepted" checked={form.termsAccepted} onChange={onChange} />
+          <span>I have read and accepted the <strong>Terms &amp; Conditions</strong> of this service</span>
+        </label>
+        <label className="check-item">
+          <input type="checkbox" name="specialCondition" checked={form.specialCondition} onChange={onChange} />
+          <span>I confirm that I am not physically challenged / pregnant or under similar special conditions</span>
+        </label>
+      </div>
+      <div className="actions">
+        <button type="submit" className="btn-primary">Proceed to Payment &nbsp;→</button>
+      </div>
+    </form>
   );
 };
 
@@ -2370,21 +2371,7 @@ export default function Apply() {
             </AnimatePresence>
           </div>
 
-          <div className="hero-header" style={{ animationDelay: '0.4s', marginTop: 40, marginBottom: 12 }}>
-            <h2 style={{ fontSize: 24, fontWeight: 900, color: '#0f172a' }}>Already Applied? <em>Check Status</em></h2>
-            <p>Enter your unique tracking ID to see your processing progress</p>
-          </div>
 
-          <form className="track-bar" onSubmit={handleTrack} style={{ marginTop: 20 }}>
-            <input
-              type="text"
-              className="track-input"
-              placeholder="Enter Tracking ID (e.g. TRK123456)"
-              value={trackId}
-              onChange={(e) => setTrackId(e.target.value)}
-            />
-            <button type="submit" className="track-btn">Track Status</button>
-          </form>
         </div>
       </div>
     </div>

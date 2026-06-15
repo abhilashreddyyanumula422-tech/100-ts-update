@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { submitContact } from "../../services/api";
 
 import {
   FiMail,
@@ -35,21 +36,9 @@ export default function Contact() {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/contact/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const data = await response.json();
+      const response = await submitContact(formData);
 
       if (response.ok) {
-
         alert("Message sent successfully!");
 
         setFormData({
@@ -60,7 +49,7 @@ export default function Contact() {
         });
 
       } else {
-        alert(data.error || "Something went wrong");
+        alert(response.data.error || "Something went wrong");
       }
 
     } catch (error) {
@@ -79,18 +68,18 @@ export default function Contact() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-700 via-cyan-600 to-indigo-700" />
 
         {/* ANIMATED EFFECTS */}
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-0 left-0 w-[350px] h-[350px] bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" 
+          className="absolute top-0 left-0 w-[350px] h-[350px] bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
         />
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-black/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" 
+          className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-black/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"
         />
 
-       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-10">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-16 md:pb-20">
 
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -286,15 +275,17 @@ export default function Contact() {
               </div>
 
               {/* BUTTON */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="w-full h-12 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-100 group"
-              >
-                Send Message
-                <FiSend size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </motion.button>
+              <div className="flex justify-center mt-6">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="px-10 py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-cyan-500/30 group"
+                >
+                  Send Message
+                  <FiSend size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </motion.button>
+              </div>
 
             </form>
           </motion.div>

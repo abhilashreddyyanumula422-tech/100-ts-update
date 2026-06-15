@@ -5,6 +5,8 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import EmptyState from "../../components/EmptyState";
+import { FaWhatsapp } from "react-icons/fa";
+import { getApplications, sendNotification, updateApplicationStatus, downloadDocument } from "../../services/api";
 
 const StudentRequests = () => {
   const [search, setSearch] = useState("");
@@ -12,6 +14,8 @@ const StudentRequests = () => {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [statusFilter, setStatusFilter] = useState("All");
   const [requests, setRequests] = useState([]);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [currentDocIndex, setCurrentDocIndex] = useState(0);
 
   // --- NEW: Reply/Message States ---
   const [replyingTo, setReplyingTo] = useState(null);
@@ -20,50 +24,41 @@ const StudentRequests = () => {
   const [copied, setCopied] = useState(false);
   const companyName = "100 Transcripts";
 
-  // ✅ Dynamic API Base
-  const API_BASE = `http://127.0.0.1:8000`;
-
   // ✅ FETCH API
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/applications/`, {
-          cache: "no-store"
-        });
-        const data = await res.json();
-        setRequests(data);
+        const response = await getApplications();
+        if (response.ok) {
+          setRequests(response.data);
+        }
       } catch {
         // Error fetching requests handled
       }
     };
-    
+
     fetchRequests();
-  }, [API_BASE]);
+  }, []);
 
   const handleSendEmail = async () => {
     if (!replyingTo) return;
 
     try {
       // 1. Send Email Notification
-      const res = await fetch(`${API_BASE}/api/send-notification/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: replyingTo.email,
-          subject: `Action Required: ${issueType} for Request ${replyingTo.id}`,
-          message: emailBody,
-        }),
-      });
+      const response = await sendNotification(
+        replyingTo.email,
+        `Action Required: ${issueType} for Request ${replyingTo.id}`,
+        emailBody
+      );
 
       // 2. Also Update Status in DB so student sees it on Waiting Screen
       await updateStatus(replyingTo.raw_id, "rejected", exactProblem);
 
-      if (res.ok) {
+      if (response.ok) {
         alert("✅ Notification sent and Status updated to Rejected");
         setReplyingTo(null);
       } else {
-        const data = await res.json();
-        alert("❌ " + (data.error || "Failed to send"));
+        alert("❌ " + (response.data.error || "Failed to send"));
       }
     } catch {
       // Error handled
@@ -73,28 +68,19 @@ const StudentRequests = () => {
 
   const updateStatus = async (id, newStatus, message = "", agent = null) => {
     try {
-      const res = await fetch(`${API_BASE}/api/application/${id}/update-status/`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          status: newStatus,
-          admin_message: message,
-          agent: agent
-        }),
-      });
+      const response = await updateApplicationStatus(id, newStatus, message, agent);
 
-      if (!res.ok) throw new Error("Update failed");
+      if (!response.ok) throw new Error("Update failed");
 
       // Refetch requests to update the UI
       const fetchUpdatedRequests = async () => {
-        const res = await fetch(`${API_BASE}/api/applications/`, {
-          cache: "no-store"
-        });
-        const data = await res.json();
-        setRequests(data);
+        const fetchRes = await getApplications();
+        if (fetchRes.ok) {
+          setRequests(fetchRes.data);
+        }
       };
       await fetchUpdatedRequests();
-      
+
       setSelectedStudent(prev =>
         prev ? { ...prev, status: newStatus, admin_message: message, agent: agent !== null ? agent : prev.agent } : null
       );
@@ -103,6 +89,15 @@ const StudentRequests = () => {
       alert("Failed to update status");
     }
   };
+  const stages = [
+    "pending",
+    "approved",
+    "document_review",
+    "university_review",
+    "verification",
+    "processing",
+    "completed",
+  ];
 
   const total = requests.length;
   const pending = requests.filter(r => String(r.status || "").toLowerCase().trim() === "pending").length;
@@ -212,145 +207,142 @@ Please check your email for detailed information or contact us if you have any q
       </div>
 
       {/* Data Table */}
-   {/* Desktop Table */}
-<div className="hidden md:block overflow-x-auto">
-  <table className="w-full text-sm text-left">
-    
-    {/* TABLE HEADER */}
-    <thead className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider font-bold border-b border-slate-200">
-      <tr>
-        <th className="p-4">Student</th>
-        <th className="p-4">Request ID</th>
-        <th className="p-4">University</th>
-        <th className="p-4">Request Type</th>
-        <th className="p-4">Phone</th>
-        <th className="p-4">Payment</th>
-        <th className="p-4">Status</th>
-        <th className="p-4 text-right pr-6">Actions</th>
-      </tr>
-    </thead>
+      {/* Desktop Table */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="w-full text-sm text-left">
 
-    {/* TABLE BODY */}
-    <tbody>
-      {filtered.map((req) => (
-        <tr
-          key={req.id}
-          className="border-t border-slate-100 hover:bg-slate-50 transition-all duration-200"
-        >
-          
-          {/* STUDENT */}
-          <td className="p-4">
-            <div className="flex items-center gap-3">
-              
-              {/* Avatar */}
-              <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
-                {req.fullName?.charAt(0)}
-              </div>
+          {/* TABLE HEADER */}
+          <thead className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider font-bold border-b border-slate-200">
+            <tr>
+              <th className="p-4">Student</th>
+              <th className="p-4">Tracking ID</th>
+              <th className="p-4">University</th>
+              <th className="p-4">Request Type</th>
+              <th className="p-4">Phone</th>
+              <th className="p-4">Payment</th>
+              <th className="p-4">Status</th>
+              <th className="p-4 text-right pr-6">Actions</th>
+            </tr>
+          </thead>
 
-              {/* Name + Email */}
-              <div>
-                <div className="font-semibold text-slate-800">
-                  {req.fullName}
-                </div>
-
-                <div className="text-xs text-slate-500">
-                  {req.email}
-                </div>
-              </div>
-            </div>
-          </td>
-
-          {/* REQUEST ID */}
-          <td className="p-4">
-            <span className="font-medium text-slate-700">
-              {req.id}
-            </span>
-          </td>
-
-          {/* UNIVERSITY */}
-          <td className="p-4 text-slate-600 font-medium">
-            {req.university}
-          </td>
-
-          {/* REQUEST TYPE */}
-          <td className="p-4">
-            <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold">
-              {req.type}
-            </span>
-          </td>
-
-          {/* PHONE */}
-          <td className="p-4 text-slate-600">
-            {req.phone}
-          </td>
-
-          {/* PAYMENT */}
-          <td className="p-4">
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-bold ${
-                req.payment === "Paid"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-yellow-100 text-yellow-700"
-              }`}
-            >
-              {req.payment}
-            </span>
-          </td>
-
-          {/* STATUS */}
-          <td className="p-4">
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-bold ${
-                String(req.status || "")
-                  .toLowerCase()
-                  .trim() === "approved"
-                  ? "bg-green-100 text-green-700"
-                  : String(req.status || "")
-                      .toLowerCase()
-                      .trim() === "pending"
-                  ? "bg-yellow-100 text-yellow-700"
-                  : "bg-red-100 text-red-700"
-              }`}
-            >
-              {req.status || "Pending"}
-            </span>
-          </td>
-
-          {/* ACTIONS */}
-          <td className="p-4 text-right pr-6">
-            <div className="flex justify-end gap-2">
-
-              {/* WHATSAPP */}
-              <button
-                onClick={() => handleWhatsApp(req)}
-                className="p-2 rounded-xl bg-green-50 text-green-600 hover:bg-green-100 transition"
-                title="WhatsApp"
+          {/* TABLE BODY */}
+          <tbody>
+            {filtered.map((req) => (
+              <tr
+                key={req.id}
+                className="border-t border-slate-100 hover:bg-slate-50 transition-all duration-200"
               >
-                <MessageCircle size={17} />
-              </button>
 
-              {/* REPLY */}
-              <button
-                onClick={() => setReplyingTo(req)}
-                className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition"
-              >
-                Reply
-              </button>
+                {/* STUDENT */}
+                <td className="p-4">
+                  <div className="flex items-center gap-3">
 
-              {/* VIEW */}
-              <button
-                onClick={() => setSelectedStudent(req)}
-                className="p-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
-              >
-                <Eye size={17} />
-              </button>
-            </div>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+                    {/* Avatar */}
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm">
+                      {req.fullName?.charAt(0)}
+                    </div>
+
+                    {/* Name + Email */}
+                    <div>
+                      <div className="font-semibold text-slate-800">
+                        {req.fullName}
+                      </div>
+
+                      <div className="text-xs text-slate-500">
+                        {req.email}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+                {/* REQUEST ID */}
+                <td className="p-4">
+                  <span className="font-medium text-slate-700">
+                    {req.id}
+                  </span>
+                </td>
+
+                {/* UNIVERSITY */}
+                <td className="p-4 text-slate-600 font-medium">
+                  {req.university}
+                </td>
+
+                {/* REQUEST TYPE */}
+                <td className="p-4">
+                  <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold">
+                    {req.type}
+                  </span>
+                </td>
+
+                {/* PHONE */}
+                <td className="p-4 text-slate-600">
+                  {req.phone}
+                </td>
+
+                {/* PAYMENT */}
+                <td className="p-4">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-bold ${req.payment === "Paid"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                      }`}
+                  >
+                    {req.payment}
+                  </span>
+                </td>
+
+                {/* STATUS */}
+                <td className="p-4">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-bold ${String(req.status || "")
+                        .toLowerCase()
+                        .trim() === "approved"
+                        ? "bg-green-100 text-green-700"
+                        : String(req.status || "")
+                          .toLowerCase()
+                          .trim() === "pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                  >
+                    {req.status || "Pending"}
+                  </span>
+                </td>
+
+                {/* ACTIONS */}
+                <td className="p-4 text-right pr-6">
+                  <div className="flex justify-end gap-2">
+
+                    {/* WHATSAPP */}
+                    <button
+                      onClick={() => handleWhatsApp(req)}
+                      className="p-2 rounded-xl bg-green-50 text-green-600 hover:bg-green-100 transition"
+                      title="WhatsApp"
+                    >
+                      <FaWhatsapp size={18} />
+                    </button>
+                    {/* REPLY */}
+                    <button
+                      onClick={() => setReplyingTo(req)}
+                      className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition"
+                    >
+                      Reply
+                    </button>
+
+                    {/* VIEW */}
+                    <button
+                      onClick={() => setSelectedStudent(req)}
+                      className="p-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
+                    >
+                      <Eye size={17} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* --- FILTER POPUP MODAL --- */}
       {isFilterModalOpen && (
@@ -486,7 +478,8 @@ Please check your email for detailed information or contact us if you have any q
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => {
-                              window.open(doc.url, "_blank");
+                              setCurrentDocIndex(index);
+                              setViewerOpen(true);
                             }}
                             className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold hover:bg-blue-600 hover:text-white transition"
                           >
@@ -494,7 +487,7 @@ Please check your email for detailed information or contact us if you have any q
                           </button>
                           <button
                             onClick={() => {
-                              window.open(`http://127.0.0.1:8000/api/download/${doc.id}/`);
+                            window.open(downloadDocument(doc.id));
                             }}
                             className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-200 transition"
                           >
@@ -529,34 +522,42 @@ Please check your email for detailed information or contact us if you have any q
                 </div>
 
                 {/* Action Buttons */}
-                <div className="pt-6 flex gap-4 border-t border-slate-100">
-                  {/* ✅ APPROVE BUTTON */}
-                  <button
-                    onClick={() => updateStatus(selectedStudent.raw_id, "approved")}
-                    disabled={selectedStudent.status === "approved"}
-                    className={`flex-1 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition 
-      ${selectedStudent.status === "approved"
-                        ? "bg-green-200 text-green-800 cursor-not-allowed"
-                        : "bg-green-600 text-white hover:bg-green-700 shadow-green-100"}
-    `}
-                  >
-                    <CheckCircle size={18} />
-                    {selectedStudent.status === "approved" ? "Approved ✅" : "Approve"}
-                  </button>
+                {/* Action Buttons */}
+                <div className="pt-6 border-t border-slate-100">
 
-                  {/* ✅ REJECT BUTTON */}
-                  <button
-                    onClick={() => updateStatus(selectedStudent.raw_id, "rejected")}
-                    disabled={selectedStudent.status === "rejected"}
-                    className={`flex-1 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition
-                      ${selectedStudent.status === "rejected"
-                        ? "bg-red-200 text-red-800 cursor-not-allowed"
-                        : "bg-red-50 text-red-600 hover:bg-red-100 border border-red-100"}
-                    `}
-                  >
-                    <XCircle size={18} /> Reject
-                  </button>
+                  {/* Approve + Reject Row */}
+                  <div className="flex gap-4">
+                    <button
+                      onClick={() => updateStatus(selectedStudent.raw_id, "approved")}
+                      disabled={selectedStudent.status === "approved"}
+                      className={`flex-1 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg transition
+        ${selectedStudent.status === "approved"
+                          ? "bg-green-200 text-green-800 cursor-not-allowed"
+                          : "bg-green-600 text-white hover:bg-green-700"
+                        }`}
+                    >
+                      <CheckCircle size={18} />
+                      Approve
+                    </button>
+
+                    <button
+                      onClick={() => updateStatus(selectedStudent.raw_id, "rejected")}
+                      disabled={selectedStudent.status === "rejected"}
+                      className={`flex-1 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition
+        ${selectedStudent.status === "rejected"
+                          ? "bg-red-200 text-red-800 cursor-not-allowed"
+                          : "bg-red-50 text-red-600 hover:bg-red-100 border border-red-100"
+                        }`}
+                    >
+                      <XCircle size={18} />
+                      Reject
+                    </button>
+                  </div>
+
+
+
                 </div>
+
               </div>
 
               {/* Right Column: Tracking */}
@@ -603,7 +604,67 @@ Please check your email for detailed information or contact us if you have any q
           </div>
         </div>
       )}
+      {viewerOpen && selectedStudent?.documentsList?.length > 0 && (
+        <div className="fixed inset-0 bg-black/80 z-[200] flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl w-full max-w-6xl h-[90vh] flex flex-col">
+
+            <div className="flex justify-between items-center p-4 border-b">
+              <h2 className="font-bold">
+                {selectedStudent.documentsList[currentDocIndex]?.name}
+              </h2>
+
+              <button
+                onClick={() => setViewerOpen(false)}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+              >
+                Close
+              </button>
+            </div>
+
+
+
+            <div className="relative flex-1 bg-slate-100">
+
+              {/* Previous Arrow */}
+              {currentDocIndex > 0 && (
+                <button
+                  onClick={() => setCurrentDocIndex(currentDocIndex - 1)}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full bg-black/60 text-white text-2xl hover:bg-black/80"
+                >
+                  ‹
+                </button>
+              )}
+
+              {/* Document */}
+              <img
+                src={selectedStudent.documentsList[currentDocIndex]?.url}
+                alt="Document"
+                className="w-full h-full object-contain"
+              />
+
+              {/* Next Arrow */}
+              {currentDocIndex <
+                selectedStudent.documentsList.length - 1 && (
+                  <button
+                    onClick={() => setCurrentDocIndex(currentDocIndex + 1)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full bg-black/60 text-white text-2xl hover:bg-black/80"
+                  >
+                    ›
+                  </button>
+                )}
+
+              {/* Counter */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm">
+                {currentDocIndex + 1} / {selectedStudent.documentsList.length}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
+
+
   );
 };
 

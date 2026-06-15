@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../../../assets/100.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -25,19 +26,19 @@ const Sidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
   };
 
   // 🔹 MAIN MENU
-const menuItems = [
-  { name: "Dashboard", path: "/admin/dashboard", icon: <LayoutDashboard size={20} /> },
-  { name: "Student Requests", path: "/admin/student-requests", icon: <Users size={20} /> },
-  { name: "College Verification", path: "/admin/college-verification", icon: <ShieldCheck size={20} /> },
+  const menuItems = [
+    { name: "Dashboard", path: "/admin/dashboard", icon: <LayoutDashboard size={20} /> },
+    { name: "Student Requests", path: "/admin/student-requests", icon: <Users size={20} /> },
+    { name: "College Verification", path: "/admin/college-verification", icon: <ShieldCheck size={20} /> },
     { name: "Delivery", path: "/admin/delivery", icon: <Truck size={20} /> },
-  { name: "College Requests", path: "/admin/college-requests", icon: <Building2 size={20} /> },
+    { name: "College Requests", path: "/admin/college-requests", icon: <Building2 size={20} /> },
 
-  // { 
-  //   name: "Email Notification", 
-  //   path: "/admin/email-notification-template",
-  //   icon: <MailWarning size={20} /> 
-  // },
-];
+    // { 
+    //   name: "Email Notification", 
+    //   path: "/admin/email-notification-template",
+    //   icon: <MailWarning size={20} /> 
+    // },
+  ];
   // 🔸 PARTNER MENU
   const partnerItems = [
     // { name: "Settings", path: "/settings", icon: <Settings size={20} /> },
@@ -49,17 +50,21 @@ const menuItems = [
       <div className="hidden md:flex w-72 h-screen flex-col text-white bg-gradient-to-b from-[#0b2a4a] to-[#081f36] shadow-xl border-r border-white/5">
 
         {/* 🔵 LOGO */}
-        <div className="p-6 border-b border-white/5">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <span className="font-bold text-lg">TS</span>
-            </div>
+        <div className="p-6 border-b border-white/10">
+          <div className="flex items-center gap-4">
+
             <div>
-              <h2 className="text-lg font-bold">100 TS ADMIN</h2>
-              <p className="text-xs text-blue-400 uppercase tracking-wider">
-                Management Hub
+              <h2 className="text-xl font-bold">
+                <span className="text-white">1</span>
+                <span className="text-red-500">0</span>
+                <span className="text-green-500">0</span>
+                <span className="text-white ml-2">Transcripts</span>
+              </h2>
+              <p className="text-sm text-slate-400 mt-1">
+                Admin Management Hub
               </p>
             </div>
+
           </div>
         </div>
 
@@ -79,11 +84,10 @@ const menuItems = [
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                      isActive
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
                         ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
                         : "text-slate-300 hover:bg-white/10 hover:text-white"
-                    }`}
+                      }`}
                   >
                     {item.icon}
                     <span className="text-sm font-medium">{item.name}</span>
@@ -109,11 +113,10 @@ const menuItems = [
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                      isActive
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
                         ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
                         : "text-slate-300 hover:bg-white/10 hover:text-white"
-                    }`}
+                      }`}
                   >
                     {item.icon}
                     <span className="text-sm font-medium">{item.name}</span>
@@ -197,11 +200,10 @@ const menuItems = [
                         key={item.name}
                         to={item.path}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                          isActive
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
                             ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
                             : "text-slate-300 hover:bg-white/10 hover:text-white"
-                        }`}
+                          }`}
                       >
                         {item.icon}
                         <span className="text-sm font-medium">{item.name}</span>
@@ -228,11 +230,10 @@ const menuItems = [
                         key={item.name}
                         to={item.path}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                          isActive
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive
                             ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
                             : "text-slate-300 hover:bg-white/10 hover:text-white"
-                        }`}
+                          }`}
                       >
                         {item.icon}
                         <span className="text-sm font-medium">{item.name}</span>

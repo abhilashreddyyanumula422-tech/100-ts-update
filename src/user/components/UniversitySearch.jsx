@@ -343,7 +343,7 @@ const UniversitySearch = () => {
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight text-slate-900 mb-6">
               Search Universities for
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 mt-2">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 mt-2 pb-2">
                 Transcript Services
               </span>
             </h2>

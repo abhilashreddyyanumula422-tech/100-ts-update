@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import ImageUpload
 from .models import Users,Admin
+from .models import Review
+from .models import DeliveryRequest
 
 class ImageUploadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -108,3 +110,45 @@ class PasswordResetTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = PasswordResetToken
         fields = ['token', 'created_at', 'expires_at', 'is_used']
+
+
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
+
+
+
+
+class DeliveryRequestSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source="tracking_id")
+
+    courierPartner = serializers.CharField(
+        source="courier_partner"
+    )
+
+    currentLocation = serializers.CharField(
+        source="current_location"
+    )
+
+    estDelivery = serializers.DateField(
+        source="est_delivery"
+    )
+
+    class Meta:
+        model = DeliveryRequest
+        fields = [
+            "id",
+            "student",
+            "email",
+            "phone",
+            "item",
+            "courierPartner",
+            "currentLocation",
+            "status",
+            "estDelivery",
+        ]

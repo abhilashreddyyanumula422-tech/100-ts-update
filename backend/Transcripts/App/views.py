@@ -10,6 +10,12 @@ from .serializers import ImageUploadSerializer
 # from django.core.files.base import ContentFile
 from django.conf import settings
 
+from rest_framework import status
+
+from rest_framework.views import APIView
+from .models import Review
+from .serializers import ReviewSerializer
+
 # @api_view(['POST'])
 # def upload_image(request):
 #     file = request.FILES.get('image')
@@ -643,7 +649,7 @@ def get_applications(request):
             "agent": app.agent or "Unassigned",
             "district": getattr(app, 'district', 'N/A'), # if added
             "documentsList": [
-                {"id": doc.id, "name": doc.name, "status": "Verified", "url": f"http://127.0.0.1:8000{doc.file.url}"}
+                {"id": doc.id, "name": doc.name, "status": "Verified", "url": request.build_absolute_uri(doc.file.url)}
                 for doc in app.documents.all()
             ]
         })
@@ -1072,3 +1078,100 @@ def reset_password(request):
 
 
 
+
+
+class ReviewListCreateView(APIView):
+
+    def get(self, request):
+        reviews = Review.objects.all().order_by('-created_at')
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ReviewSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "message": "Review submitted successfully",
+                    "data": serializer.data
+                },
+                status=status.HTTP_201_CREATED
+            )
+
+        return Response(serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
+
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.core.mail import send_mail
+
+from .models import DeliveryRequest
+from .serializers import DeliveryRequestSerializer
+
+
+@api_view(["GET"])
+def delivery_requests(request):
+    apps = Application.objects.filter(
+        payment_status="Paid"
+    ).order_by("-id")
+
+    data = []
+
+    for app in apps:
+        first_degree = app.degrees.first()
+
+        data.append({
+            "id": app.tracking_id or f"TRK-{app.id}",
+            "student": app.fullName,
+            "email": app.email,
+            "phone": app.phone,
+
+            "item": app.requirement,
+
+            "courierPartner": "Pending",
+            "currentLocation": "Processing Center",
+
+            "status": "In Transit",
+
+            "estDelivery": "",
+
+            "history": [
+                {
+                    "title": "Payment Completed",
+                    "location": "100 Transcripts",
+                    "time": app.created_at.strftime("%d %b %Y"),
+                    "done": True
+                }
+            ]
+        })
+
+    return Response(data)
+
+@api_view(["POST"])
+def send_courier_email(request):
+    email = request.data.get("email")
+    tracking_id = request.data.get("tracking_id")
+    courier_partner = request.data.get("courier_partner")
+
+    send_mail(
+        subject="Courier Tracking Details",
+        message=f"""
+Your document has been dispatched.
+
+Courier Partner: {courier_partner}
+Tracking ID: {tracking_id}
+
+Thank you.
+""",
+        from_email="yourmail@gmail.com",
+        recipient_list=[email],
+        fail_silently=False,
+    )
+
+    return Response({
+        "message": "Email sent successfully"
+    })

@@ -104,13 +104,13 @@ export default function About() {
               className="flex flex-wrap justify-center lg:justify-start gap-4 pt-2"
             >
               <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => navigate("/apply")}
-                className="bg-white text-slate-900 px-7 py-3.5 rounded-xl font-semibold shadow-xl shadow-white/5 hover:shadow-white/10 transition-all flex items-center gap-2 group"
+                className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3.5 rounded-full font-bold shadow-xl hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-2 group"
               >
                 Apply Now
-                <ArrowRight className="w-4 h-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
               </motion.button>
             </motion.div>
           </motion.div>
@@ -159,7 +159,7 @@ export default function About() {
             className="space-y-6 order-1 lg:order-2"
           >
             <div>
-              <h2 className="text-sm font-semibold text-blue-600 tracking-wider uppercase mb-2">Our Mission</h2>
+              <h2 className="inline-block bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4 border border-blue-100 shadow-sm">Our Mission</h2>
               <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Bridging the Gap in Global Education</h3>
             </div>
 
@@ -174,7 +174,7 @@ export default function About() {
       </section>
 
       {/* STATS SECTION */}
-      <section className="pb-12 px-6 max-w-5xl mx-auto">
+      <section className="pb-12 px-6 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-5">
           {stats.map((stat, idx) => (
             <motion.div
@@ -216,7 +216,7 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-sm font-semibold text-blue-600 tracking-wider uppercase mb-2">Verified Trust</h2>
+            <h2 className="inline-block bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4 border border-blue-100 shadow-sm">Verified Trust</h2>
             <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Our Recognitions & Certifications</h3>
           </motion.div>
 
@@ -258,7 +258,7 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-sm font-semibold text-blue-600 tracking-wider uppercase mb-2">Global Reach</h2>
+            <h2 className="inline-block bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4 border border-blue-100 shadow-sm">Global Reach</h2>
             <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Our Network & Presence</h3>
           </motion.div>
         </div>
@@ -323,7 +323,7 @@ export default function About() {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate("/apply")}
-              className="bg-white text-blue-700 px-8 py-4 rounded-xl font-bold shadow-xl shadow-black/10 hover:shadow-black/20 transition-all flex items-center gap-2 mx-auto group"
+              className="bg-white text-blue-700 px-8 py-4 rounded-full font-bold shadow-xl shadow-black/10 hover:shadow-black/20 transition-all flex items-center gap-2 mx-auto group"
             >
               Get Started Now
               <ArrowRight className="w-5 h-5 text-blue-700 group-hover:translate-x-1 transition-transform" />

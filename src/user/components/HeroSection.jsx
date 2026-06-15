@@ -35,7 +35,7 @@ const HeroSection = () => {
         startLng: india.lng,
         endLat: target.lat,
         endLng: target.lng,
-      color: ["#b4caee", "#93c5fd"],
+        color: ["#b4caee", "#93c5fd"],
       }));
   }, []);
 
@@ -45,7 +45,7 @@ const HeroSection = () => {
       globeRef.current.controls().autoRotate = true;
       globeRef.current.controls().autoRotateSpeed = 0.2;
       globeRef.current.controls().enableZoom = false;
-      
+
       // Initial position to show India
       globeRef.current.pointOfView({ lat: 20, lng: 80, altitude: 2.5 });
     }
@@ -68,13 +68,13 @@ const HeroSection = () => {
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-900 leading-tight tracking-tight">
               India’s #1 Trusted <br />
-               <span className="bg-gradient-to-r from-blue-800 via-cyan-600 to-slate-400 bg-clip-text text-transparent">
-    Transcripts
-  </span> Provider
+              <span className="bg-gradient-to-r from-blue-800 via-cyan-600 to-slate-400 bg-clip-text text-transparent">
+                Transcripts
+              </span> Provider
             </h1>
           </motion.div>
 
-          <motion.p 
+          <motion.p
             className="text-[#2f4a6d] opacity-80 text-base sm:text-lg md:text-xl max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -84,7 +84,7 @@ const HeroSection = () => {
           </motion.p>
 
           {/* SEARCH BAR */}
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row bg-white rounded-2xl sm:rounded-full shadow-2xl shadow-blue-500/10 overflow-hidden max-w-lg mx-auto lg:mx-0 border border-slate-100 p-2 gap-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,24 +95,24 @@ const HeroSection = () => {
               placeholder="Enter Your University Name..."
               className="flex-1 px-6 py-4 outline-none text-[#2f4a6d] font-medium placeholder:text-slate-400 text-base rounded-xl sm:rounded-full bg-slate-50 sm:bg-white"
             />
-           <button className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl sm:rounded-full font-bold hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm whitespace-nowrap">
-  Start Now
-</button>
+            <button className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl sm:rounded-full font-bold hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm whitespace-nowrap">
+              Start Now
+            </button>
           </motion.div>
 
-          <motion.button 
+          {/* <motion.button 
             className="flex items-center gap-2 text-[#2f4a6d] font-bold hover:gap-4 transition-all text-base mx-auto lg:mx-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
             Learn More <span className="text-xl">→</span>
-          </motion.button>
+          </motion.button> */}
         </div>
 
         {/* RIGHT SIDE 3D GLOBE VISUAL */}
         <div className="relative h-[350px] sm:h-[450px] md:h-[600px] lg:h-[700px] flex justify-center items-center order-1 lg:order-2">
-          
+
           {/* Globe Container */}
           <div className="flex items-center justify-center cursor-grab active:cursor-grabbing scale-[0.8] sm:scale-100 transition-transform">
             <Suspense fallback={
@@ -127,30 +127,30 @@ const HeroSection = () => {
                 backgroundColor="rgba(0,0,0,0)"
                 globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
                 bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                
+
                 atmosphereColor="#93c5fd"
                 atmosphereAltitude={0.4}
-                
+
                 arcsData={arcsData}
                 arcColor="color"
                 arcDashLength={0.5}
                 arcDashGap={2}
                 arcDashAnimateTime={1500}
                 arcStroke={0.4}
-                
+
                 htmlElementsData={locations}
                 htmlElement={d => {
                   const el = document.createElement('div');
                   el.innerHTML = `
                     <div class="flex flex-col items-center -translate-y-1/2">
                       <div class="relative">
-                        ${d.isMain 
-                          ? `<div class="w-5 h-5 bg-[#3b82f6] rounded-full border-[3px] border-white shadow-[0_0_15px_rgba(59,130,246,0.6)] animate-pulse"></div>
+                        ${d.isMain
+                      ? `<div class="w-5 h-5 bg-[#3b82f6] rounded-full border-[3px] border-white shadow-[0_0_15px_rgba(59,130,246,0.6)] animate-pulse"></div>
                              <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg shadow-xl border border-blue-100 whitespace-nowrap">
                                <span class="text-[9px] font-black text-[#3b82f6] uppercase tracking-tighter">India Hub</span>
                              </div>`
-                          : `<div class="w-2.5 h-2.5 bg-white rounded-full border-2 border-[#60a5fa] shadow-[0_0_10px_rgba(96,165,250,0.8)]"></div>`
-                        }
+                      : `<div class="w-2.5 h-2.5 bg-white rounded-full border-2 border-[#60a5fa] shadow-[0_0_10px_rgba(96,165,250,0.8)]"></div>`
+                    }
                       </div>
                       <span class="text-[8px] font-black text-slate-600 mt-1 uppercase tracking-widest bg-white/50 px-1 rounded-sm">${d.name}</span>
                     </div>
@@ -162,7 +162,7 @@ const HeroSection = () => {
           </div>
 
           {/* Floating Educational Icons */}
-          <motion.div 
+          <motion.div
             className="hidden md:block absolute top-20 left-10 p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 text-[#3b82f6]"
             animate={{ y: [0, -20, 0] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
@@ -170,7 +170,7 @@ const HeroSection = () => {
             <FiBook size={24} />
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="hidden md:block absolute bottom-20 right-10 p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 text-[#60a5fa]"
             animate={{ y: [0, 20, 0] }}
             transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
@@ -178,7 +178,7 @@ const HeroSection = () => {
             <FiAward size={24} />
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="hidden md:block absolute top-1/4 right-0 p-3 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-white/50 text-slate-400"
             animate={{ x: [0, 15, 0] }}
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 0.5 }}

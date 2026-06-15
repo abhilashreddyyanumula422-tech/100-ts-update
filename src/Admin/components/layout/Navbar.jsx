@@ -29,7 +29,7 @@ const Navbar = () => {
     // backdrop-blur-md = The glass effect
     // sticky top-0 z-50 = Keeps it at the top while scrolling
     <nav className="sticky top-0 z-50 h-[80px] bg-[#0b2a4a]/85 backdrop-blur-md border-b border-white/10 flex items-center justify-between px-8 shadow-2xl">
-      
+
       {/* LEFT - Dynamic Title */}
       <div>
         <h1 className="text-xl font-bold text-white tracking-tight">
@@ -42,7 +42,7 @@ const Navbar = () => {
 
       {/* RIGHT */}
       <div className="flex items-center gap-6">
-        
+
         {/* Search Bar - Modern Dark Version */}
         <div className="hidden lg:flex items-center bg-white/10 border border-white/10 px-4 py-2 rounded-xl focus-within:bg-white/20 transition-all">
           <Search size={18} className="text-blue-300" />

@@ -25,7 +25,7 @@ const IEEevaluation = () => {
             href="https://100transcripts.com/wp-content/uploads/2025/09/IEE-account-creation-in-partnership-with-100-Transcripts-1.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-4 rounded-2xl font-black hover:bg-blue-700 transition-all shadow-xl text-sm flex-1 group"
+            className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-4 rounded-full font-black hover:shadow-cyan-500/30 transition-all shadow-xl text-sm flex-1 group"
           >
             <span>Discounted Price</span>
             <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -95,7 +95,7 @@ const IEEevaluation = () => {
         <div className="mt-6">
           <Link
             to="/apply"
-            className="inline-flex items-center gap-3 bg-blue-600 text-white px-8 py-4 rounded-2xl font-black hover:bg-blue-700 transition-all shadow-xl text-sm group"
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-black hover:shadow-cyan-500/30 transition-all shadow-xl text-sm group"
           >
             <Upload className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
             Start Application
@@ -157,7 +157,7 @@ const IEEevaluation = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-cyan-500/30 transition-all shadow-lg"
                 >
                   Get Started
                 </motion.button>
@@ -179,7 +179,7 @@ const IEEevaluation = () => {
               className="lg:w-1/2 relative flex justify-center items-center mt-12 lg:mt-0"
             >
               {/* Premium Subtle Ambient Glow */}
-              <motion.div 
+              <motion.div
                 animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute w-full h-full bg-blue-50/60 rounded-full blur-[100px] -z-10"
@@ -188,13 +188,13 @@ const IEEevaluation = () => {
               <motion.div
                 animate={{ y: [-12, 12, -12] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative w-full max-w-lg flex items-center justify-center p-2"
+                className="relative w-full max-w-2xl flex items-center justify-center p-2"
               >
                 {/* 
                   Edge Fade Mask: Keeps the entire center clearly visible, 
                   only dissolving the outer 15% smoothly into the background.
                 */}
-                <div 
+                <div
                   className="relative w-full overflow-hidden flex items-center justify-center"
                   style={{
                     WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
@@ -209,7 +209,7 @@ const IEEevaluation = () => {
                     loop
                     muted
                     playsInline
-                    className="w-[110%] h-auto object-contain mix-blend-multiply brightness-110 contrast-105"
+                    className="w-[125%] h-auto object-contain mix-blend-multiply brightness-110 contrast-105"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.5 }}
                   />

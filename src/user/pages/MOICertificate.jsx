@@ -127,7 +127,7 @@ const MOICertificate = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white pb-12 px-4 md:px-8">
       <style>{`
         .glass-effect {
           backdrop-filter: blur(10px);
@@ -162,7 +162,7 @@ const MOICertificate = () => {
       `}</style>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <main className="pt-24 pb-12 px-4"> {/* pt-24 adds space for a fixed header */}
+        <main className="pt-[110px] pb-8 px-4">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -316,7 +316,7 @@ const MOICertificate = () => {
           animate="visible"
           variants={fadeUp}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl shadow-lg p-8 text-center"
+          className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-[2rem] shadow-2xl p-8 text-center text-white relative overflow-hidden border border-blue-400/30 max-w-4xl mx-auto"
         >
           <h2 className="text-2xl font-bold text-white mb-4">Need an MOI Certificate?</h2>
           <p className="text-blue-100 mb-6 max-w-xl mx-auto">
@@ -324,10 +324,10 @@ const MOICertificate = () => {
           </p>
           <button
             onClick={() => navigate("/apply")}
-            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition inline-flex items-center gap-2"
+            className="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition inline-flex items-center gap-2 shadow-lg hover:shadow-xl group"
           >
             Apply Now
-            <FiArrowRight />
+            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
           </button>
         </motion.div>
 

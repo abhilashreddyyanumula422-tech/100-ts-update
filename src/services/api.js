@@ -5,7 +5,7 @@
 // Change this IP address to your backend server
 // For development: use your local IP or localhost
 // For production: use your domain name
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "http://192.168.1.18:8000";
 
 // ===============================
 // API Helper Functions
@@ -238,6 +238,38 @@ export const deleteCertificate = async (certId) => {
   }
 };
 
+// Reviews API
+export const getReviews = () => {
+  return apiGet("/api/reviews/");
+};
+
+export const submitReview = (reviewData) => {
+  return apiPost("/api/reviews/", reviewData);
+};
+
+// Verifications API
+export const getVerifications = () => {
+  return apiGet("/api/verifications/");
+};
+
+// Delivery API
+export const getDeliveryRequests = () => {
+  return apiGet("/api/delivery-requests/");
+};
+
+export const sendCourierEmailAPI = (email, trackingId, courierPartner) => {
+  return apiPost("/api/send-courier-email/", {
+    email,
+    tracking_id: trackingId,
+    courier_partner: courierPartner
+  });
+};
+
+// Contact API
+export const submitContact = (contactData) => {
+  return apiPost("/api/contact/", contactData);
+};
+
 // ===============================
 // Export Base URL for direct use
 // ===============================
@@ -267,6 +299,11 @@ export default {
   sendNotification,
   updateApplicationStatus,
   addCertificate,
-  updateCertificate,
-  deleteCertificate
+  deleteCertificate,
+  getReviews,
+  submitReview,
+  getVerifications,
+  getDeliveryRequests,
+  sendCourierEmailAPI,
+  submitContact
 };

@@ -66,6 +66,8 @@ const Navbar = () => {
         { name: "Transcripts", path: "/services/transcripts" },
         { name: "Provisional Certificate", path: "/services/pc" },
         { name: "Original Degree", path: "/services/od" },
+        { name: "Consolidated Marks Memo", path: "/services/cmm" },
+        { name: "MOI Certificate", path: "/services/moi" },
       ],
     },
    

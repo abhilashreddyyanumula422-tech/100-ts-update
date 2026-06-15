@@ -1240,8 +1240,8 @@ const collegesData = {
 
   "bhaskar-pharmacy-college": {
     short: "BPC",
-    
-    heroImage: "partnerclg.png",
+    logo: "https://logo.clearbit.com/bpc.edu.in",
+    heroImage: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Bhaskar Pharmacy College",
     description:
       "Bhaskar Pharmacy College students can now apply for transcript and document services online.",
@@ -1261,8 +1261,8 @@ const collegesData = {
 
   "joginpally-br-pharmacy-college": {
     short: "JBPR",
-    
-    heroImage: "partnerclg.png",
+    logo: "https://logo.clearbit.com/jbrpc.edu.in",
+    heroImage: "https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Joginpally B.R Pharmacy College",
     description:
       "Joginpally B.R Pharmacy College students can now apply for transcript and document services online.",
@@ -1282,8 +1282,8 @@ const collegesData = {
 
   "siddhartha-institute-of-technology-sciences": {
     short: "SITS",
-   
-    heroImage: "partnerclg.png",
+    logo: "https://logo.clearbit.com/siddhartha.ac.in",
+    heroImage: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Siddhartha Institute",
     description:
       "Siddhartha Institute of Technology Sciences students can now apply for transcript and document services online.",

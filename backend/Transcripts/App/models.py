@@ -178,4 +178,42 @@ class PasswordResetToken(models.Model):
 
 
 
-        
+from django.db import models
+
+class Review(models.Model):
+    name = models.CharField(max_length=100)
+    rating = models.IntegerField()
+    review = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+from django.db import models
+
+class DeliveryRequest(models.Model):
+    tracking_id = models.CharField(max_length=100, unique=True)
+    student = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+
+    item = models.CharField(max_length=255)
+
+    courier_partner = models.CharField(max_length=100)
+    current_location = models.CharField(max_length=255)
+
+    status = models.CharField(
+        max_length=50,
+        default="In Transit"
+    )
+
+    est_delivery = models.DateField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.tracking_id
+
+

@@ -25,18 +25,18 @@ const itemVariants = {
 const PartnerColleges = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  
-  const partnerColleges = Object.entries(collegesData).filter(([_, data]) => 
-    data.title.includes("Bhaskar Pharmacy") || 
-    data.title.includes("Joginpally") || 
+
+  const partnerColleges = Object.entries(collegesData).filter(([_, data]) =>
+    data.title.includes("Bhaskar Pharmacy") ||
+    data.title.includes("Joginpally") ||
     data.title.includes("Siddhartha Institute")
   ).map(([id, data]) => ({ id, ...data }));
 
-  const filteredColleges = searchTerm.length > 0 
+  const filteredColleges = searchTerm.length > 0
     ? partnerColleges.filter((college) =>
-        college.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        college.short.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      college.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      college.short.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : partnerColleges;
 
   // Pagination logic
@@ -77,8 +77,8 @@ const PartnerColleges = () => {
         {/* Animated Background Blobs */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            animate={{ 
-              x: [0, 50, 0], 
+            animate={{
+              x: [0, 50, 0],
               y: [0, -30, 0],
               scale: [1, 1.1, 1]
             }}
@@ -86,8 +86,8 @@ const PartnerColleges = () => {
             className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-amber-400/30 to-rose-400/30 rounded-full blur-3xl"
           />
           <motion.div
-            animate={{ 
-              x: [0, -50, 0], 
+            animate={{
+              x: [0, -50, 0],
               y: [0, 30, 0],
               scale: [1, 1.15, 1]
             }}
@@ -132,7 +132,7 @@ const PartnerColleges = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="max-w-3xl mx-auto text-lg sm:text-xl text-slate-600 leading-relaxed mb-8"
             >
-              We've established exclusive partnerships with leading colleges to deliver 
+              We've established exclusive partnerships with leading colleges to deliver
               <span className="font-bold text-slate-800"> seamless, secure, and lightning-fast</span> transcript and document services.
             </motion.p>
 
@@ -255,7 +255,7 @@ const PartnerColleges = () => {
       {/* Premium Colleges Grid with Pagination */}
       <section className="py-10 md:py-14">
         <div className="relative mx-auto max-w-7xl px-6">
-          
+
           {/* Results count */}
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm font-bold text-slate-500">
@@ -263,7 +263,7 @@ const PartnerColleges = () => {
             </p>
           </div>
 
-          <motion.div 
+          <motion.div
             key={currentPage}
             variants={containerVariants}
             initial="hidden"
@@ -275,24 +275,35 @@ const PartnerColleges = () => {
                 <motion.div
                   variants={itemVariants}
                   whileHover={{ y: -6 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 260, 
-                    damping: 20 
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20
                   }}
                   className="group relative"
                 >
                   {/* Card Glow Effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-rose-500/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   {/* Main Card */}
-                  <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl border border-white/70 shadow-lg group-hover:shadow-2xl overflow-hidden transition-all duration-500">
-                    <div className="relative p-6 flex flex-col items-center text-center">
-                      {/* Logo Placeholder (Icon) */}
+                  <div className="relative bg-white/90 backdrop-blur-xl rounded-2xl border border-white/70 shadow-lg group-hover:shadow-2xl overflow-hidden transition-all duration-500 group-hover:-translate-y-1">
+                    {/* Background Image (if available, mostly for the specific 3) */}
+                    {college.heroImage && college.heroImage !== "partnerclg.png" && (
+                      <div
+                        className="absolute inset-0 z-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${college.heroImage})` }}
+                      />
+                    )}
+                    <div className="relative z-10 p-6 flex flex-col items-center text-center">
+                      {/* Logo or Placeholder */}
                       <div className="relative mb-5">
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-400/30 to-rose-400/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-                        <div className="relative w-28 h-28 rounded-2xl bg-gradient-to-br from-white to-amber-50 shadow-xl border border-amber-100 p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                          <FiAward className="w-14 h-14 text-amber-600" />
+                        <div className="relative w-28 h-28 rounded-2xl bg-gradient-to-br from-white to-amber-50 shadow-xl border border-amber-100 p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 overflow-hidden bg-white">
+                          {college.logo ? (
+                            <img src={college.logo} alt={college.short} className="max-w-full max-h-full object-contain" />
+                          ) : (
+                            <FiAward className="w-14 h-14 text-amber-600" />
+                          )}
                         </div>
                       </div>
 
@@ -312,9 +323,8 @@ const PartnerColleges = () => {
                       </p>
 
                       {/* CTA Button */}
-                      <div className="relative overflow-hidden rounded-xl w-full">
-                        <div className="absolute inset-0 bg-gradient-to-r from-amber-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="relative flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-amber-50 to-rose-50 text-amber-700 font-bold text-sm group-hover:text-white transition-all duration-300 border border-amber-100 group-hover:border-transparent">
+                      <div className="w-full mt-2">
+                        <div className="relative flex items-center justify-center gap-2 w-full py-3 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold text-sm transition-all duration-300 shadow-md group-hover:shadow-lg group-hover:shadow-cyan-500/30 group-hover:-translate-y-0.5">
                           View Details
                           <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                         </div>
@@ -328,7 +338,7 @@ const PartnerColleges = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -338,11 +348,10 @@ const PartnerColleges = () => {
               <button
                 onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 300, behavior: 'smooth' }); }}
                 disabled={currentPage === 1}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                  currentPage === 1 
-                    ? 'bg-slate-100 text-slate-300 cursor-not-allowed' 
-                    : 'bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 shadow-md border border-slate-200 hover:border-amber-200'
-                }`}
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${currentPage === 1
+                  ? 'bg-slate-100 text-slate-300 cursor-not-allowed'
+                  : 'bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 shadow-md border border-slate-200 hover:border-amber-200'
+                  }`}
               >
                 <FiChevronLeft size={18} />
               </button>
@@ -355,11 +364,10 @@ const PartnerColleges = () => {
                   <button
                     key={page}
                     onClick={() => { setCurrentPage(page); window.scrollTo({ top: 300, behavior: 'smooth' }); }}
-                    className={`w-10 h-10 rounded-xl font-bold text-sm transition-all duration-300 ${
-                      currentPage === page
-                        ? 'bg-gradient-to-br from-amber-600 to-rose-600 text-white shadow-lg shadow-amber-500/30 scale-110'
-                        : 'bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 shadow-md border border-slate-200 hover:border-amber-200'
-                    }`}
+                    className={`w-10 h-10 rounded-xl font-bold text-sm transition-all duration-300 ${currentPage === page
+                      ? 'bg-gradient-to-br from-amber-600 to-rose-600 text-white shadow-lg shadow-amber-500/30 scale-110'
+                      : 'bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 shadow-md border border-slate-200 hover:border-amber-200'
+                      }`}
                   >
                     {page}
                   </button>
@@ -370,11 +378,10 @@ const PartnerColleges = () => {
               <button
                 onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 300, behavior: 'smooth' }); }}
                 disabled={currentPage === totalPages}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-                  currentPage === totalPages 
-                    ? 'bg-slate-100 text-slate-300 cursor-not-allowed' 
-                    : 'bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 shadow-md border border-slate-200 hover:border-amber-200'
-                }`}
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${currentPage === totalPages
+                  ? 'bg-slate-100 text-slate-300 cursor-not-allowed'
+                  : 'bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 shadow-md border border-slate-200 hover:border-amber-200'
+                  }`}
               >
                 <FiChevronRight size={18} />
               </button>
@@ -386,7 +393,7 @@ const PartnerColleges = () => {
       {/* Premium CTA Section */}
       <section className="relative overflow-hidden py-24 md:py-36">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-600 via-rose-600 to-orange-500" />
-        
+
         {/* Animated Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -416,12 +423,12 @@ const PartnerColleges = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-[1.15] tracking-tight">
               Can't Find Your College?
             </h2>
-            
+
             <p className="text-xl sm:text-2xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
-              We're continuously partnering with more institutions. 
+              We're continuously partnering with more institutions.
               Contact us today and let us help you with your transcript needs.
             </p>
-            
+
             <Link
               to="/contact"
               className="inline-flex items-center gap-4 bg-white text-amber-700 px-10 py-5 rounded-full font-black text-lg shadow-2xl shadow-white/30 hover:shadow-3xl hover:shadow-white/40 transition-all duration-500 hover:scale-105 group"

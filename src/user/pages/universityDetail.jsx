@@ -266,14 +266,14 @@ const UniversityDetail = () => {
         <div className="mx-auto max-w-7xl px-6 md:px-12">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <motion.div initial={{ opacity: 0, x: -35 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-              <div className="sticky top-28 rounded-[28px] bg-gradient-to-r from-blue-600 to-cyan-600 p-8 text-white shadow-xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Get Started</p>
-                <h2 className="mt-3 text-3xl font-bold leading-tight">Submit Your Documents</h2>
-                <p className="mt-4 text-sm leading-7 text-blue-100/90">Please fill in your details below, and our team will get back to you shortly with the next steps.</p>
+              <div className="sticky top-28 rounded-[28px] bg-gradient-to-r from-blue-300 to-cyan-300 p-8 text-white shadow-xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white">Get Started</p>
+                <h2 className="mt-3 text-3xl font-bold leading-tight text-white">Submit Your Documents</h2>
+                <p className="mt-4 text-sm leading-7 text-white/90">Please fill in your details below, and our team will get back to you shortly with the next steps.</p>
                 <div className="mt-8 space-y-4">
-                  <div className="flex items-start gap-3"><FiShield className="mt-1 text-blue-300" /><p className="text-sm text-blue-100/90">Safe, guided, and secure submission process</p></div>
-                  <div className="flex items-start gap-3"><FiClock className="mt-1 text-blue-300" /><p className="text-sm text-blue-100/90">Faster turnaround with dedicated university support</p></div>
-                  <div className="flex items-start gap-3"><FaWhatsapp className="mt-1 text-blue-300" /><p className="text-sm text-blue-100/90">Upload all documents mentioned in WhatsApp for smooth processing</p></div>
+                  <div className="flex items-start gap-3"><FiShield className="mt-1 text-white" /><p className="text-sm text-white/90">Safe, guided, and secure submission process</p></div>
+                  <div className="flex items-start gap-3"><FiClock className="mt-1 text-white" /><p className="text-sm text-white/90">Faster turnaround with dedicated university support</p></div>
+                  <div className="flex items-start gap-3"><FaWhatsapp className="mt-1 text-white" /><p className="text-sm text-white/90">Upload all documents mentioned in WhatsApp for smooth processing</p></div>
                 </div>
               </div>
             </motion.div>

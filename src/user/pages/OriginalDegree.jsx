@@ -46,7 +46,7 @@ const OriginalDegree = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white pb-12 px-4 md:px-8">
       <style>{`
         .glass-effect {
           backdrop-filter: blur(10px);
@@ -74,7 +74,7 @@ const OriginalDegree = () => {
       `}</style>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <main className="pt-24 pb-12 px-4"> {/* pt-24 adds space for a fixed header */}
+        <main className="pt-[110px] pb-8 px-4"> {/* pt-24 adds space for a fixed header */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -97,7 +97,7 @@ const OriginalDegree = () => {
           animate="visible"
           variants={fadeUp}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white rounded-2xl shadow-lg p-8 mb-8"
+          className="bg-white rounded-2xl shadow-lg p-8 mb-12"
         >
           <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
             <FiLock className="text-blue-600" />
@@ -145,10 +145,10 @@ const OriginalDegree = () => {
 
           <button
             onClick={() => navigate("/apply")}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition inline-flex items-center gap-2"
+            className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-full shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all gap-2 text-sm group"
           >
             Apply Now
-            <FiArrowRight />
+            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
           </button>
         </motion.div>
 

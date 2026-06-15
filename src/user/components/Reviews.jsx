@@ -1,39 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getReviews, submitReview } from "../../services/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, X, Send, User, MessageSquare, CheckCircle } from "lucide-react";
-
-const reviews = [
-  {
-    name: "Ravi Kumar",
-    rating: 5,
-    review:
-      "Excellent service! The team handled my transcript process very smoothly and delivered on time.",
-  },
-  {
-    name: "Sneha Reddy",
-    rating: 5,
-    review:
-      "Very professional and responsive. They kept me updated throughout the process.",
-  },
-  {
-    name: "Arjun Patel",
-    rating: 5,
-    review:
-      "Fast processing and great support. Everything was completed perfectly.",
-  },
-  {
-    name: "Meena Sharma",
-    rating: 5,
-    review:
-      "Trustworthy service. The team guided me step by step.",
-  },
-  {
-    name: "Karthik Reddy",
-    rating: 5,
-    review:
-      "Amazing experience! Very smooth and hassle-free.",
-  },
-];
 
 const containerVariants = {
   hidden: {},
@@ -81,7 +49,7 @@ const formFieldVariants = {
 };
 
 const Reviews = () => {
-  const scrollReviews = [...reviews, ...reviews];
+  const [reviews, setReviews] = useState([]);
 
   /* ── Modal state ── */
   const [showModal, setShowModal] = useState(false);
@@ -90,17 +58,51 @@ const Reviews = () => {
   const [formData, setFormData] = useState({ name: "", review: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const closeReviewModal = () => {
+    setSubmitted(false);
+    setShowModal(false);
+    setSelectedRating(0);
+    setHoverRating(0);
+    setFormData({
+      name: "",
+      review: "",
+    });
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const fetchReviews = async () => {
+    try {
+      const response = await getReviews();
+      if (response.ok) {
+        setReviews(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const scrollReviews = [...reviews, ...reviews];
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Reset after 2.5s
-    setTimeout(() => {
-      setSubmitted(false);
-      setShowModal(false);
-      setSelectedRating(0);
-      setHoverRating(0);
-      setFormData({ name: "", email: "", review: "" });
-    }, 2500);
+
+    const reviewData = {
+      name: formData.name,
+      rating: selectedRating,
+      review: formData.review,
+    };
+
+    try {
+      const response = await submitReview(reviewData);
+
+      if (response.ok) {
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const ratingLabels = ["", "Poor", "Fair", "Good", "Very Good", "Excellent"];
@@ -178,7 +180,9 @@ const Reviews = () => {
                   <h4 className="text-[15px] font-bold text-slate-900">
                     {item.name}
                   </h4>
-                  <p className="text-[11px] text-blue-500 font-bold uppercase tracking-wider mt-0.5">Verified Customer</p>
+                  <p className="text-[11px] text-blue-500 font-bold uppercase tracking-wider mt-0.5">
+                    Verified Customer
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -207,7 +211,12 @@ const Reviews = () => {
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
           </svg>
         </motion.button>
       </motion.div>
@@ -281,7 +290,12 @@ const Reviews = () => {
                           className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg shadow-blue-500/25"
                           initial={{ scale: 0, rotate: -180 }}
                           animate={{ scale: 1, rotate: 0 }}
-                          transition={{ type: "spring", damping: 12, stiffness: 200, delay: 0.1 }}
+                          transition={{
+                            type: "spring",
+                            damping: 12,
+                            stiffness: 200,
+                            delay: 0.1,
+                          }}
                         >
                           <MessageSquare size={28} className="text-white" />
                         </motion.div>
@@ -318,11 +332,10 @@ const Reviews = () => {
                             >
                               <Star
                                 size={32}
-                                className={`transition-all duration-200 ${
-                                  star <= (hoverRating || selectedRating)
-                                    ? "fill-yellow-400 text-yellow-400 drop-shadow-[0_0_6px_rgba(250,204,21,0.5)]"
-                                    : "fill-gray-200 text-gray-200"
-                                }`}
+                                className={`transition-all duration-200 ${star <= (hoverRating || selectedRating)
+                                  ? "fill-yellow-400 text-yellow-400 drop-shadow-[0_0_6px_rgba(250,204,21,0.5)]"
+                                  : "fill-gray-200 text-gray-200"
+                                  }`}
                               />
                             </motion.button>
                           ))}
@@ -351,17 +364,21 @@ const Reviews = () => {
                           animate="visible"
                           className="relative"
                         >
-                          <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                          <User
+                            size={16}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                          />
                           <input
                             type="text"
                             required
                             placeholder="Your Name"
                             value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            onChange={(e) =>
+                              setFormData({ ...formData, name: e.target.value })
+                            }
                             className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3.5 pl-11 pr-4 text-sm text-gray-700 placeholder-gray-400 outline-none transition-all focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100"
                           />
                         </motion.div>
-
 
                         {/* Review text */}
                         <motion.div
@@ -371,13 +388,21 @@ const Reviews = () => {
                           animate="visible"
                           className="relative"
                         >
-                          <MessageSquare size={16} className="absolute left-4 top-4 text-gray-400" />
+                          <MessageSquare
+                            size={16}
+                            className="absolute left-4 top-4 text-gray-400"
+                          />
                           <textarea
                             required
                             rows={4}
                             placeholder="Tell us about your experience..."
                             value={formData.review}
-                            onChange={(e) => setFormData({ ...formData, review: e.target.value })}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                review: e.target.value,
+                              })
+                            }
                             className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 py-3.5 pl-11 pr-4 text-sm text-gray-700 placeholder-gray-400 outline-none transition-all focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-100"
                           />
                         </motion.div>
@@ -408,13 +433,22 @@ const Reviews = () => {
                       key="success"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ type: "spring", damping: 15, stiffness: 200 }}
+                      transition={{
+                        type: "spring",
+                        damping: 15,
+                        stiffness: 200,
+                      }}
                       className="flex flex-col items-center justify-center py-10 text-center"
                     >
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: "spring", damping: 10, stiffness: 200, delay: 0.15 }}
+                        transition={{
+                          type: "spring",
+                          damping: 10,
+                          stiffness: 200,
+                          delay: 0.15,
+                        }}
                         className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-emerald-500 shadow-lg shadow-green-500/30"
                       >
                         <CheckCircle size={40} className="text-white" />
@@ -423,7 +457,8 @@ const Reviews = () => {
                         Thank You! 🎉
                       </h3>
                       <p className="mt-3 max-w-xs text-sm text-gray-400">
-                        Your review has been submitted successfully. We truly appreciate your feedback!
+                        Your review has been submitted successfully. We truly
+                        appreciate your feedback!
                       </p>
                       <motion.div
                         className="mt-4 flex items-center gap-1"
@@ -443,6 +478,14 @@ const Reviews = () => {
                           />
                         ))}
                       </motion.div>
+                      <motion.button
+                        onClick={closeReviewModal}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="mt-6 px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-lg"
+                      >
+                        OK
+                      </motion.button>
                     </motion.div>
                   )}
                 </AnimatePresence>

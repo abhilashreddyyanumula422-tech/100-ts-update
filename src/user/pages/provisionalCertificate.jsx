@@ -67,7 +67,7 @@ const ProvisionalCertificate = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white py-12 px-4 md:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white pb-12 px-4 md:px-8">
       <style>{`
         .glass-effect {
           backdrop-filter: blur(10px);
@@ -95,7 +95,7 @@ const ProvisionalCertificate = () => {
       `}</style>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <main className="pt-24 pb-12 px-4">
+        <main className="pt-[110px] pb-8 px-4">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -103,10 +103,10 @@ const ProvisionalCertificate = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
               Provisional Certificate (PC)
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base text-gray-600 max-w-2xl mx-auto">
               Get your provisional certificate for those who haven't received their final degree yet.
             </p>
           </motion.div>
@@ -119,46 +119,46 @@ const ProvisionalCertificate = () => {
           animate="visible"
           variants={fadeUp}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white rounded-2xl shadow-lg p-8 mb-8"
+          className="bg-white rounded-2xl shadow-lg p-8 mb-12"
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 flex items-center gap-2">
             <FiShield className="text-blue-600" />
             What is Provisional Certificate (PC)?
           </h2>
-          <p className="text-gray-600 leading-relaxed mb-6">
+          <p className="text-sm md:text-base text-gray-600 leading-snug mb-4">
             A Provisional Certificate (PC) is a temporary document issued by an educational institution to students who have successfully completed their course or program but are waiting for the final degree or diploma certificate. It serves as proof that the student has met all the requirements for graduation, such as passing all exams and fulfilling other academic obligations.
           </p>
 
-          <div className="bg-blue-50 rounded-xl p-6 mb-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Key Points about the Provisional Certificate:</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <FiCheck className="text-white text-xs" />
+          <div className="bg-blue-50 rounded-lg p-4 mb-4">
+            <h3 className="text-sm md:text-base font-semibold text-gray-900 mb-3">Key Points about the Provisional Certificate:</h3>
+            <ul className="space-y-2">
+              <li className="flex items-start gap-2">
+                <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <FiCheck className="text-white text-[10px]" />
                 </div>
-                <span className="text-gray-700 text-sm">It is typically valid for a limited period until the official degree is issued.</span>
+                <span className="text-gray-700 text-xs md:text-sm">It is typically valid for a limited period until the official degree is issued.</span>
               </li>
-              <li className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <FiCheck className="text-white text-xs" />
+              <li className="flex items-start gap-2">
+                <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <FiCheck className="text-white text-[10px]" />
                 </div>
-                <span className="text-gray-700 text-sm">It can be used for various purposes, such as applying for jobs, higher studies, or professional registrations.</span>
+                <span className="text-gray-700 text-xs md:text-sm">It can be used for various purposes, such as applying for jobs, higher studies, or professional registrations.</span>
               </li>
-              <li className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <FiCheck className="text-white text-xs" />
+              <li className="flex items-start gap-2">
+                <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <FiCheck className="text-white text-[10px]" />
                 </div>
-                <span className="text-gray-700 text-sm">Once the final degree certificate is issued, the provisional certificate is no longer valid.</span>
+                <span className="text-gray-700 text-xs md:text-sm">Once the final degree certificate is issued, the provisional certificate is no longer valid.</span>
               </li>
             </ul>
           </div>
 
           <button
             onClick={() => navigate("/apply")}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition inline-flex items-center gap-2"
+            className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-full shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 hover:-translate-y-1 transition-all gap-2 text-sm group"
           >
             Apply Now
-            <FiArrowRight />
+            <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
           </button>
         </motion.div>
 
