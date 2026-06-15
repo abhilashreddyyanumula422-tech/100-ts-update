@@ -6,7 +6,6 @@ import ieeLogo from "../../assets/IEE logo OG.png";
 import tecLogo from "../../assets/tec_logo.png";
 import aziceLogo from "../../assets/AZICE-logo.png";
 import wesLogo from "../../assets/WES_logo.png";
-import digilockerLogo from "../../assets/digilocker_logo.png";
 
 const partners = [
   {
@@ -37,12 +36,6 @@ const partners = [
     name: "SpanTran (TEC)",
     logo: tecLogo,
     link: "/services/spantran",
-  },
-
-  {
-     name: "DigiLocker",
-    logo: digilockerLogo,
-    link: "/signin",
   },
 ];
 

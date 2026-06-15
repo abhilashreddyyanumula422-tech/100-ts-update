@@ -228,8 +228,7 @@ const Footer = () => {
                       100 Transcripts LLP
                     </p>
                     <p className="mt-2 text-xs leading-6 text-slate-300">
-                      Plot No: 801, Mathrusree Nagar,<br />
-                      Hyderabad, Telangana 500049
+                      3rd Floor, Sri Srinivasam, Plot No. 1133/1, Mathrusree Nagar, Hafeezpet, Hyderabad, Telangana 500049, India
                     </p>
                   </div>
                 </div>
@@ -258,7 +257,7 @@ const Footer = () => {
                 <div className="overflow-hidden rounded-xl">
                   <iframe
                     title="100 Transcripts Location"
-                    src="https://www.google.com/maps?q=Mathrusree%20Nagar,%20Hyderabad%20500049&output=embed"
+                    src="https://maps.google.com/maps?q=100%20Transcripts%20LLP%20Hyderabad&output=embed"
                     className="h-32 w-full border-0"
                     loading="lazy"
                   />
