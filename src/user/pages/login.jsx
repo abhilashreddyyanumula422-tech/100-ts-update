@@ -62,11 +62,11 @@ const Login = () => {
         alert("Login Successful ✅");
         localStorage.setItem("user", JSON.stringify(data));
 
-        if (form.email.endsWith("@admin.org")) {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
+       if (data.type === "admin") {
+  navigate("/admin");
+} else {
+  navigate("/");
+}
 
         setForm({
           email: "",

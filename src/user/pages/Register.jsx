@@ -75,10 +75,10 @@ const Register = () => {
       return;
     }
 
-    if (!form.email.endsWith("@gmail.com") && !form.email.endsWith("@admin.org")) {
-      alert("Use @gmail.com for Students or @admin.org for Staff");
-      return;
-    }
+  if (!form.email.endsWith("@gmail.com")) {
+  alert("Only students can register");
+  return;
+}
 
     setLoading(true);
 

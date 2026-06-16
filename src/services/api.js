@@ -5,7 +5,7 @@
 // Change this IP address to your backend server
 // For development: use your local IP or localhost
 // For production: use your domain name
-const API_BASE_URL = "http://192.168.1.18:8000";
+const API_BASE_URL = "http:// 10.244.96.84:8000";
 
 // ===============================
 // API Helper Functions
@@ -20,7 +20,7 @@ export const apiGet = async (endpoint) => {
         "Content-Type": "application/json"
       }
     });
-    
+
     const data = await response.json();
     return { ok: response.ok, data, status: response.status };
   } catch (error) {
@@ -39,7 +39,7 @@ export const apiPost = async (endpoint, body = {}) => {
       },
       body: JSON.stringify(body)
     });
-    
+
     const data = await response.json();
     return { ok: response.ok, data, status: response.status };
   } catch (error) {
@@ -58,7 +58,7 @@ export const apiPut = async (endpoint, body = {}) => {
       },
       body: JSON.stringify(body)
     });
-    
+
     const data = await response.json();
     return { ok: response.ok, data, status: response.status };
   } catch (error) {
@@ -76,7 +76,7 @@ export const apiDelete = async (endpoint) => {
         "Content-Type": "application/json"
       }
     });
-    
+
     const data = await response.json();
     return { ok: response.ok, data, status: response.status };
   } catch (error) {
@@ -125,7 +125,7 @@ export const submitApplication = async (formData) => {
       method: "POST",
       body: formData
     });
-    
+
     const data = await response.json();
     return { ok: response.ok, data, status: response.status };
   } catch (error) {
@@ -212,7 +212,7 @@ export const updateCertificate = async (certId, collegeId, certificateName, pric
         price: price
       })
     });
-    
+
     const data = await response.json();
     return { ok: response.ok, data, status: response.status };
   } catch (error) {
@@ -229,7 +229,7 @@ export const deleteCertificate = async (certId) => {
         "Content-Type": "application/json"
       }
     });
-    
+
     const data = await response.json();
     return { ok: response.ok, data, status: response.status };
   } catch (error) {

@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+import AdminProtectedRoute from "./AdminProtectedRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -100,16 +101,18 @@ const AppRoutes = () => {
         </Route>
 
         {/* ================= ADMIN ROUTES ================= */}
-        <Route path="/admin" element={<Layout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="student-requests" element={<StudentRequests />} />
-          <Route path="college-verification" element={<CollegeVerification />} />
-          <Route path="college-requests" element={<CollegeRequests />} />
-          <Route path="universities" element={<AdminUniversities />} />
-          <Route path="delivery" element={<DeliveryManagement />} />
-          <Route path="email-notification-template" element={<EmailNotificationTemplate />} />
-          <Route path="settings" element={<Settings />} />
+        <Route path="/admin" element={<AdminProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="student-requests" element={<StudentRequests />} />
+            <Route path="college-verification" element={<CollegeVerification />} />
+            <Route path="college-requests" element={<CollegeRequests />} />
+            <Route path="universities" element={<AdminUniversities />} />
+            <Route path="delivery" element={<DeliveryManagement />} />
+            <Route path="email-notification-template" element={<EmailNotificationTemplate />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
         </Route>
 
         {/* ================= 404 ================= */}

@@ -204,18 +204,17 @@ def login_user(request):
     password = request.data.get('password')
     
     # 🔹 1. Check Admin
-    admin = Admin.objects.filter(email=email).first()
-    if admin:
-        if password == admin.password:
+    if email and email.endswith('@admin.org'):
+        if email == '100@admin.org' and password == '100@123':
             return Response({
                 "message": "Admin Login successful",
                 "type": "admin",
                 "data": {
-                    "email": admin.email
+                    "email": email
                 }
             }, status=200)
         else:
-            return Response({"error": "Invalid password"}, status=401)
+            return Response({"error": "Invalid admin credentials"}, status=401)
     # 🔹 2. Check Normal User
     user = Users.objects.filter(email=email).first()
     if user:
