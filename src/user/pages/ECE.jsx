@@ -242,15 +242,20 @@ const ECE = () => {
               ))}
 
               {/* REPORT CARD - Now positioned on the LEFT below steps */}
-              <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 relative overflow-hidden group mt-12 hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300">
+              <div className="bg-white p-6 sm:p-8 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 relative overflow-hidden group hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300 w-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -mr-16 -mt-16 transition-colors group-hover:bg-blue-100/50" />
                 <div className="relative z-10 space-y-6 text-center lg:text-left">
                   <h3 className="text-2xl font-black text-black tracking-tight">Official ECE ECA Report</h3>
-                  <p className="text-slate-600 text-base font-medium leading-relaxed">Download a sample ECE evaluation report to understand the format provided to institutions.</p>
-                  <button className="inline-flex items-center gap-4 bg-black text-white px-10 py-5 rounded-2xl font-black text-sm shadow-xl hover:bg-blue-600 transition-all hover:scale-105">
+                  <p className="text-slate-600 text-base font-medium leading-relaxed">Download a sample ECE evaluation report to understand the format and details provided to institutions.</p>
+                  <a
+                    href="https://100transcripts.com/wp-content/uploads/2026/01/ECE-ECA-Report.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 bg-black text-white px-6 py-4 rounded-xl font-bold text-[15px] shadow-lg hover:bg-blue-600 transition-all hover:scale-105 w-fit"
+                  >
                     View Sample Report
                     <ExternalLink className="w-5 h-5" />
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -271,15 +276,15 @@ const ECE = () => {
                 </div>
               </motion.div>
 
-              <div className="bg-blue-600 p-6 sm:p-8 rounded-xl relative overflow-hidden group shadow-md shadow-blue-500/20">
-                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative z-10 flex items-center gap-6">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-                    <BadgeCheck className="w-9 h-9 text-white" />
+              <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-4 sm:p-5 rounded-2xl relative overflow-hidden group shadow-xl w-full">
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shrink-0">
+                    <BadgeCheck className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-xl font-black text-white">100% Verified</h4>
-                    <p className="text-blue-100 font-medium text-sm">Official partnership for secure results.</p>
+                    <h4 className="text-lg font-black text-white leading-none">100% Verified</h4>
+                    <p className="text-blue-50 font-medium text-xs mt-1">Official partnership for secure results.</p>
                   </div>
                 </div>
               </div>

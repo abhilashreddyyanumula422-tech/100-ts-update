@@ -97,16 +97,20 @@ const Footer = () => {
 
           {/* BRAND */}
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
-            <Link
-              to="/"
-              className="shrink-0 flex items-center overflow-visible mb-8 md:mb-0"
-            >
-              <img
-                src={logo}
-                alt="100 Transcripts"
-                className="h-20 w-auto scale-[2.1] object-contain"
-              />
-            </Link>
+            <div className="p-6 border-b border-white/10">
+              <div className="flex items-center gap-4">
+
+                <div>
+                  <h2 className="text-xl font-bold">
+                    <span className="text-white">1</span>
+                    <span className="text-red-500">0</span>
+                    <span className="text-green-500">0</span>
+                    <span className="text-white ml-2">Transcripts</span>
+                  </h2>
+                </div>
+
+              </div>
+            </div>
 
             <p className="mt-4 md:-mt-5 max-w-sm text-sm leading-7 text-slate-300">
               Delivers fast, secure Indian university educational documents
@@ -305,7 +309,7 @@ const Footer = () => {
         onClose={() => setOpenTerms(false)}
       />
 
-    </footer>
+    </footer >
   );
 };
 

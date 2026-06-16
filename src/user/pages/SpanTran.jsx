@@ -215,27 +215,30 @@ const SpanTran = () => {
             </div>
 
             <div className="lg:sticky lg:top-32 h-fit space-y-8">
-              <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 text-center lg:text-left hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300">
+              <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 text-center lg:text-left hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300 max-w-[340px]">
                 <h3 className="text-2xl font-black text-black tracking-tight mb-4">Official Support</h3>
                 <p className="text-slate-600 text-base font-medium leading-relaxed mb-8">Our experts are here to guide you through every step of your SpanTran evaluation process.</p>
                 <a
                   href="https://wa.me/919941991402"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-4 bg-black text-white px-10 py-5 rounded-2xl font-black text-sm shadow-xl hover:bg-blue-600 transition-all"
+                  className="inline-flex items-center justify-center gap-3 bg-black text-white px-6 py-4 rounded-xl font-bold text-[15px] shadow-lg hover:bg-blue-600 transition-all w-fit"
                 >
                   Chat with an Expert
                   <ArrowRight className="w-5 h-5" />
                 </a>
               </div>
 
-              <div className="bg-blue-600 p-6 rounded-xl flex items-center gap-6 shadow-md shadow-blue-500/20">
-                <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-                  <BadgeCheck className="w-8 h-8 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-black text-white">100% Verified</h4>
-                  <p className="text-blue-100 font-medium text-sm">Official partnership for secure results.</p>
+              <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-4 sm:p-5 rounded-2xl relative overflow-hidden group shadow-xl max-w-[340px]">
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shrink-0">
+                    <BadgeCheck className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-black text-white leading-none">100% Verified</h4>
+                    <p className="text-blue-50 font-medium text-xs mt-1">Official partnership for secure results.</p>
+                  </div>
                 </div>
               </div>
             </div>

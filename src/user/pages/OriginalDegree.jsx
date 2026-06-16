@@ -188,13 +188,13 @@ const OriginalDegree = () => {
                   animate="visible"
                   variants={fadeUp}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-center mx-3 flex-shrink-0"
+                  className="bg-white rounded-xl p-2 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-center justify-center mx-3 flex-shrink-0"
                   style={{ width: '120px' }}
                 >
                   <img
                     src={agency.logo}
                     alt={agency.short}
-                    className="w-16 h-16 object-contain mb-2"
+                    className="w-24 h-24 object-contain mb-1"
                   />
                   <h4 className="font-semibold text-gray-900 text-xs text-center">
                     {agency.short}

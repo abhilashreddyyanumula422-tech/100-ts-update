@@ -202,37 +202,53 @@ const WES = () => {
                   </div>
                 </motion.div>
               ))}
+
+              {/* REPORT CARD - Now positioned on the LEFT below steps */}
+              <div className="bg-white p-6 sm:p-8 rounded-xl border border-slate-100 shadow-md shadow-slate-200/40 relative overflow-hidden group hover:shadow-lg hover:shadow-blue-500/10 transition-shadow duration-300 w-full">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-3xl -mr-16 -mt-16 transition-colors group-hover:bg-blue-100/50" />
+                <div className="relative z-10 space-y-6 text-center lg:text-left">
+                  <h3 className="text-2xl font-black text-black tracking-tight">Official WES ECA Report</h3>
+                  <p className="text-slate-600 text-base font-medium leading-relaxed">Download a sample WES evaluation report to understand the format and details provided to institutions.</p>
+                  <a
+                    href="https://100transcripts.com/wp-content/uploads/2026/01/WES-ECA-Report.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 bg-black text-white px-6 py-4 rounded-xl font-bold text-[15px] shadow-lg hover:bg-blue-600 transition-all hover:scale-105 w-fit"
+                  >
+                    View Sample Report
+                    <ExternalLink className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
             </div>
 
             {/* RIGHT SIDE: WORKFLOW IMAGE & INFO */}
             <div className="lg:sticky lg:top-32 space-y-8">
-              <div className="bg-white p-4 rounded-3xl border border-slate-100 shadow-lg">
-                {/* WES Workflow Image */}
-                <img
-                  src={wes1}
-                  alt="WES Partnership Workflow"
-                  className="w-100 md:w-[600px] h-auto object-contain" />
-              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                className="bg-blue-50/30 backdrop-blur-sm p-5 rounded-xl border border-blue-100 shadow-md shadow-slate-200/40 overflow-hidden group"
+              >
+                <div className="relative bg-white rounded-xl p-4 shadow-xl border border-white overflow-hidden">
+                  <img
+                    src={wes1}
+                    alt="WES Workflow"
+                    className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+              </motion.div>
 
-              <div className="bg-[#033074] p-10 rounded-[2.5rem] text-center lg:text-left text-white">
-                <h3 className="text-2xl font-black tracking-tight mb-4 text-white">WES ECA Report</h3>
-                <p className="text-slate-400 text-sm mb-8 leading-relaxed">Download a sample WES evaluation report to understand the format provided to global institutions.</p>
-                <a
-                  href="https://100transcripts.com/wes-final-eca-report/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-black text-sm hover:shadow-cyan-500/30 transition-all w-full justify-center shadow-xl"
-                >
-                  View Sample Report
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
 
-              <div className="bg-blue-600 p-6 rounded-3xl flex items-center gap-4 shadow-xl">
-                <BadgeCheck className="w-10 h-10 text-white" />
-                <div>
-                  <h4 className="text-lg font-black text-white leading-none">100% Verified</h4>
-                  <p className="text-blue-100 text-xs font-medium">Official partnership for secure results.</p>
+              <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-4 sm:p-5 rounded-2xl relative overflow-hidden group shadow-xl w-full">
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shrink-0">
+                    <BadgeCheck className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-black text-white leading-none">100% Verified</h4>
+                    <p className="text-blue-50 font-medium text-xs mt-1">Official partnership for secure results.</p>
+                  </div>
                 </div>
               </div>
             </div>

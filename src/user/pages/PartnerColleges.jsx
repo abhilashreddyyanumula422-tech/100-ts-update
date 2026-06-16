@@ -26,18 +26,22 @@ const PartnerColleges = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const partnerColleges = Object.entries(collegesData).filter(([_, data]) =>
+  const colleges = Object.entries(collegesData).filter(([_, data]) =>
     data.title.includes("Bhaskar Pharmacy") ||
     data.title.includes("Joginpally") ||
     data.title.includes("Siddhartha Institute")
   ).map(([id, data]) => ({ id, ...data }));
 
-  const filteredColleges = searchTerm.length > 0
-    ? partnerColleges.filter((college) =>
-      college.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      college.short.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    : partnerColleges;
+  const getCleanTitle = (title) => title.replace("Exclusive Transcript Services for ", "").replace("Exclusive Document Services for ", "").replace(" Students", "");
+
+  const filteredColleges = searchTerm.trim().length > 0
+    ? colleges.filter((college) => {
+        const cleanTitle = getCleanTitle(college.title).toLowerCase();
+        const short = college.short.toLowerCase();
+        const q = searchTerm.toLowerCase().trim();
+        return cleanTitle.split(' ').some(word => word.startsWith(q)) || short.startsWith(q);
+      })
+    : colleges;
 
   // Pagination logic
   const totalPages = Math.ceil(filteredColleges.length / ITEMS_PER_PAGE);

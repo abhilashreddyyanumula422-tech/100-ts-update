@@ -1,7 +1,8 @@
 import React, { useMemo, useRef, useEffect, useState, lazy, Suspense } from "react";
-import { motion } from "framer-motion";
-import { FiBook, FiAward, FiFileText } from "react-icons/fi";
-
+import { motion, AnimatePresence } from "framer-motion";
+import { FiBook, FiAward, FiFileText, FiArrowRight } from "react-icons/fi";
+import { useNavigate, Link } from "react-router-dom";
+import collegesData from "../data/collegesData";
 const Globe = lazy(() => import("react-globe.gl"));
 
 // Static data moved outside to fix useMemo dependency and optimize performance
@@ -16,6 +17,25 @@ const locations = [
 const HeroSection = () => {
   const globeRef = useRef();
   const [globeSize, setGlobeSize] = useState(window.innerWidth < 768 ? 320 : 800);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    navigate("/apply");
+  };
+
+  const getCleanTitle = (title) => title.replace("Exclusive Transcript Services for ", "").replace("Exclusive Document Services for ", "").replace(" Students", "");
+  
+  const colleges = Object.entries(collegesData).map(([id, data]) => ({ id, ...data }));
+
+  const filteredColleges = searchQuery.trim().length > 0
+    ? colleges.filter((college) => {
+        const cleanTitle = getCleanTitle(college.title).toLowerCase();
+        const short = college.short.toLowerCase();
+        const q = searchQuery.toLowerCase().trim();
+        return cleanTitle.split(' ').some(word => word.startsWith(q)) || short.startsWith(q);
+      })
+    : [];
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,21 +104,77 @@ const HeroSection = () => {
           </motion.p>
 
           {/* SEARCH BAR */}
-          <motion.div
-            className="flex flex-col sm:flex-row bg-white rounded-2xl sm:rounded-full shadow-2xl shadow-blue-500/10 overflow-hidden max-w-lg mx-auto lg:mx-0 border border-slate-100 p-2 gap-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <input
-              type="text"
-              placeholder="Enter Your University Name..."
-              className="flex-1 px-6 py-4 outline-none text-[#2f4a6d] font-medium placeholder:text-slate-400 text-base rounded-xl sm:rounded-full bg-slate-50 sm:bg-white"
-            />
-            <button className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl sm:rounded-full font-bold hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm whitespace-nowrap">
-              Start Now
-            </button>
-          </motion.div>
+          <div className="relative max-w-lg mx-auto lg:mx-0 w-full z-50">
+            <motion.div
+              className="flex flex-col sm:flex-row bg-white rounded-2xl sm:rounded-full shadow-2xl shadow-blue-500/10 overflow-hidden border border-slate-100 p-2 gap-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <input
+                type="text"
+                placeholder="Enter Your University Name..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                className="flex-1 px-6 py-4 outline-none text-[#2f4a6d] font-medium placeholder:text-slate-400 text-base rounded-xl sm:rounded-full bg-slate-50 sm:bg-white"
+              />
+              <button 
+                onClick={handleSearch}
+                className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl sm:rounded-full font-bold hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 active:scale-95 text-sm whitespace-nowrap"
+              >
+                Start Now
+              </button>
+            </motion.div>
+
+            {/* Suggestions Dropdown */}
+            <AnimatePresence>
+              {searchQuery.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute z-50 mt-3 w-full bg-white/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-slate-100 overflow-hidden max-h-[300px] overflow-y-auto text-left"
+                >
+                  {filteredColleges.length > 0 ? (
+                    filteredColleges.slice(0, 5).map((college) => {
+                      const isPartnerCollege = 
+                        college.title.includes("Bhaskar Pharmacy") ||
+                        college.title.includes("Joginpally") ||
+                        college.title.includes("Siddhartha Institute");
+                        
+                      return (
+                      <Link
+                        key={college.id}
+                        to={isPartnerCollege ? `/partnered-colleges/${college.id}` : `/universities/${college.id}`}
+                        className="flex items-center gap-3 px-5 py-3.5 hover:bg-gradient-to-r from-blue-50 to-purple-50 transition-all duration-300 border-b border-slate-50 last:border-none group"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-white shadow border border-slate-100 p-1.5 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                          <img src={college.logo} alt="" className="max-w-full max-h-full object-contain" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-bold text-slate-800 group-hover:text-blue-700 transition-colors truncate">
+                            {getCleanTitle(college.title)}
+                          </h3>
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">
+                            {college.short}
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0 w-7 h-7 rounded-md bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-x-1 group-hover:translate-x-0 transition-all duration-300">
+                          <FiArrowRight className="w-3.5 h-3.5" />
+                        </div>
+                      </Link>
+                    )})
+                  ) : (
+                    <div className="px-5 py-8 text-center">
+                      <p className="text-slate-500 text-sm font-medium">No universities found matching your search.</p>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* <motion.button 
             className="flex items-center gap-2 text-[#2f4a6d] font-bold hover:gap-4 transition-all text-base mx-auto lg:mx-0"
@@ -196,3 +272,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

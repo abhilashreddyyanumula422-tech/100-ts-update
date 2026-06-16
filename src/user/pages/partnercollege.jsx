@@ -170,7 +170,7 @@ const PartnerCollege = () => {
           <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
             <motion.div initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="relative w-full text-center md:text-left">
               <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
-                <div className="w-16 h-16 md:w-14 md:h-14 rounded-xl bg-white shadow-lg p-2 flex items-center justify-center border border-slate-100">
+                <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white shadow-lg p-3 flex items-center justify-center border border-slate-100 shrink-0 overflow-hidden">
                   <img src={college?.logo} alt={shortName} className="max-w-full max-h-full object-contain" />
                 </div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-bold uppercase tracking-widest text-blue-700 shadow-sm backdrop-blur-sm">
@@ -226,25 +226,25 @@ const PartnerCollege = () => {
       />
 
       {/* ══ GET STARTED ══ */}
-      <section id="submit-documents" className="bg-white py-16 md:py-20">
-        <div className="mx-auto max-w-4xl px-6 md:px-12">
+      <section id="submit-documents" className="bg-white pt-4 pb-12 md:pb-16">
+        <div className="mx-auto max-w-3xl px-6 md:px-12">
           <motion.div initial={{ opacity: 0, y: 35 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="rounded-[2rem] p-10 md:p-16 text-center text-white relative overflow-hidden bg-gradient-to-br from-blue-600 to-cyan-600 shadow-2xl border border-blue-400/30">
+            <div className="rounded-3xl p-8 md:p-10 text-center text-white relative overflow-hidden bg-gradient-to-br from-blue-600 to-cyan-600 shadow-xl border border-blue-400/30">
               {/* Decorative glows */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-[80px] pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] pointer-events-none" />
-              
+
               <div className="relative z-10">
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-100">Get Started</p>
-                <h2 className="mt-4 text-3xl md:text-4xl font-bold leading-tight text-white">Ready to Submit Your Documents?</h2>
-                <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-blue-50">Safe, guided, and secure submission process with faster turnaround through our dedicated college support.</p>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-100">Get Started</p>
+                <h2 className="mt-3 text-2xl md:text-3xl font-bold leading-tight text-white">Ready to Submit Your Documents?</h2>
+                <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-blue-50">Safe, guided, and secure submission process with faster turnaround through our dedicated college support.</p>
               </div>
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4 relative z-10">
-                <Link to="/apply" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-10 py-4 text-base font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:shadow-black/10">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4 relative z-10">
+                <Link to="/apply" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:shadow-black/10">
                   Apply Now <FiArrowRight />
                 </Link>
-                <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:shadow-black/10">
-                  <FaWhatsapp size={18} /> Contact Support
+                <a href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-blue-700 shadow-xl transition hover:scale-105 hover:shadow-black/10">
+                  <FaWhatsapp size={16} /> Contact Support
                 </a>
               </div>
             </div>

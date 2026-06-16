@@ -1240,7 +1240,7 @@ const collegesData = {
 
   "bhaskar-pharmacy-college": {
     short: "BPC",
-    logo: "https://logo.clearbit.com/bpc.edu.in",
+    logo: getLogo("Bhaskar Pharmacy College.png"),
     heroImage: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Bhaskar Pharmacy College",
     description:
@@ -1261,7 +1261,7 @@ const collegesData = {
 
   "joginpally-br-pharmacy-college": {
     short: "JBPR",
-    logo: "https://logo.clearbit.com/jbrpc.edu.in",
+    logo: getLogo("Joginpally BR Pharmacy College.png"),
     heroImage: "https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Joginpally B.R Pharmacy College",
     description:
@@ -1282,7 +1282,7 @@ const collegesData = {
 
   "siddhartha-institute-of-technology-sciences": {
     short: "SITS",
-    logo: "https://logo.clearbit.com/siddhartha.ac.in",
+    logo: getLogo("Siddhartha Institute.png"),
     heroImage: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     title: "Siddhartha Institute",
     description:

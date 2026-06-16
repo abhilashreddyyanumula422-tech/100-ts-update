@@ -1462,24 +1462,24 @@ const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames,
         <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-8">How would you like to submit your documents?</h2>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto">
-          {/* BUTTON 1: Fetch from DigiLocker */}
-          <button
-            type="button"
-            onClick={() => onDigiLocker('all', 'All Documents')}
-            className="flex-1 bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-slate-800 hover:text-blue-700 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
-          >
-            <img src={digilockerLogo} alt="DigiLocker" className="h-9 w-auto object-contain" />
-            Fetch from DigiLocker
-          </button>
-
-          {/* BUTTON 2: Upload Documents */}
+          {/* BUTTON 1: Upload Documents (Left, Highlighted) */}
           <button
             type="button"
             onClick={() => setShowManualUpload(true)}
-            className="flex-1 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-800 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+            className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-cyan-500/30 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 text-lg border border-transparent"
           >
-            <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
             Upload Documents
+          </button>
+
+          {/* BUTTON 2: Fetch from DigiLocker (Right) */}
+          <button
+            type="button"
+            onClick={() => onDigiLocker('all', 'All Documents')}
+            className="flex-1 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 text-slate-800 font-bold py-4 px-6 rounded-2xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+          >
+            <img src={digilockerLogo} alt="DigiLocker" className="h-9 w-auto object-contain" />
+            Fetch from DigiLocker
           </button>
         </div>
       </div>
@@ -1490,7 +1490,7 @@ const Step0 = ({ form, onChange, degrees, addDeg, rmDeg, chDeg, upProg, upNames,
           <button
             type="button"
             onClick={() => setShowManualUpload(false)}
-            className="absolute top-6 left-6 text-slate-400 hover:text-slate-700 flex items-center gap-1.5 font-medium text-sm transition-colors"
+            className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-full flex items-center gap-2 font-bold text-sm transition-all shadow-sm hover:shadow-md"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             Back

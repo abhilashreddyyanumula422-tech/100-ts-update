@@ -30,11 +30,15 @@ const Universities = () => {
     ...data,
   }));
 
-  const filteredColleges = searchTerm.length > 0
-    ? colleges.filter((college) =>
-      college.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      college.short.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+  const getCleanTitle = (title) => title.replace("Exclusive Transcript Services for ", "").replace("Exclusive Document Services for ", "").replace(" Students", "");
+
+  const filteredColleges = searchTerm.trim().length > 0
+    ? colleges.filter((college) => {
+        const cleanTitle = getCleanTitle(college.title).toLowerCase();
+        const short = college.short.toLowerCase();
+        const q = searchTerm.toLowerCase().trim();
+        return cleanTitle.split(' ').some(word => word.startsWith(q)) || short.startsWith(q);
+      })
     : colleges;
 
   // Pagination logic

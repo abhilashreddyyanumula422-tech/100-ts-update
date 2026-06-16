@@ -353,7 +353,7 @@ const IEEevaluation = () => {
                   </div>
 
                   {/* Floating Badge */}
-                  <motion.div
+                  {/* <motion.div
                     animate={{
                       scale: [1, 1.1, 1],
                       rotate: [0, 5, -5, 0]
@@ -362,7 +362,7 @@ const IEEevaluation = () => {
                     className="absolute -top-6 -right-6 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-xl"
                   >
                     <span className="text-2xl">📋</span>
-                  </motion.div>
+                  </motion.div> */}
                 </div>
               </motion.div>
 
@@ -474,15 +474,15 @@ const IEEevaluation = () => {
                 </div>
               </div>
 
-              <div className="bg-blue-600 p-6 sm:p-8 rounded-xl relative overflow-hidden group shadow-md shadow-blue-500/20">
-                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative z-10 flex items-center gap-6">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-                    <BadgeCheck className="w-9 h-9 text-white" />
+              <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-4 sm:p-5 rounded-2xl relative overflow-hidden group shadow-xl max-w-[340px]">
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shrink-0">
+                    <BadgeCheck className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-xl font-black text-white">100% Verified</h4>
-                    <p className="text-blue-100 font-medium text-sm">Official partnership for secure results.</p>
+                    <h4 className="text-lg font-black text-white leading-none">100% Verified</h4>
+                    <p className="text-blue-50 font-medium text-xs mt-1">Official partnership for secure results.</p>
                   </div>
                 </div>
               </div>

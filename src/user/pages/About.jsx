@@ -122,8 +122,10 @@ export default function About() {
             className="relative"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-400/20 rounded-2xl blur-2xl" />
-            <img
+            <motion.img
               src={about7}
+              animate={{ y: [-15, 15, -15] }}
+              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
               className="relative rounded-2xl shadow-2xl w-full border border-white/10 object-cover"
               alt="About 100 Transcripts"
             />
@@ -143,9 +145,11 @@ export default function About() {
           >
             <div className="absolute -inset-4 bg-slate-100 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
             <div className="overflow-hidden rounded-2xl shadow-xl border border-slate-200">
-              <img
+              <motion.img
                 src={about6}
-                className="w-full group-hover:scale-105 transition-transform duration-700 object-cover"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+                className="w-full group-hover:scale-110 transition-transform duration-700 object-cover"
                 alt="Our Mission"
               />
             </div>

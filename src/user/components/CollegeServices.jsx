@@ -24,7 +24,7 @@ const CollegeServices = ({
   description = "Exclusive services for Bhaskar Pharmacy College students for credential evaluations, university submissions, and official verification needs.",
 }) => {
   return (
-    <section className="py-16 md:py-20">
+    <section className="pt-16 md:pt-20 pb-8 md:pb-10">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 35 }}
