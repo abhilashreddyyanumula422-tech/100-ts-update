@@ -4,10 +4,15 @@ from .models import Users,Admin
 from .models import Review
 from .models import DeliveryRequest
 
+from .models import Payment
+
 class ImageUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageUpload
         fields = ['id', 'image', 'uploaded_at']
+
+
+
 
 
 
@@ -152,3 +157,11 @@ class DeliveryRequestSerializer(serializers.ModelSerializer):
             "status",
             "estDelivery",
         ]
+
+
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = "__all__"

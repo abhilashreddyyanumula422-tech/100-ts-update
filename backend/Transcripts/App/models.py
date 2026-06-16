@@ -116,41 +116,31 @@ class Certificate(models.Model):
         return f"{self.name} - {self.college.name}"
     
 
-from django.db import models
 
 class Payment(models.Model):
-    # 🔗 Relation to your application
     application = models.ForeignKey(
         "Application",
         on_delete=models.CASCADE,
         related_name="payments"
     )
 
-    # 🆔 Razorpay IDs
-    order_id = models.CharField(max_length=255)
-    payment_id = models.CharField(max_length=255, null=True, blank=True)
-    signature = models.CharField(max_length=500, null=True, blank=True)
+    order_id = models.CharField(max_length=255, unique=True)
+    payment_session_id = models.CharField(max_length=255, blank=True, null=True)
+    cf_payment_id = models.CharField(max_length=255, blank=True, null=True)
 
-    # 💰 Payment Info
-    amount = models.IntegerField()  # in paise
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=10, default="INR")
 
-    # 📊 Status
-    status = models.CharField(max_length=50, default="created")
-    payment_method = models.CharField(max_length=50, null=True, blank=True)  # card / upi
-    captured = models.BooleanField(default=False)
+    status = models.CharField(max_length=50, default="PENDING")
 
-
-    # 🔁 Refund Info
-    refund_id = models.CharField(max_length=255, null=True, blank=True)
-    refund_status = models.CharField(max_length=50, null=True, blank=True)
-
-    # ⏱️ Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.payment_id} - {self.status}"
+        return self.order_id
+
+
+
 
 import uuid
 from datetime import timedelta

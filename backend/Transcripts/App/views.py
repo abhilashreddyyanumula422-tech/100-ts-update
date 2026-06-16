@@ -9,7 +9,7 @@ from .serializers import ImageUploadSerializer
 # import os
 # from django.core.files.base import ContentFile
 from django.conf import settings
-
+from .serializers import PaymentSerializer
 from rest_framework import status
 
 from rest_framework.views import APIView
@@ -235,251 +235,62 @@ def login_user(request):
 
 
 from django.http import JsonResponse
-import razorpay
+
 from django.conf import settings
 from django.http import JsonResponse
 import json
 
 from django.views.decorators.csrf import csrf_exempt
-import razorpay
 import json
 from django.conf import settings
 from django.http import JsonResponse
 
 
-@csrf_exempt   # ✅ ADD THIS
-def create_order(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "Invalid method"}, status=405)
 
-    try:
-        data = json.loads(request.body)
 
-        amount = int(data.get("amount")) * 100
-        application_id = data.get("application_id")
-
-        # 🔒 Validate
-        if not amount:
-            return JsonResponse({"error": "Amount is required"}, status=400)
-
-        client = razorpay.Client(auth=(
-            settings.RAZORPAY_KEY_ID,
-            settings.RAZORPAY_KEY_SECRET
-        ))
-
-        order = client.order.create({
-            "amount": amount,
-            "currency": "INR",
-            "payment_capture": 1
-        })
-
-        print("✅ Order Created:", order)
-
-        return JsonResponse({
-            "order_id": order["id"],
-            "amount": order["amount"]
-        })
-
-    except Exception as e:
-        print("🔥 Create Order Error:", str(e))
-        return JsonResponse({"error": str(e)}, status=500)
-    
-import razorpay
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
-import razorpay
+
 import json
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
  
-client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
  
  
-# ✅ CREATE ORDER
-@csrf_exempt
-def create_order(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
 
-        application_id = data.get("application_id")
-        amount = int(data.get("amount", 1)) * 100  # convert to paise
 
-        from .models import Application, Payment
 
-        try:
-            app = Application.objects.get(id=application_id)
-        except Application.DoesNotExist:
-            return JsonResponse({"error": "Invalid application"}, status=400)
-
-        order = client.order.create({
-            "amount": amount,
-            "currency": "INR",
-            "payment_capture": "1"
-        })
-
-        # ✅ SAVE ORDER IN DB
-        Payment.objects.create(
-            application=app,
-            order_id=order["id"],
-            amount=amount,
-            currency="INR",
-            status="created"
-        )
-
-        return JsonResponse({
-            "order_id": order["id"],
-            "amount": amount,
-            "key": settings.RAZORPAY_KEY_ID
-        })
- 
-# ✅ VERIFY PAYMENT
-@csrf_exempt
-def verify_payment(request):
-    data = json.loads(request.body)
-
-    razorpay_order_id = data.get("razorpay_order_id")
-    razorpay_payment_id = data.get("razorpay_payment_id")
-    razorpay_signature = data.get("razorpay_signature")
-
-    params_dict = {
-        "razorpay_order_id": razorpay_order_id,
-        "razorpay_payment_id": razorpay_payment_id,
-        "razorpay_signature": razorpay_signature
-    }
-
-    try:
-        # ✅ Verify signature
-        client.utility.verify_payment_signature(params_dict)
-
-        from .models import Payment
-
-        payment = Payment.objects.filter(order_id=razorpay_order_id).first()
-
-        if payment:
-            # ✅ Fetch extra details from Razorpay
-            payment_data = client.payment.fetch(razorpay_payment_id)
-
-            payment.payment_id = razorpay_payment_id
-            payment.signature = razorpay_signature
-            payment.status = "paid"
-            payment.captured = True
-            payment.payment_method = payment_data.get("method")
-
-            payment.save()
-
-        return JsonResponse({"status": "success"})
-
-    except Exception as e:
-        print("❌ Verification Error:", str(e))
-
-        # ❗ Mark as failed in DB
-        from .models import Payment
-        payment = Payment.objects.filter(order_id=razorpay_order_id).first()
-        if payment:
-            payment.status = "failed"
-            payment.save()
-
-        return JsonResponse({"status": "failed"})
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-import razorpay
+
 from django.conf import settings
 from .models import Payment
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-import razorpay
+
 from django.conf import settings
 from .models import Payment
 
-client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
 
-import requests
+
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.conf import settings
 import json
-import requests
+
 from .models import Payment
 
 
-@csrf_exempt
-def refund_payment(request):
-    if request.method != "POST":
-        return JsonResponse({"error": "Invalid method"}, status=405)
 
-    try:
-        data = json.loads(request.body)
-        application_id = data.get("application_id")
-
-        if not application_id:
-            return JsonResponse({"error": "application_id required"}, status=400)
-
-        # ✅ Get latest successful payment
-        payment = Payment.objects.filter(
-            application_id=application_id,
-            status="paid",
-            captured=True
-        ).order_by("-created_at").first()
-
-        if not payment:
-            return JsonResponse({"error": "No successful payment found"}, status=400)
-
-        if not payment.payment_id:
-            return JsonResponse({"error": "Payment ID missing"}, status=400)
-
-        print("---- REFUND DEBUG ----")
-        print("Payment ID:", payment.payment_id)
-
-        # 🔥 Razorpay Refund API (DIRECT CALL)
-        url = f"https://api.razorpay.com/v1/payments/{payment.payment_id}/refund"
-
-        response = requests.post(
-            url,
-            auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET),
-            data={}   # ✅ IMPORTANT: use form-data, NOT json
-        )
-
-        print("Status Code:", response.status_code)
-        print("Response:", response.text)
-
-        # ❌ If error from Razorpay
-        if response.status_code != 200:
-            try:
-                error_data = response.json()
-            except:
-                error_data = response.text
-
-            return JsonResponse({
-                "error": error_data
-            }, status=400)
-
-        refund = response.json()
-
-        # ✅ Save refund details
-        payment.refund_id = refund.get("id")
-        payment.refund_status = refund.get("status")
-        payment.status = "refunded"
-        payment.save()
-
-        return JsonResponse({
-            "status": "refund_success",
-            "refund_id": refund.get("id")
-        })
-
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        return JsonResponse({"error": str(e)}, status=500)
- 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.mail import send_mail
@@ -1175,3 +986,184 @@ Thank you.
     return Response({
         "message": "Email sent successfully"
     })
+
+import uuid
+import traceback
+
+from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from cashfree_pg.api_client import Cashfree
+from cashfree_pg.models.create_order_request import CreateOrderRequest
+from cashfree_pg.models.customer_details import CustomerDetails
+
+from .models import Application, Payment
+
+
+class CreateCashfreeOrder(APIView):
+
+    def post(self, request, application_id):
+
+        application = get_object_or_404(
+            Application,
+            id=application_id
+        )
+
+        order_id = f"ORD_{uuid.uuid4().hex[:12]}"
+
+        # Clean phone number
+        phone = "".join(
+            filter(str.isdigit, application.phone or "")
+        )
+
+        if len(phone) > 10:
+            phone = phone[-10:]
+
+        if len(phone) < 10:
+            phone = "9999999999"
+
+        customer_details = CustomerDetails(
+            customer_id=f"CUST_{application.id}",
+            customer_name=application.fullName[:50],
+            customer_email=application.email,
+            customer_phone=phone
+        )
+
+        order_request = CreateOrderRequest(
+            order_id=order_id,
+            order_amount=1.00,
+            order_currency="INR",
+            customer_details=customer_details
+        )
+
+        try:
+            cashfree = Cashfree(
+                XEnvironment=settings.CASHFREE_ENVIRONMENT
+                )
+            response = cashfree.PGCreateOrder(
+                str(uuid.uuid4()),
+                order_request
+                )
+
+            payment = Payment.objects.create(
+                application=application,
+                order_id=order_id,
+                payment_session_id=response.data.payment_session_id,
+                amount=1,
+                currency="INR",
+                status="PENDING"
+            )
+
+            return Response(
+                {
+                    "success": True,
+                    "order_id": payment.order_id,
+                    "payment_session_id": payment.payment_session_id,
+                    "amount": payment.amount
+                },
+                status=status.HTTP_200_OK
+            )
+
+        except Exception as e:
+
+            print("\n========== CASHFREE ERROR ==========")
+            print(str(e))
+            traceback.print_exc()
+            print("===================================\n")
+
+            return Response(
+                {
+                    "success": False,
+                    "message": str(e)
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+from .serializers import PaymentSerializer
+
+class VerifyPayment(APIView):
+
+    def get(self, request, order_id):
+
+        response = Cashfree().PGFetchOrder(
+            None,
+            order_id
+        )
+
+        payment = get_object_or_404(
+            Payment,
+            order_id=order_id
+        )
+
+        payment.status = response.data.order_status
+        payment.save()
+
+        if response.data.order_status == "PAID":
+            payment.application.payment_status = "Paid"
+            payment.application.save()
+
+        serializer = PaymentSerializer(payment)
+        return Response(serializer.data)
+
+class PaymentDetail(APIView):
+
+    def get(self, request, application_id):
+
+        payment = Payment.objects.filter(
+            application_id=application_id
+        ).last()
+
+        if not payment:
+            return Response(
+                {"message": "Payment not found"},
+                status=404
+            )
+
+        serializer = PaymentSerializer(payment)
+        return Response(serializer.data)
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
+def cashfree_webhook(request):
+
+    payload = json.loads(request.body)
+
+    event = payload.get("type")
+
+    data = payload.get("data", {})
+
+    order = data.get("order", {})
+
+    order_id = order.get("order_id")
+
+    try:
+
+        payment = Payment.objects.get(
+            order_id=order_id
+        )
+
+        if event == "PAYMENT_SUCCESS_WEBHOOK":
+
+            payment.status = "PAID"
+            payment.save()
+
+            application = payment.application
+            application.payment_status = "Paid"
+            application.save()
+
+        elif event == "PAYMENT_FAILED_WEBHOOK":
+
+            payment.status = "FAILED"
+            payment.save()
+
+    except Payment.DoesNotExist:
+        pass
+
+    return JsonResponse({"status": "ok"})
+

@@ -6,13 +6,24 @@ from .views import (
     delivery_requests,
     send_courier_email,
 )
+from .views import (
+    CreateCashfreeOrder,
+    VerifyPayment,
+    PaymentDetail,
+    cashfree_webhook
+)
 
 urlpatterns = [
     # path('upload/', upload_image),
     path('register/', views.register_user),
     path('verify/', views.login_user),
-    path("create-order/", views.create_order),
-    path("verifys/", views.verify_payment),
+    path(
+    "create-order/<int:application_id>/",
+    views.CreateCashfreeOrder.as_view(),
+    name="create-order"
+),
+  
+
     path("contact/", views.contact_api),
     path("add_college/", views.add_college),
     path("allcolleges/", views.get_all_colleges),
@@ -29,7 +40,7 @@ urlpatterns = [
     path('download/<int:id>/', views.download_document),
     path("colleges/", views.get_colleges),
     path("verifications/", views.get_verified_applications, name="get_verifications"),
-    path("refund/", views.refund_payment),
+   
     path("forgot-password/", views.forgot_password, name="forgot_password"),
     path("verify-reset-token/", views.verify_reset_token, name="verify_reset_token"),
     path("reset-password/", views.reset_password, name="reset_password"),
@@ -45,13 +56,29 @@ urlpatterns = [
         send_courier_email,
         name="send_courier_email"
     ),
-    
-    
+    path(
+    "create-order/<int:application_id>/",
+    CreateCashfreeOrder.as_view(),
+    name="create-order"
+),
 
+   path(
+    "verify-payment/<str:order_id>/",
+    VerifyPayment.as_view(),
+    name="verify-payment"
+),
 
+   path(
+    "payment/<int:application_id>/",
+    PaymentDetail.as_view(),
+    name="payment-detail"
+),
 
-
+   path(
+    "webhook/",
+    cashfree_webhook,
+    name="cashfree-webhook"
+),
     
-    
-    
+ 
 ]

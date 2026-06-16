@@ -105,9 +105,18 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'narusrinivasareddy2002@gmail.com'
 EMAIL_HOST_PASSWORD = 'kjiz qypw aecv uqmg'
 
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
-RAZORPAY_KEY_ID = "rzp_test_Sg6qpBoNrt75cC"
-RAZORPAY_KEY_SECRET = "HIOkJKyYALFE9z0blH1dZ95R"
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / ".env")
+
+CASHFREE_CLIENT_ID = os.getenv("CASHFREE_CLIENT_ID")
+CASHFREE_CLIENT_SECRET = os.getenv("CASHFREE_CLIENT_SECRET")
+CASHFREE_ENVIRONMENT = os.getenv("CASHFREE_ENVIRONMENT")
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
 ]
