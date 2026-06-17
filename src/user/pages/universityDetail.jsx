@@ -143,7 +143,7 @@ const UniversityDetail = () => {
   return (
     <div className="bg-white text-slate-900">
       {/* ══ HERO ══ */}
-      <section className="relative overflow-hidden bg-white pt-28 pb-16 md:pt-36 md:pb-24">
+      <section className="relative overflow-hidden bg-white pt-16 pb-16 md:pt-20 md:pb-24">
         <div className="absolute inset-0 bg-right bg-no-repeat opacity-100 hidden md:block" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "contain" }} />
         {/* Mobile background */}
         <div className="absolute inset-0 bg-center bg-no-repeat opacity-10 md:hidden" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: "cover" }} />
@@ -168,7 +168,7 @@ const UniversityDetail = () => {
 
               <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-5 max-w-4xl text-4xl font-bold leading-tight text-[#233a59] md:text-5xl xl:text-6xl">
                 Exclusive Transcript Services for{" "}
-                <span className="text-blue-700">{universityName}</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 font-extrabold">{university?.title ? university.title.replace("Exclusive Transcript Services for ", "").replace("Exclusive Document Services for ", "") : universityName}</span>
               </motion.h1>
 
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-5 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">

@@ -69,7 +69,7 @@ export default function About() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="space-y-6 text-center lg:text-left"
           >
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -77,7 +77,7 @@ export default function About() {
             >
               <Shield className="w-4 h-4 text-blue-600" />
               <span className="text-xs font-bold text-blue-800 tracking-wider uppercase">ISO Certified Partner</span>
-            </motion.div>
+            </motion.div> */}
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -85,17 +85,22 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-[1.1]"
             >
-              Empowering Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Global Journey</span>
+              About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">100 Transcripts</span>
             </motion.h1>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-slate-600 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium"
+              className="text-slate-600 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium space-y-4"
             >
-              A specialized ISO-certified firm dedicated to securing educational documents and transcripts from universities across India since 2016.
-            </motion.p>
+              <p>
+                100 Transcripts LLP is a specialized ISO-certified firm founded in 2016 in Hyderabad, India, committed to excellence and putting in relentless effort to secure educational documents and transcripts from all over India.
+              </p>
+              <p>
+                Our firm provides expert assistance to students and alumni seeking credential verification and transcripts for IEE (Official Partner), ECE (Official Partner), WES Canada, SpanTran (Official Partner), ICES, IQAS, CES, NASBA, PEBC, UK-NARIC/ECCTIS, Re Vera, catering to those unable to visit universities in person due to personal or professional obligations.
+              </p>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -134,14 +139,14 @@ export default function About() {
       </section>
 
       {/* MISSION SECTION */}
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <section className="py-10 px-6 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, type: "spring", damping: 20 }}
-            className="order-2 lg:order-1 relative group"
+            className="order-2 lg:order-1 relative group max-w-[85%] mx-auto lg:ml-0"
           >
             <div className="absolute -inset-4 bg-slate-100 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
             <div className="overflow-hidden rounded-2xl shadow-xl border border-slate-200">
@@ -189,10 +194,10 @@ export default function About() {
               transition={{ delay: idx * 0.15, duration: 0.6, type: "spring", damping: 20 }}
               className="bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/40 text-center space-y-2 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-200 group relative overflow-hidden"
             >
-              <motion.div 
+              <motion.div
                 animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: idx * 0.3 }}
-                className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full -mr-8 -mt-8 group-hover:bg-blue-500/20 transition-colors duration-500" 
+                className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full -mr-8 -mt-8 group-hover:bg-blue-500/20 transition-colors duration-500"
               />
               <motion.div
                 animate={{ y: [0, -6, 0] }}
@@ -271,7 +276,7 @@ export default function About() {
           <div className="flex gap-6 animate-scroll whitespace-nowrap">
             {[...networkImages, ...networkImages].map((img, idx) => (
               <div key={idx} className="min-w-[280px] bg-white p-6 rounded-2xl shadow-md border border-slate-100 flex items-center justify-center">
-                <img src={img} alt="Network" className="w-full h-32 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0" />
+                <img src={img} alt="Network" className="w-full h-32 object-contain transition-transform duration-300 hover:scale-105" />
               </div>
             ))}
           </div>

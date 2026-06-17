@@ -8,6 +8,7 @@ import {
   FiMapPin,
   FiSend,
 } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 import {
   MessageCircle,
@@ -151,7 +152,7 @@ export default function Contact() {
               {/* WHATSAPP */}
               <div className="flex gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-green-50 transition-all group">
                 <div className="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <MessageCircle size={20} />
+                  <FaWhatsapp size={22} />
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold">WhatsApp</p>

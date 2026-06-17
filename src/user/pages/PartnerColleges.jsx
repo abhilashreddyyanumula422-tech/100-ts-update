@@ -36,11 +36,11 @@ const PartnerColleges = () => {
 
   const filteredColleges = searchTerm.trim().length > 0
     ? colleges.filter((college) => {
-        const cleanTitle = getCleanTitle(college.title).toLowerCase();
-        const short = college.short.toLowerCase();
-        const q = searchTerm.toLowerCase().trim();
-        return cleanTitle.split(' ').some(word => word.startsWith(q)) || short.startsWith(q);
-      })
+      const cleanTitle = getCleanTitle(college.title).toLowerCase();
+      const short = college.short.toLowerCase();
+      const q = searchTerm.toLowerCase().trim();
+      return cleanTitle.split(' ').some(word => word.startsWith(q)) || short.startsWith(q);
+    })
     : colleges;
 
   // Pagination logic
@@ -304,7 +304,11 @@ const PartnerColleges = () => {
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-400/30 to-rose-400/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
                         <div className="relative w-28 h-28 rounded-2xl bg-gradient-to-br from-white to-amber-50 shadow-xl border border-amber-100 p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 overflow-hidden bg-white">
                           {college.logo ? (
-                            <img src={college.logo} alt={college.short} className="max-w-full max-h-full object-contain" />
+                            <img
+                              src={college.logo}
+                              alt={college.short}
+                              className="w-full h-full object-contain scale-[1.15]"
+                            />
                           ) : (
                             <FiAward className="w-14 h-14 text-amber-600" />
                           )}

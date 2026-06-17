@@ -34,11 +34,11 @@ const Universities = () => {
 
   const filteredColleges = searchTerm.trim().length > 0
     ? colleges.filter((college) => {
-        const cleanTitle = getCleanTitle(college.title).toLowerCase();
-        const short = college.short.toLowerCase();
-        const q = searchTerm.toLowerCase().trim();
-        return cleanTitle.split(' ').some(word => word.startsWith(q)) || short.startsWith(q);
-      })
+      const cleanTitle = getCleanTitle(college.title).toLowerCase();
+      const short = college.short.toLowerCase();
+      const q = searchTerm.toLowerCase().trim();
+      return cleanTitle.split(' ').some(word => word.startsWith(q)) || short.startsWith(q);
+    })
     : colleges;
 
   // Pagination logic
@@ -276,11 +276,11 @@ const Universities = () => {
                       {/* Bigger Logo */}
                       <div className="relative mb-5">
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-full blur-xl group-hover:blur-2xl transition-all duration-500" />
-                        <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-white to-slate-50 shadow-xl border border-slate-100 p-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                        <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-white to-slate-50 shadow-xl border border-slate-100 p-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 overflow-hidden">
                           <img
                             src={college.logo}
                             alt={college.short}
-                            className="max-w-full max-h-full object-contain"
+                            className="w-full h-full object-contain scale-[1.15]"
                           />
                         </div>
                       </div>

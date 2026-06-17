@@ -138,7 +138,7 @@ const collegesData = {
       "Transcripts",
       "Degree Certificate",
       "MOI Letter",
-      "Provisional Certificate",
+      // "Provisional Certificate",
     ],
   },
 
