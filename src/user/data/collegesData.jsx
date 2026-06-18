@@ -564,7 +564,7 @@ const collegesData = {
 
   "yogi-vemana-university": {
     short: "YVU",
-    logo: "https://via.placeholder.com/150?text=YVU",
+    logo: getLogo("Yogi Vemana University.png"),
     heroImage: "partnerclg.png",
     title: "Exclusive Document Services for YVU Students",
     description:

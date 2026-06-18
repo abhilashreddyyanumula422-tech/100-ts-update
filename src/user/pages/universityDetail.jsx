@@ -166,9 +166,11 @@ const UniversityDetail = () => {
                 </div>
               </div>
 
-              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-5 max-w-4xl text-4xl font-bold leading-tight text-[#233a59] md:text-5xl xl:text-6xl">
-                Exclusive Transcript Services for{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 font-extrabold">{university?.title ? university.title.replace("Exclusive Transcript Services for ", "").replace("Exclusive Document Services for ", "") : universityName}</span>
+              <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-5 max-w-4xl text-3xl font-semibold leading-tight text-[#233a59] md:text-4xl xl:text-5xl">
+                Exclusive Services for{" "}
+                <span className="text-blue-600">
+                  {university?.title ? university.title.replace("Exclusive Transcript Services for ", "").replace("Exclusive Document Services for ", "").replace("Exclusive Services for ", "") : universityName}
+                </span>
               </motion.h1>
 
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="mt-5 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
