@@ -49,7 +49,33 @@ const formFieldVariants = {
 };
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([
+    {
+      name: "Aarav Sharma",
+      rating: 5,
+      review: "The transcript process was incredibly smooth. They handled everything with my university and I got my documents well before the deadline."
+    },
+    {
+      name: "Priya Patel",
+      rating: 5,
+      review: "Excellent service! I was worried about the complex university procedures, but their team made it so simple. Highly recommended for students studying abroad."
+    },
+    {
+      name: "Rohan Gupta",
+      rating: 4,
+      review: "Very professional and transparent. They kept me updated throughout the whole process. Only took a little longer than expected due to university delays."
+    },
+    {
+      name: "Neha Singh",
+      rating: 5,
+      review: "I urgently needed my transcripts for immigration purposes and they delivered exceptionally fast. Great customer support!"
+    },
+    {
+      name: "Vikram Reddy",
+      rating: 5,
+      review: "Stress-free experience from start to finish. Their portal is easy to use and the team is very responsive to queries."
+    }
+  ]);
 
   /* ── Modal state ── */
   const [showModal, setShowModal] = useState(false);
@@ -76,7 +102,7 @@ const Reviews = () => {
   const fetchReviews = async () => {
     try {
       const response = await getReviews();
-      if (response.ok) {
+      if (response.ok && response.data && response.data.length > 0) {
         setReviews(response.data);
       }
     } catch (error) {

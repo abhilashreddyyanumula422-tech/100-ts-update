@@ -60,15 +60,35 @@ const HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    if (globeRef.current) {
-      // Auto-rotate
-      globeRef.current.controls().autoRotate = true;
-      globeRef.current.controls().autoRotateSpeed = 0.2;
-      globeRef.current.controls().enableZoom = false;
+    let interval;
+    const initGlobe = () => {
+      if (globeRef.current) {
+        const controls = globeRef.current.controls();
+        if (controls) {
+          controls.autoRotate = true;
+          controls.autoRotateSpeed = 2.0;
+          controls.enableZoom = false;
+          controls.enablePan = false;
+          
+          // Initial position to show India
+          globeRef.current.pointOfView({ lat: 20, lng: 80, altitude: 2.5 });
+          return true;
+        }
+      }
+      return false;
+    };
 
-      // Initial position to show India
-      globeRef.current.pointOfView({ lat: 20, lng: 80, altitude: 2.5 });
+    if (!initGlobe()) {
+      interval = setInterval(() => {
+        if (initGlobe()) {
+          clearInterval(interval);
+        }
+      }, 200);
     }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   return (
