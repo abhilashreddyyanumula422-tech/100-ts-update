@@ -197,28 +197,44 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Users,Admin
 
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Users, Admin
+ 
+ 
 @api_view(['POST'])
 def login_user(request):
     email = request.data.get('email')
     password = request.data.get('password')
-    
-    # 🔹 1. Check Admin
+ 
+    # 🔹 1. Check Admin Login
     if email and email.endswith('@admin.org'):
-        if email == '100@admin.org' and password == '100@123':
+ 
+        admin = Admin.objects.filter(email=email).first()
+ 
+        if admin:
+            if admin.password == password:
+                return Response({
+                    "message": "Admin Login successful",
+                    "type": "admin",
+                    "data": {
+                        "email": admin.email
+                    }
+                }, status=200)
+ 
             return Response({
-                "message": "Admin Login successful",
-                "type": "admin",
-                "data": {
-                    "email": email
-                }
-            }, status=200)
-        else:
-            return Response({"error": "Invalid admin credentials"}, status=401)
-    # 🔹 2. Check Normal User
+                "error": "Invalid admin password"
+            }, status=401)
+ 
+        return Response({
+            "error": "Admin not found"
+        }, status=404)
+ 
+    # 🔹 2. Check Normal User Login
     user = Users.objects.filter(email=email).first()
+ 
     if user:
-        if password == user.password:
+        if user.password == password:
             return Response({
                 "message": "User Login successful",
                 "type": "user",
@@ -227,10 +243,14 @@ def login_user(request):
                     "email": user.email
                 }
             }, status=200)
-        else:
-            return Response({"error": "Invalid password"}, status=401)
-    return Response({"error": "User not found"}, status=404)
-
+ 
+        return Response({
+            "error": "Invalid password"
+        }, status=401)
+ 
+    return Response({
+        "error": "User not found"
+    }, status=404)
 
 
 from django.http import JsonResponse

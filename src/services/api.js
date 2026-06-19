@@ -5,7 +5,7 @@
 // Change this IP address to your backend server
 // For development: use your local IP or localhost
 // For production: use your domain name
-const API_BASE_URL = "http:// 10.244.96.84:8000";
+const API_BASE_URL = "http://192.168.1.16:8000";
 
 // ===============================
 // API Helper Functions
