@@ -4,7 +4,9 @@ import { ToastProvider } from "./contexts/ToastContext";
 function App() {
   return (
     <ToastProvider>
-      <AppRoutes />
+      <div className="overflow-x-hidden w-full min-h-screen">
+        <AppRoutes />
+      </div>
     </ToastProvider>
   );
 }

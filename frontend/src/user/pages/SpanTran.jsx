@@ -127,11 +127,7 @@ const SpanTran = () => {
               transition={{ duration: 1, delay: 0.3 }}
               className="lg:w-1/2 relative flex justify-center items-center mt-12 lg:mt-0"
             >
-              <motion.div
-                animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute w-full h-full bg-blue-50/60 rounded-full blur-[100px] -z-10"
-              />
+              {/* Removed blue backdrop as per request for pure white background */}
 
               <motion.div
                 animate={{ y: [-12, 12, -12] }}
@@ -153,7 +149,7 @@ const SpanTran = () => {
                     loop
                     muted
                     playsInline
-                    className="w-[125%] h-auto object-contain mix-blend-multiply brightness-110 contrast-105"
+                    className="w-[125%] h-auto object-contain mix-blend-multiply brightness-110 contrast-110"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.5 }}
                   />

@@ -26,7 +26,7 @@ const features = [
 
 const WhyChoose = () => {
   return (
-    <section className="w-full pt-8 pb-20 bg-gradient-to-b from-slate-50 to-white">
+    <section className="w-full pt-8 pb-20 bg-gradient-to-b from-slate-50 to-white overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
 
         {/* 🔥 PREMIUM HEADING */}

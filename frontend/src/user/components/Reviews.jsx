@@ -253,7 +253,7 @@ const Reviews = () => {
       <AnimatePresence>
         {showModal && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center px-4"
+            className="fixed inset-0 z-[110] flex items-center justify-center px-4"
             variants={backdropVariants}
             initial="hidden"
             animate="visible"

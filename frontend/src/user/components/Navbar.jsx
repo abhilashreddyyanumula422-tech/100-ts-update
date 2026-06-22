@@ -171,7 +171,7 @@ const universities = [
           <img
             src={logo}
             alt="100 Transcripts"
-            className="h-20 w-auto scale-[2.1] object-contain"
+            className="h-16 md:h-20 w-auto scale-[1.5] md:scale-[2.1] object-contain mix-blend-multiply origin-left relative z-10"
           />
         </Link>
 
@@ -453,7 +453,7 @@ const universities = [
         {/* MOBILE MENU BUTTON */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden p-2 rounded-lg text-slate-800 hover:bg-slate-100 transition-colors"
+          className="lg:hidden p-2 rounded-lg text-slate-800 hover:bg-slate-100 transition-colors relative z-[300]"
         >
           {isMobileMenuOpen ? <FiX size={26} /> : <FiMenu size={26} />}
         </button>
@@ -513,9 +513,12 @@ const universities = [
               <ul className="space-y-4 font-bold text-sm tracking-wide text-slate-700">
                 <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>HOME</Link></li>
                 <li><Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>ABOUT</Link></li>
-                <li>
+                <li className="services-menu">
                   <button 
-                    onClick={() => setServicesDropdown(!servicesDropdown)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setServicesDropdown(!servicesDropdown);
+                    }}
                     className="flex items-center justify-between w-full"
                   >
                     SERVICES <FiChevronDown className={servicesDropdown ? "rotate-180" : ""} />
@@ -538,9 +541,12 @@ const universities = [
                 <li><Link to="/apply" onClick={() => setIsMobileMenuOpen(false)}>APPLY</Link></li>
                 <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>CONTACT</Link></li>
                 <li><Link to="/universities" onClick={() => setIsMobileMenuOpen(false)}>UNIVERSITIES</Link></li>
-                <li>
+                <li className="colleges-menu">
                   <button 
-                    onClick={() => setCollegesDropdown(!collegesDropdown)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCollegesDropdown(!collegesDropdown);
+                    }}
                     className="flex items-center justify-between w-full"
                   >
                     PARTNERED <FiChevronDown className={collegesDropdown ? "rotate-180" : ""} />

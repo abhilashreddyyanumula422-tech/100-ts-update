@@ -113,8 +113,8 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative bg-[#f8fbff] pt-[80px] pb-4 h-[calc(100vh)] min-h-[650px] max-h-[900px] overflow-hidden flex flex-col items-center justify-between">
-      
+    <div className="relative bg-[#f8fbff] pt-[80px] pb-6 lg:pb-10 lg:h-[calc(100vh)] lg:min-h-[650px] lg:max-h-[900px] overflow-hidden flex flex-col items-center justify-between">
+
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-100/40 rounded-full blur-[80px] -z-10 translate-x-1/3 -translate-y-1/3"></div>
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-50/60 rounded-full blur-[80px] -z-10 -translate-x-1/4 translate-y-1/4"></div>
@@ -136,11 +136,11 @@ const HeroSection = () => {
         </div>
 
         {/* 3-COLUMN LAYOUT FOR CARDS & GLOBE */}
-        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-2 mb-0 flex-1 min-h-0">
-          
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-2 mb-0 flex-1 min-h-0">
+
           {/* LEFT CONTENT - EVALUATIONS */}
-          <motion.div 
-            className="hidden lg:flex flex-col w-[320px] shrink-0 z-20"
+          <motion.div
+            className="flex flex-col w-full lg:w-[320px] shrink-0 z-20 order-1 lg:order-none px-2 lg:px-0"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -148,14 +148,14 @@ const HeroSection = () => {
           >
             <h2 className="text-[15px] font-bold text-[#0f2851] mb-0.5">Evaluations</h2>
             <div className="w-6 h-[2px] bg-[#1d4ed8] rounded-full mb-3"></div>
-            
-            <div className="space-y-2.5">
+
+            <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-col lg:space-y-2.5 lg:gap-0">
               {/* Card 1: WES */}
               <motion.div variants={leftItemVariants}>
-                <Link to="/services/wes" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <Link to="/services/wes" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-500 rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 flex items-center justify-center font-bold text-[15px] text-green-600 bg-green-50 rounded-full border border-green-100">WES</div>
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 flex items-center justify-center font-bold text-[15px] text-green-600 bg-green-50 rounded-full border border-green-100">WES</div>
                     <div>
                       <h3 className="text-[#0f2851] font-bold text-[13px] leading-tight">WES</h3>
                       <p className="text-slate-500 text-[10px]">(Official Partner)</p>
@@ -166,10 +166,10 @@ const HeroSection = () => {
 
               {/* Card 2: ECE */}
               <motion.div variants={leftItemVariants}>
-                <Link to="/services/ece" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <Link to="/services/ece" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 flex items-center justify-center font-bold text-[15px] text-white bg-blue-600 rounded-full border border-blue-200">ECE</div>
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 flex items-center justify-center font-bold text-[15px] text-white bg-blue-600 rounded-full border border-blue-200">ECE</div>
                     <div>
                       <h3 className="text-[#0f2851] font-bold text-[13px] leading-tight">ECE</h3>
                       <p className="text-slate-500 text-[10px]">(Official Partner)</p>
@@ -180,10 +180,10 @@ const HeroSection = () => {
 
               {/* Card 3: IEE */}
               <motion.div variants={leftItemVariants}>
-                <Link to="/services/iee" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <Link to="/services/iee" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#1d4ed8] rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 flex items-center justify-center font-bold text-lg tracking-tighter text-[#1d4ed8] bg-blue-50 rounded-full border border-blue-100">iee</div>
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 flex items-center justify-center font-bold text-lg tracking-tighter text-[#1d4ed8] bg-blue-50 rounded-full border border-blue-100">iee</div>
                     <div>
                       <h3 className="text-[#0f2851] font-bold text-[13px] leading-tight">IEE</h3>
                       <p className="text-slate-500 text-[10px]">(Preferred Partner)</p>
@@ -194,11 +194,11 @@ const HeroSection = () => {
 
               {/* Card 4: Alianza */}
               <motion.div variants={leftItemVariants}>
-                <a href="https://alianzaeval.com/" target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <a href="https://alianzaeval.com/" target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-500 rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 flex flex-col items-center justify-center text-slate-800 bg-slate-50 rounded-full border border-slate-100 leading-none">
-                       <span className="text-[15px] font-bold">A</span>
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 flex flex-col items-center justify-center text-slate-800 bg-slate-50 rounded-full border border-slate-100 leading-none">
+                      <span className="text-[15px] font-bold">A</span>
                     </div>
                     <div>
                       <h3 className="text-[#0f2851] font-bold text-[13px] leading-tight">Alianza</h3>
@@ -212,9 +212,9 @@ const HeroSection = () => {
           </motion.div>
 
           {/* MIDDLE: GLOBE */}
-          <div className="flex-1 relative h-full min-h-[160px] md:min-h-[200px] lg:min-h-[260px] flex justify-center items-center w-full z-10 -mx-4 lg:mx-0">
+          <div className="flex-1 relative h-full min-h-[220px] lg:min-h-[260px] flex justify-center items-center w-full z-10 -mx-4 lg:mx-0 order-2 lg:order-none">
 
-            <div className="flex items-center justify-center cursor-grab active:cursor-grabbing scale-[0.55] sm:scale-[0.65] lg:scale-[0.75] transition-transform z-20 -mt-6 lg:-mt-8 mb-[-20px]">
+            <div className="flex items-center justify-center cursor-grab active:cursor-grabbing scale-[1.0] sm:scale-[1.1] lg:scale-[0.75] transition-transform z-20 -mt-2 lg:-mt-8 mb-[-10px]">
               <Suspense fallback={
                 <div className="w-[150px] h-[150px] md:w-[300px] md:h-[300px] bg-blue-100/20 rounded-full animate-pulse flex items-center justify-center">
                   <div className="w-10 h-10 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
@@ -262,14 +262,14 @@ const HeroSection = () => {
                 />
               </Suspense>
             </div>
-            
+
             {/* Glowing Backdrop behind globe */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-400/10 blur-[60px] rounded-full pointer-events-none -z-10"></div>
           </div>
 
           {/* RIGHT CONTENT - SERVICES */}
-          <motion.div 
-            className="hidden lg:flex flex-col w-[320px] shrink-0 z-20 lg:-translate-x-16 xl:-translate-x-20"
+          <motion.div
+            className="flex flex-col w-full lg:w-[320px] shrink-0 z-20 lg:-translate-x-16 xl:-translate-x-20 order-3 lg:order-none mt-2 lg:mt-0 px-2 lg:px-0"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -277,14 +277,14 @@ const HeroSection = () => {
           >
             <h2 className="text-[15px] font-bold text-[#0f2851] mb-0.5">Services</h2>
             <div className="w-6 h-[2px] bg-[#1d4ed8] rounded-full mb-3"></div>
-            
-            <div className="space-y-2.5">
+
+            <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-col lg:space-y-2.5 lg:gap-0">
               {/* Card 1: Transcripts */}
               <motion.div variants={rightItemVariants}>
-                <Link to="/services/transcripts" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <Link to="/services/transcripts" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 to-cyan-400 rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
                       <FiClipboard className="w-4 h-4" />
                     </div>
                     <div>
@@ -297,10 +297,10 @@ const HeroSection = () => {
 
               {/* Card 2: Degree Certificate */}
               <motion.div variants={rightItemVariants}>
-                <Link to="/services/od" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <Link to="/services/od" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 to-cyan-400 rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
                       <FiCheckCircle className="w-4 h-4" />
                     </div>
                     <div>
@@ -313,10 +313,10 @@ const HeroSection = () => {
 
               {/* Card 3: Marks Memo */}
               <motion.div variants={rightItemVariants}>
-                <Link to="/services/cmm" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <Link to="/services/cmm" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 to-cyan-400 rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
                       <FiLayers className="w-4 h-4" />
                     </div>
                     <div>
@@ -329,10 +329,10 @@ const HeroSection = () => {
 
               {/* Card 4: MOI */}
               <motion.div variants={rightItemVariants}>
-                <Link to="/services/moi" className="bg-white rounded-xl p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
+                <Link to="/services/moi" className="bg-white rounded-xl p-2.5 sm:p-3 lg:p-4 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:shadow-[0_4px_15px_rgba(59,130,246,0.1)] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer overflow-hidden relative">
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 to-cyan-400 rounded-l-xl"></div>
-                  <div className="flex items-center gap-3 pl-2">
-                    <div className="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
+                  <div className="flex items-center gap-2 lg:gap-3 pl-2">
+                    <div className="w-7 h-7 lg:w-9 lg:h-9 rounded-full bg-blue-50 flex items-center justify-center text-[#1d4ed8] shrink-0 border border-blue-100">
                       <FiFile className="w-4 h-4" />
                     </div>
                     <div>
@@ -348,7 +348,7 @@ const HeroSection = () => {
         </div>
 
         {/* BOTTOM: PARAGRAPH & SEARCH BAR */}
-        <div className="w-full max-w-2xl flex flex-col items-center justify-center z-50 mb-0 shrink-0 relative z-30 mt-[-10px]">
+        <div className="w-full max-w-2xl flex flex-col items-center justify-center z-50 mb-0 shrink-0 relative z-30 mt-10 lg:mt-[-10px] px-2 lg:px-0 order-4 lg:order-none">
           <motion.p
             className="text-[#2f4a6d] text-[13px] md:text-sm font-medium leading-relaxed text-center mb-3"
             initial={{ opacity: 0, y: 10 }}

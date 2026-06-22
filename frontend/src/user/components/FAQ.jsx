@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Plus, Minus, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -41,7 +42,7 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="w-full pt-8 pb-20 bg-white">
+    <section className="w-full pt-8 pb-20 bg-white overflow-hidden relative">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
 
@@ -92,10 +93,10 @@ const FAQ = () => {
                 process step by step and answer all your questions.
               </p>
 
-              <button className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-sm font-bold rounded-2xl shadow-xl hover:scale-[1.02] transition-all">
+             <Link to="/contact" className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-sm font-bold rounded-2xl shadow-xl hover:scale-[1.02] transition-all">
                 <MessageCircle size={18} />
                 Contact Support
-              </button>
+              </Link>
             </div>
           </motion.div>
 

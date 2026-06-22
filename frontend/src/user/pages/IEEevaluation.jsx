@@ -154,20 +154,18 @@ const IEEevaluation = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="flex flex-wrap justify-center lg:justify-start gap-4"
               >
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-cyan-500/30 transition-all shadow-lg"
+                <Link
+                  to="/apply"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all shadow-lg inline-block"
                 >
                   Get Started
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"
+                </Link>
+                <Link
+                  to="/about"
+                  className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 hover:scale-105 active:scale-95 transition-all inline-block"
                 >
                   Learn More
-                </motion.button>
+                </Link>
               </motion.div>
             </motion.div>
 
