@@ -62,7 +62,7 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    
+
     if (errors[name]) {
       setErrors({ ...errors, [name]: "" });
     }
@@ -75,10 +75,10 @@ const Register = () => {
       return;
     }
 
-  if (!form.email.endsWith("@gmail.com")) {
-  alert("Only students can register");
-  return;
-}
+    if (!form.email.endsWith("@gmail.com")) {
+      alert("Only students can register");
+      return;
+    }
 
     setLoading(true);
 
@@ -105,7 +105,7 @@ const Register = () => {
 
   return (
     <div className="bg-[#f8fafc] min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
-      
+
       {/* DECORATIVE ELEMENTS */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-[120px] -mr-40 -mt-40" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px] -ml-20 -mb-20" />
@@ -133,7 +133,7 @@ const Register = () => {
                 <input
                   type="text"
                   name="name"
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                   value={form.name}
                   onChange={handleChange}
                   required
@@ -150,7 +150,7 @@ const Register = () => {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="1234567890"
+                  placeholder="9876543210"
                   value={form.phone}
                   onChange={handleChange}
                   required
@@ -168,7 +168,7 @@ const Register = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="name@example.com"
+                placeholder="Enter Your Email ID"
                 value={form.email}
                 onChange={handleChange}
                 required
@@ -230,7 +230,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-slate-800 text-white py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:bg-slate-900 transition-all shadow-xl active:scale-95 disabled:opacity-50 mt-4"
+            className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white py-4 rounded-full font-black text-lg flex items-center justify-center gap-3 hover:from-blue-700 hover:to-cyan-500 transition-all shadow-lg shadow-blue-500/30 active:scale-95 disabled:opacity-50 mt-4"
           >
             {loading ? "Creating Account..." : "Create Account"} <ArrowRight className="w-5 h-5" />
           </button>

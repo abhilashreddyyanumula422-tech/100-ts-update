@@ -159,7 +159,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-slate-800 text-white py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 hover:bg-slate-900 transition-all shadow-xl active:scale-95 disabled:opacity-50"
+            className="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white py-4 rounded-full font-black text-lg flex items-center justify-center gap-3 hover:from-blue-700 hover:to-cyan-500 transition-all shadow-lg shadow-blue-500/30 active:scale-95 disabled:opacity-50"
           >
             {loading ? "Signing In..." : "Sign In"} <ArrowRight className="w-5 h-5" />
           </button>
